@@ -84,19 +84,19 @@
 
 
 
-<meta name="description" content="switch為C提供的條件判斷式，只能用來比較數值或字元。ANSI C標準規定switch裡面的case至少需支援257個成員，因為字元長度為8-bit
-###貫穿 (Fall Through)貫穿(Fall Through)指的是當進到特定的case中執行完動作後並不會自動break，執行流程會繼續往下跑直到看到break聲明。某些場合我們會使用貫穿的特性讓程式較精簡，但使用此特性的場合並不多，">
+<meta name="description" content="switch為C提供的條件判斷式，只能用來比較數值或字元。ANSI C標準規定switch裡面的case至少需支援257個成員，因為字元長度為8-bit (256個可用字元 + EOF)
+貫穿 (Fall Through)貫穿(Fall Through)指的是當switch進到特定的case中執行完動作後並不會自動break，執行流程會繼續往下跑直到看到break聲明。某些場合我們會使用貫穿的特性">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C語言-switch使用探討">
 <meta property="og:url" content="http://yoursite.com/2016/05/25/c-break/index.html">
 <meta property="og:site_name" content="Ivan’s Blog">
-<meta property="og:description" content="switch為C提供的條件判斷式，只能用來比較數值或字元。ANSI C標準規定switch裡面的case至少需支援257個成員，因為字元長度為8-bit
-###貫穿 (Fall Through)貫穿(Fall Through)指的是當進到特定的case中執行完動作後並不會自動break，執行流程會繼續往下跑直到看到break聲明。某些場合我們會使用貫穿的特性讓程式較精簡，但使用此特性的場合並不多，">
-<meta property="og:updated_time" content="2016-05-26T11:11:10.000Z">
+<meta property="og:description" content="switch為C提供的條件判斷式，只能用來比較數值或字元。ANSI C標準規定switch裡面的case至少需支援257個成員，因為字元長度為8-bit (256個可用字元 + EOF)
+貫穿 (Fall Through)貫穿(Fall Through)指的是當switch進到特定的case中執行完動作後並不會自動break，執行流程會繼續往下跑直到看到break聲明。某些場合我們會使用貫穿的特性">
+<meta property="og:updated_time" content="2016-05-26T12:25:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C語言-switch使用探討">
-<meta name="twitter:description" content="switch為C提供的條件判斷式，只能用來比較數值或字元。ANSI C標準規定switch裡面的case至少需支援257個成員，因為字元長度為8-bit
-###貫穿 (Fall Through)貫穿(Fall Through)指的是當進到特定的case中執行完動作後並不會自動break，執行流程會繼續往下跑直到看到break聲明。某些場合我們會使用貫穿的特性讓程式較精簡，但使用此特性的場合並不多，">
+<meta name="twitter:description" content="switch為C提供的條件判斷式，只能用來比較數值或字元。ANSI C標準規定switch裡面的case至少需支援257個成員，因為字元長度為8-bit (256個可用字元 + EOF)
+貫穿 (Fall Through)貫穿(Fall Through)指的是當switch進到特定的case中執行完動作後並不會自動break，執行流程會繼續往下跑直到看到break聲明。某些場合我們會使用貫穿的特性">
 
 
 
@@ -274,9 +274,9 @@
       
 
       
-        <p>switch為C提供的條件判斷式，只能用來比較數值或字元。ANSI C標準規定switch裡面的case至少需支援257個成員，因為字元長度為8-bit</p>
-<p>###貫穿 (Fall Through)<br>貫穿(Fall Through)指的是當進到特定的case中執行完動作後並不會自動break，執行流程會繼續往下跑直到看到break聲明。某些場合我們會使用貫穿的特性讓程式較精簡，但使用此特性的場合並不多，因此仍然必須仔細確認程式流程</p>
-
+        <p>switch為C提供的條件判斷式，只能用來比較數值或字元。ANSI C標準規定switch裡面的case至少需支援257個成員，因為字元長度為8-bit (256個可用字元 + EOF)</p>
+<h2 id="貫穿-Fall-Through"><a href="#貫穿-Fall-Through" class="headerlink" title="貫穿 (Fall Through)"></a>貫穿 (Fall Through)</h2><p>貫穿(Fall Through)指的是當switch進到特定的case中執行完動作後並不會自動break，執行流程會繼續往下跑直到看到break聲明。某些場合我們會使用貫穿的特性讓程式較精簡，但使用此特性的場合並不多，因此仍然必須仔細確認程式流程</p>
+<h2 id="default使用"><a href="#default使用" class="headerlink" title="default使用"></a>default使用</h2>
       
     </div>
 
@@ -405,7 +405,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目錄</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#貫穿-Fall-Through"><span class="nav-number">1.</span> <span class="nav-text">貫穿 (Fall Through)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#default使用"><span class="nav-number">2.</span> <span class="nav-text">default使用</span></a></li></ol></div>
             
           </div>
         </section>
