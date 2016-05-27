@@ -234,7 +234,7 @@
               
                 
                 <a class="post-title-link" href="/2016/05/25/c-break/" itemprop="url">
-                  C語言-switch使用探討
+                  -C語言- switch使用探討
                 </a>
               
             
@@ -291,13 +291,14 @@
 <p><img src="/images/switch_default_any.png" alt=""></p>
 <p>這時衍伸出一個有趣的問題，如果說default可放在任意位置，那是否代表switch在CPU執行時的行為和if…else並不相同，而是比較接近於goto的使用呢?</p>
 <p>我們在x86的機器上將以上的程式碼編譯成組合語言</p>
-<p><img src="/images/switch_default_asm.png" alt=""></p>
+<p><img src="/images/switch_default_asm_2.png" alt=""></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov	DWORD PTR tv64[ebp], 4</span><br></pre></td></tr></table></figure>
 <p>將數字4移到ebp</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmp	DWORD PTR tv64[ebp], 1</span><br></pre></td></tr></table></figure>
 <p>將數字1和ebp比較</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">je	SHORT $LN4@main</span><br></pre></td></tr></table></figure>
 <p>若相等則跳到LN4</p>
+<p><img src="/images/switch_default_asm_3.png" alt=""><br><img src="/images/switch_default_asm_4.png" alt=""></p>
 <p>因為ebp皆不等於1,2,3因此最終會跳到LN3，另外default裡沒有break，從組合語言可以看到最終沒有接jmp，因此會繼續往下跑執行case2最終執行jmp到LN5</p>
 <p>由此可見switch是由建立多個label+jmp到特地位置，而if…else則是經過不斷的cmp+jmp，兩者並不相同</p>
 
