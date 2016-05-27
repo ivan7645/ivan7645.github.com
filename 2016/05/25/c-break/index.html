@@ -92,11 +92,15 @@
 <meta property="og:site_name" content="Ivan’s Blog">
 <meta property="og:description" content="switch為C提供的條件判斷式，只能用來比較數值或字元。ANSI C標準規定switch裡面的case至少需支援257個成員，因為字元長度為8-bit (256個可用字元 + EOF)
 貫穿 (Fall Through)貫穿(Fall Through)指的是當switch進到特定的case中執行完動作後並不會自動break，執行流程會繼續往下跑直到看到break聲明。某些場合我們會使用貫穿的特性">
-<meta property="og:updated_time" content="2016-05-26T12:25:12.000Z">
+<meta property="og:image" content="http://yoursite.com/images/switch_fall_through.png">
+<meta property="og:image" content="http://yoursite.com/images/switch_default_any.png">
+<meta property="og:image" content="http://yoursite.com/images/switch_default_asm.png">
+<meta property="og:updated_time" content="2016-05-27T10:34:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C語言-switch使用探討">
 <meta name="twitter:description" content="switch為C提供的條件判斷式，只能用來比較數值或字元。ANSI C標準規定switch裡面的case至少需支援257個成員，因為字元長度為8-bit (256個可用字元 + EOF)
 貫穿 (Fall Through)貫穿(Fall Through)指的是當switch進到特定的case中執行完動作後並不會自動break，執行流程會繼續往下跑直到看到break聲明。某些場合我們會使用貫穿的特性">
+<meta name="twitter:image" content="http://yoursite.com/images/switch_fall_through.png">
 
 
 
@@ -276,7 +280,28 @@
       
         <p>switch為C提供的條件判斷式，只能用來比較數值或字元。ANSI C標準規定switch裡面的case至少需支援257個成員，因為字元長度為8-bit (256個可用字元 + EOF)</p>
 <h2 id="貫穿-Fall-Through"><a href="#貫穿-Fall-Through" class="headerlink" title="貫穿 (Fall Through)"></a>貫穿 (Fall Through)</h2><p>貫穿(Fall Through)指的是當switch進到特定的case中執行完動作後並不會自動break，執行流程會繼續往下跑直到看到break聲明。某些場合我們會使用貫穿的特性讓程式較精簡，但使用此特性的場合並不多，因此仍然必須仔細確認程式流程</p>
-<h2 id="default使用"><a href="#default使用" class="headerlink" title="default使用"></a>default使用</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">switch (2) &#123;</span><br><span class="line">case 1: printf(&quot;case 1\n&quot;);</span><br><span class="line">case 2: printf(&quot;case 2\n&quot;);</span><br><span class="line">case 3: printf(&quot;case 3\n&quot;);</span><br><span class="line">default: printf(&quot;default\n&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此段程式碼結果如下，由case2貫穿到default</p>
+<p><img src="/images/switch_fall_through.png" alt=""></p>
+<h2 id="Break"><a href="#Break" class="headerlink" title="Break"></a>Break</h2><p>Break除了使用在switch來跳出外，也可用在迴圈中的跳出，也因此可能造成非預期的流程但編譯器無法檢查出來</p>
+<p>此段程式在<code>if (y == OTHER_STUFF)</code>後接了break(顯然是coding上有錯誤)，原本是預期break之後可以執行<code>initialize_modes_pointer();</code>但因為此break在case2裡，且也不在迴圈裡面，因此會直接跳離此switch判斷式造成非預期的行為</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">switch (2) &#123;</span><br><span class="line">case 1:</span><br><span class="line">	doit1();</span><br><span class="line">	break;</span><br><span class="line">case 2:</span><br><span class="line">	if (x == STUFF) &#123;</span><br><span class="line">		do_first_stuff();</span><br><span class="line">		if (y == OTHER_STUFF)</span><br><span class="line">			break;</span><br><span class="line">		do_later_stuff();</span><br><span class="line">	&#125; /* coder meant to break to here... */</span><br><span class="line">	initialize_modes_pointer();</span><br><span class="line">	break;</span><br><span class="line">default:</span><br><span class="line">	processing();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Default"><a href="#Default" class="headerlink" title="Default"></a>Default</h2><p>當所有的case都不滿足時會進入default條件裡面(如果有的話)，通常我們習慣將default放在最後一個判斷，但其實default是可以放在任何位置的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">switch (4) &#123;</span><br><span class="line">case 1: printf(&quot;case 1\n&quot;);</span><br><span class="line">	break;</span><br><span class="line">default: printf(&quot;default\n&quot;);</span><br><span class="line">case 2: printf(&quot;case 2\n&quot;);</span><br><span class="line">	break;</span><br><span class="line">case 3: printf(&quot;case 3\n&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此段程式，然仍能夠正確的達到預期的結果</p>
+<p><img src="/images/switch_default_any.png" alt=""></p>
+<p>這時衍伸出一個有趣的問題，如果說default可放在任意位置，那是否代表switch在CPU執行時的行為和if…else並不相同，而是比較接近於goto的使用呢?</p>
+<p>我們在x86的機器上將以上的程式碼編譯成組合語言</p>
+<p><img src="/images/switch_default_asm.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov	DWORD PTR tv64[ebp], 4</span><br></pre></td></tr></table></figure>
+<p>將數字4移到ebp</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmp	DWORD PTR tv64[ebp], 1</span><br></pre></td></tr></table></figure>
+<p>將數字1和ebp比較</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">je	SHORT $LN4@main</span><br></pre></td></tr></table></figure>
+<p>若相等則跳到LN4</p>
+<p>因為ebp皆不等於1,2,3因此最終會跳到LN3，另外default裡沒有break，從組合語言可以看到最終沒有接jmp，因此會繼續往下跑執行case2最終執行jmp到LN5</p>
+<p>由此可見switch是由建立多個label+jmp到特地位置，而if…else則是經過不斷的cmp+jmp，兩者並不相同</p>
+
       
     </div>
 
@@ -405,7 +430,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#貫穿-Fall-Through"><span class="nav-number">1.</span> <span class="nav-text">貫穿 (Fall Through)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#default使用"><span class="nav-number">2.</span> <span class="nav-text">default使用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#貫穿-Fall-Through"><span class="nav-number">1.</span> <span class="nav-text">貫穿 (Fall Through)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Break"><span class="nav-number">2.</span> <span class="nav-text">Break</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Default"><span class="nav-number">3.</span> <span class="nav-text">Default</span></a></li></ol></div>
             
           </div>
         </section>
