@@ -285,8 +285,8 @@
 <h2 id="char-和-const-char-賦值"><a href="#char-和-const-char-賦值" class="headerlink" title="char* 和 const char* 賦值"></a>char* 和 const char* 賦值</h2><p>接著我們看一下下面這段程式碼</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">char *cp;</span><br><span class="line">const char *ccp;</span><br><span class="line">ccp = cp;</span><br><span class="line">cp = ccp;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>cp為指到char型別的指標，且由const修飾</li>
-<li>ccp為指到char型別的指標，沒有修飾符</li>
+<li>char* 型別為指到char型別的指標，且由const修飾</li>
+<li>const char* 型別為指到char型別的指標，沒有修飾符</li>
 </ul>
 <p>使用gcc編譯後會得到下面訊息，為什麼cp = ccp會有warning?原因如下</p>
 <p><img src="/images/const_char_star.png" alt=""></p>
@@ -295,7 +295,18 @@
 <li>ccp = cp左操作(const)擁有右操作(none)所有修飾符，符合上述標準第二項</li>
 <li>cp = ccp左操作(none)沒有擁有右操作(const)所有修飾符，違反上述標準第二項</li>
 </ul>
-<h2 id="char-和-const-char-賦值-1"><a href="#char-和-const-char-賦值-1" class="headerlink" title="char** 和 const char** 賦值"></a>char** 和 const char** 賦值</h2>
+<p>事實上這樣的限制也蠻好理解的，若是cp = ccp成立的話，那我們就可以用任意的指標修改一個經由const修飾過後的指標的值</p>
+<h2 id="char-和-const-char-賦值-1"><a href="#char-和-const-char-賦值-1" class="headerlink" title="char** 和 const char** 賦值"></a>char** 和 const char** 賦值</h2><p>接著我們在看以下這段程式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">char **cp;</span><br><span class="line">const char **ccp;</span><br><span class="line">ccp = cp;</span><br></pre></td></tr></table></figure>
+<p>使用gcc編譯後會得到下面訊息，為什麼多了一層的指標就無法順利編譯完成了呢?</p>
+<p><img src="/images/const_char_star_star.png" alt=""></p>
+<p>根據ANSI C標準6.1.2.5</p>
+<ul>
+<li>char** 型別為指向char型別指標的指標，沒有修飾符</li>
+<li>const char** 為指向有const修飾符指標的指標，沒有修飾符</li>
+</ul>
+<p>兩者指向的型別不一樣，違反了上述標準的第一項</p>
+
           
         
       
