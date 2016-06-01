@@ -288,9 +288,13 @@
 <li>cp為指到char型別的指標，且由const修飾</li>
 <li>ccp為指到char型別的指標，沒有修飾符</li>
 </ul>
-<p>使用gcc編譯後會得到下面訊息</p>
+<p>使用gcc編譯後會得到下面訊息，為什麼cp = ccp會有warning?原因如下</p>
 <p><img src="/images/const_char_star.png" alt=""></p>
-<p>ccp和cp皆為指到char型別的指標，只是ccp有const修飾符，符合上述ANSI C標準第一項<br>ccp = cp左操作(const)擁有右操作(none)所有修飾符，符合上述標準第二項<br>cp = ccp左操作(none)沒有擁有右操作(const)所有修飾符，違反上述標準第二項</p>
+<ul>
+<li>ccp和cp皆為指到char型別的指標，只是ccp有const修飾符，符合上述ANSI C標準第一項</li>
+<li>ccp = cp左操作(const)擁有右操作(none)所有修飾符，符合上述標準第二項</li>
+<li>cp = ccp左操作(none)沒有擁有右操作(const)所有修飾符，違反上述標準第二項</li>
+</ul>
 
           
         
