@@ -286,8 +286,7 @@
           
             <p>C語言在作算術運算時會遵守先乘除後加減後加減的基本規則，而各種運算元也都有相對應的優先權(某些運算元的優先權並不符合直覺，因此對於不熟悉的運算盡量加大括號來限制運算順序)</p>
 <p>若非一般的運算，某些執行順序是屬於未定義的(undefined)</p>
-<p>##賦值順序</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int a;</span><br><span class="line">int b = 1, c = 2;</span><br><span class="line">a = b = c;</span><br></pre></td></tr></table></figure>
+<h2 id="賦值順序"><a href="#賦值順序" class="headerlink" title="賦值順序"></a>賦值順序</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int a;</span><br><span class="line">int b = 1, c = 2;</span><br><span class="line">a = b = c;</span><br></pre></td></tr></table></figure>
 <p>此段程式只有賦值運算，因此無法從優先權判斷優先順序，必須從關聯性(Associativity)判斷，而賦值是右關聯性(right associativity)，也就是c會先賦值給b再賦值給a，因此a最終為2</p>
 <p>為了符合正常使用，一般的 + - * / 運算皆為左關聯性(left  associativity)運算，但像上述例子又是右關聯性運算，容易造成混淆，較好的作法則是將非一般使用的情況可以分開寫或加上大括號，以避免因為錯誤認知關聯性造成運算結果不如預期，例如上例應改為<code>b = c; a = b;</code>較佳</p>
 <h2 id="函式順序"><a href="#函式順序" class="headerlink" title="函式順序"></a>函式順序</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = f() + g() * h();</span><br></pre></td></tr></table></figure>
