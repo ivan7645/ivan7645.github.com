@@ -233,6 +233,120 @@
             
               
                 
+                <a class="post-title-link" href="/2016/06/02/order_of_evaluation/" itemprop="url">
+                  -C語言- 執行順序探討
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">發表於</span>
+            <time itemprop="dateCreated" datetime="2016-06-02T19:24:32+08:00" content="2016-06-02">
+              2016-06-02
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/02/order_of_evaluation/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/02/order_of_evaluation/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>C語言在作算術運算時會遵守先乘除後加減後加減的基本規則，而各種運算元也都有相對應的優先權(某些運算元的優先權並不符合直覺，因此對於不熟悉的運算盡量加大括號來限制運算順序)</p>
+<p>若非一般的運算，某些執行順序是屬於未定義的(undefined)</p>
+<p>##賦值順序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int a;</span><br><span class="line">int b = 1, c = 2;</span><br><span class="line">a = b = c;</span><br></pre></td></tr></table></figure>
+<p>此段程式只有賦值運算，因此無法從優先權判斷優先順序，必須從關聯性(Associativity)判斷，而賦值是右關聯性(right associativity)，也就是c會先賦值給b再賦值給a，因此a最終為2</p>
+<p>為了符合正常使用，一般的 + - * / 運算皆為左關聯性(left  associativity)運算，但像上述例子又是右關聯性運算，容易造成混淆，較好的作法則是將非一般使用的情況可以分開寫或加上大括號，以避免因為錯誤認知關聯性造成運算結果不如預期，例如上例應改為<code>b = c; a = b;</code>較佳</p>
+<h2 id="函式順序"><a href="#函式順序" class="headerlink" title="函式順序"></a>函式順序</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = f() + g() * h();</span><br></pre></td></tr></table></figure>
+<p>此運算會將g()和h()的回傳值相乘之後再加上f()的回傳值。但是g()和h()的執行順序則是未定義，可能g()先執行之後再執行h()，也可能h()先執行之後再執行g()，編譯器可根據狀況任意決定執行順序，若是這兩個函式皆會更改某一個全域變數，且根據此全域變數來決定回傳值的話，那麼執行順序不同會得到不同的結果</p>
+<h2 id="函式參數順序"><a href="#函式參數順序" class="headerlink" title="函式參數順序"></a>函式參數順序</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int a[] = &#123;1, 2, 3&#125;;</span><br><span class="line">int *pa;</span><br><span class="line"></span><br><span class="line">pa = &amp;a[0];</span><br><span class="line">printf(&quot;a[0] = %d\ta[1] = %d\ta[2] = %d\n&quot;,*(pa), *(pa++),*(++pa));</span><br></pre></td></tr></table></figure>
+<p>此段程式碼的 *(pa), *(pa++), *(++pa)的執行順序是未定義的，因此在不同的編譯器上有可能得到不同的結果，我們在同一部x86機器上先用VS2010編譯且執行得到以下結果</p>
+<p><img src="/images/func_para_undef_1.png" alt=""></p>
+<p>接著以同樣的機器在ubutu下使用gcc編譯可得到以下結果</p>
+<p><img src="/images/func_para_undef_2.png" alt=""></p>
+<p>由此可見非定義行為將會由compiler決定，大部分的未定義行為可視為coding上的錯誤</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/05/31/c_const_star_star/" itemprop="url">
                   -C語言- char** 和 const char** 賦值問題
                 </a>
@@ -507,7 +621,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-count">3</span>
               <span class="site-state-item-name">文章</span>
             </a>
           </div>
