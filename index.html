@@ -295,12 +295,12 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install picocom</span><br></pre></td></tr></table></figure>
 <p>安裝完之後將UART板端配置好之後接到主機端的USB接口，可由以下指令知道是否有連接成功，此例可看出成功連接到ttyUSB0</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dmesg | grep tty</span><br></pre></td></tr></table></figure>
-<p><img src="/images/ftdi_attach.jpg" alt=""></p>
+<p><img src="/images/ftdi_attach.png" alt=""></p>
 <p>接著使用picocom接收UART訊息且指定ttyUSB0且baud rate為115200，若無法成功使用可加sudo增加權限</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo picocom -b 115200 /dev/ttyUSB0</span><br></pre></td></tr></table></figure>
-<p><img src="/images/picocom_start.jpg" alt=""></p>
-<p>最後就可以將micro USB(J6)接到主機端且可看到板端輸出的訊息</p>
-<p><img src="/images/picocom_start.jpg" alt=""></p>
+<p><img src="/images/picocom_start.png" alt=""></p>
+<p>最後就可以將micro USB(J6)接到主機端即可看到板端輸出的訊息</p>
+<p><img src="/images/uart_output.png" alt=""></p>
 
           
         

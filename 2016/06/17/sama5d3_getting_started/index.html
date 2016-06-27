@@ -98,10 +98,10 @@ USB傳輸介面主要是用來提供板端5V DC，也可以輸出log，但強烈
 要使用UART最方便的方式就是準備一個RS232轉USB的裝置，一邊連接到J23一">
 <meta property="og:image" content="http://ivan7645.github.com/images/usb_microa_2_a.jpg">
 <meta property="og:image" content="http://ivan7645.github.com/images/rs232_2_usb.jpg">
-<meta property="og:image" content="http://ivan7645.github.com/images/ftdi_attach.jpg">
-<meta property="og:image" content="http://ivan7645.github.com/images/picocom_start.jpg">
-<meta property="og:image" content="http://ivan7645.github.com/images/picocom_start.jpg">
-<meta property="og:updated_time" content="2016-06-27T16:21:35.000Z">
+<meta property="og:image" content="http://ivan7645.github.com/images/ftdi_attach.png">
+<meta property="og:image" content="http://ivan7645.github.com/images/picocom_start.png">
+<meta property="og:image" content="http://ivan7645.github.com/images/uart_output.png">
+<meta property="og:updated_time" content="2016-06-27T16:34:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Atmel][Sama5d3-xp] - Getting Started">
 <meta name="twitter:description" content="在開始開發之前必須先有相關的工具，首先你必須有一條USB Micro-A轉USB Type A的傳輸線，用來連接主機端和板端(J6)
@@ -304,12 +304,12 @@ USB傳輸介面主要是用來提供板端5V DC，也可以輸出log，但強烈
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install picocom</span><br></pre></td></tr></table></figure>
 <p>安裝完之後將UART板端配置好之後接到主機端的USB接口，可由以下指令知道是否有連接成功，此例可看出成功連接到ttyUSB0</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dmesg | grep tty</span><br></pre></td></tr></table></figure>
-<p><img src="/images/ftdi_attach.jpg" alt=""></p>
+<p><img src="/images/ftdi_attach.png" alt=""></p>
 <p>接著使用picocom接收UART訊息且指定ttyUSB0且baud rate為115200，若無法成功使用可加sudo增加權限</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo picocom -b 115200 /dev/ttyUSB0</span><br></pre></td></tr></table></figure>
-<p><img src="/images/picocom_start.jpg" alt=""></p>
-<p>最後就可以將micro USB(J6)接到主機端且可看到板端輸出的訊息</p>
-<p><img src="/images/picocom_start.jpg" alt=""></p>
+<p><img src="/images/picocom_start.png" alt=""></p>
+<p>最後就可以將micro USB(J6)接到主機端即可看到板端輸出的訊息</p>
+<p><img src="/images/uart_output.png" alt=""></p>
 
       
     </div>
