@@ -233,6 +233,123 @@
             
               
                 
+                <a class="post-title-link" href="/2016/06/17/sama5d3_getting_started/" itemprop="url">
+                  [Atmel][Sama5d3-xp] - Getting Started
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">發表於</span>
+            <time itemprop="dateCreated" datetime="2016-06-17T21:32:23+08:00" content="2016-06-17">
+              2016-06-17
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/17/sama5d3_getting_started/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/17/sama5d3_getting_started/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在開始開發之前必須先有相關的工具，首先你必須有一條USB Micro-A轉USB Type A的傳輸線，用來連接主機端和板端(J6)</p>
+<p><img src="/images/usb_microa_2_a.jpg" alt=""></p>
+<p>USB傳輸介面主要是用來提供板端5V DC，也可以輸出log，但強烈建議使用UART(J23 Debug port)，來進行相關訊息的輸入與輸出，某些較底層的資訊只會從UART輸出</p>
+<p>要使用UART最方便的方式就是準備一個RS232轉USB的裝置，一邊連接到J23一邊連接到主機端，之後藉由終端機來輸出或輸入訊息，FTDI作了許多相關的產品，市面上可以很輕易的取得</p>
+<p><img src="/images/rs232_2_usb.jpg" alt=""></p>
+<h2 id="終端機"><a href="#終端機" class="headerlink" title="終端機"></a>終端機</h2><p>在Linux或Windows作業系統下都有終端機可用來接受裝置端的訊息，Windows下較常見的工具為putty，但比較建議還是在Linux下開發，會有較佳的彈性和支援的工具</p>
+<p>Linux下用來輸出訊息的工具就很多了，例如picocom screen minicom等等，這邊使用picocom作為範例</p>
+<p>首先當然要先安裝picocom</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install picocom</span><br></pre></td></tr></table></figure>
+<p>安裝完之後將UART板端配置好之後接到主機端的USB接口，可由以下指令知道是否有連接成功，此例可看出成功連接到ttyUSB0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dmesg | grep tty</span><br></pre></td></tr></table></figure>
+<p><img src="/images/ftdi_attach.jpg" alt=""></p>
+<p>接著使用picocom接收UART訊息且指定ttyUSB0且baud rate為115200，若無法成功使用可加sudo增加權限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo picocom -b 115200 /dev/ttyUSB0</span><br></pre></td></tr></table></figure>
+<p><img src="/images/picocom_start.jpg" alt=""></p>
+<p>最後就可以將micro USB(J6)接到主機端且可看到板端輸出的訊息</p>
+<p><img src="/images/picocom_start.jpg" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/06/16/sama5d3_intro/" itemprop="url">
                   [Atmel][Sama5d3-xp] - 簡介
                 </a>
@@ -726,7 +843,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">文章</span>
             </a>
           </div>
