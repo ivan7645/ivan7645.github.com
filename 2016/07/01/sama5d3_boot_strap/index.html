@@ -84,30 +84,20 @@
 
 
 
-<meta name="description" content="在開始開發之前必須先有相關的工具，首先你必須有一條USB Micro-A轉USB Type A的傳輸線，用來連接主機端和板端(J6)
-
-USB傳輸介面主要是用來提供板端5V DC，也可以輸出log，但強烈建議使用UART(J23 Debug port)，來進行相關訊息的輸入與輸出，某些較底層的資訊只會從UART輸出
-要使用UART最方便的方式就是準備一個RS232轉USB的裝置，一邊連接到J23一">
+<meta name="description" content="AT91Bootstrap是bootloader的第二階段，緊接在ROM boot之後，主要負責硬體的初始化及配置，例如clock PIO DRAM等等的配置，以及複製Flash or SD card的uboot到RAM上
+ROM boot流程板子一上電即開始執行ROM code，首先會先確認NAND chip select(JP5)的配置若為1(short)則會開始從SPI CS0 flash、">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Atmel][Sama5d3-xp] - Getting Started">
-<meta property="og:url" content="http://ivan7645.github.com/2016/06/17/sama5d3_getting_started/index.html">
+<meta property="og:title" content="[Atmel][Sama5d3-xp] - 簡介Bootstrap">
+<meta property="og:url" content="http://ivan7645.github.com/2016/07/01/sama5d3_boot_strap/index.html">
 <meta property="og:site_name" content="Ivan’s Blog">
-<meta property="og:description" content="在開始開發之前必須先有相關的工具，首先你必須有一條USB Micro-A轉USB Type A的傳輸線，用來連接主機端和板端(J6)
-
-USB傳輸介面主要是用來提供板端5V DC，也可以輸出log，但強烈建議使用UART(J23 Debug port)，來進行相關訊息的輸入與輸出，某些較底層的資訊只會從UART輸出
-要使用UART最方便的方式就是準備一個RS232轉USB的裝置，一邊連接到J23一">
+<meta property="og:description" content="AT91Bootstrap是bootloader的第二階段，緊接在ROM boot之後，主要負責硬體的初始化及配置，例如clock PIO DRAM等等的配置，以及複製Flash or SD card的uboot到RAM上
+ROM boot流程板子一上電即開始執行ROM code，首先會先確認NAND chip select(JP5)的配置若為1(short)則會開始從SPI CS0 flash、">
 <meta property="og:image" content="http://ivan7645.github.com/images/usb_microa_2_a.jpg">
-<meta property="og:image" content="http://ivan7645.github.com/images/rs232_2_usb.jpg">
-<meta property="og:image" content="http://ivan7645.github.com/images/ftdi_attach.png">
-<meta property="og:image" content="http://ivan7645.github.com/images/picocom_start.png">
-<meta property="og:image" content="http://ivan7645.github.com/images/uart_output.png">
-<meta property="og:updated_time" content="2016-06-27T16:34:16.000Z">
+<meta property="og:updated_time" content="2016-06-30T16:53:13.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[Atmel][Sama5d3-xp] - Getting Started">
-<meta name="twitter:description" content="在開始開發之前必須先有相關的工具，首先你必須有一條USB Micro-A轉USB Type A的傳輸線，用來連接主機端和板端(J6)
-
-USB傳輸介面主要是用來提供板端5V DC，也可以輸出log，但強烈建議使用UART(J23 Debug port)，來進行相關訊息的輸入與輸出，某些較底層的資訊只會從UART輸出
-要使用UART最方便的方式就是準備一個RS232轉USB的裝置，一邊連接到J23一">
+<meta name="twitter:title" content="[Atmel][Sama5d3-xp] - 簡介Bootstrap">
+<meta name="twitter:description" content="AT91Bootstrap是bootloader的第二階段，緊接在ROM boot之後，主要負責硬體的初始化及配置，例如clock PIO DRAM等等的配置，以及複製Flash or SD card的uboot到RAM上
+ROM boot流程板子一上電即開始執行ROM code，首先會先確認NAND chip select(JP5)的配置若為1(short)則會開始從SPI CS0 flash、">
 <meta name="twitter:image" content="http://ivan7645.github.com/images/usb_microa_2_a.jpg">
 
 
@@ -126,7 +116,7 @@ USB傳輸介面主要是用來提供板端5V DC，也可以輸出log，但強烈
   };
 </script>
 
-  <title> [Atmel][Sama5d3-xp] - Getting Started | Ivan’s Blog </title>
+  <title> [Atmel][Sama5d3-xp] - 簡介Bootstrap | Ivan’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
@@ -246,7 +236,7 @@ USB傳輸介面主要是用來提供板端5V DC，也可以輸出log，但強烈
             
             
               
-                [Atmel][Sama5d3-xp] - Getting Started
+                [Atmel][Sama5d3-xp] - 簡介Bootstrap
               
             
           </h1>
@@ -258,8 +248,8 @@ USB傳輸介面主要是用來提供板端5V DC，也可以輸出log，但強烈
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">發表於</span>
-            <time itemprop="dateCreated" datetime="2016-06-17T21:32:23+08:00" content="2016-06-17">
-              2016-06-17
+            <time itemprop="dateCreated" datetime="2016-07-01T00:22:02+08:00" content="2016-07-01">
+              2016-07-01
             </time>
           </span>
 
@@ -269,8 +259,8 @@ USB傳輸介面主要是用來提供板端5V DC，也可以輸出log，但強烈
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/06/17/sama5d3_getting_started/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/17/sama5d3_getting_started/" itemprop="commentsCount"></span>
+                <a href="/2016/07/01/sama5d3_boot_strap/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/01/sama5d3_boot_strap/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -293,23 +283,11 @@ USB傳輸介面主要是用來提供板端5V DC，也可以輸出log，但強烈
       
 
       
-        <p>在開始開發之前必須先有相關的工具，首先你必須有一條USB Micro-A轉USB Type A的傳輸線，用來連接主機端和板端(J6)</p>
+        <p>AT91Bootstrap是bootloader的第二階段，緊接在ROM boot之後，主要負責硬體的初始化及配置，例如clock PIO DRAM等等的配置，以及複製Flash or SD card的uboot到RAM上</p>
+<h2 id="ROM-boot流程"><a href="#ROM-boot流程" class="headerlink" title="ROM boot流程"></a>ROM boot流程</h2><p>板子一上電即開始執行ROM code，首先會先確認NAND chip select(JP5)的配置<br>若為1(short)則會開始從SPI CS0 flash、SD card、NAND flash、SPI CS1 flash、EEPROM照順序尋找是否有可使用的bootstrap，若有的話則複製一份到SRAM且跳過去，若沒有任何可使用的bootstrap則進入SAM-BA監控模式<br>若為0(open)則會直接進入SAM-BA監控模式<br>進入SAM-BA模式則可藉由相關工具將程式燒到flash or EEPRM</p>
+<h2 id="Build-bootstrap"><a href="#Build-bootstrap" class="headerlink" title="Build bootstrap"></a>Build bootstrap</h2><p>首先必須先有cross compile</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install gcc-arm-linux-gnueabi</span><br></pre></td></tr></table></figure>
 <p><img src="/images/usb_microa_2_a.jpg" alt=""></p>
-<p>USB傳輸介面主要是用來提供板端5V DC，也可以輸出log，但強烈建議使用UART(J23 Debug port)，來進行相關訊息的輸入與輸出，某些較底層的資訊只會從UART輸出</p>
-<p>要使用UART最方便的方式就是準備一個RS232轉USB的裝置，一邊連接到J23一邊連接到主機端，之後藉由終端機來輸出或輸入訊息，FTDI作了許多相關的產品，市面上可以很輕易的取得</p>
-<p><img src="/images/rs232_2_usb.jpg" alt=""></p>
-<h2 id="終端機"><a href="#終端機" class="headerlink" title="終端機"></a>終端機</h2><p>在Linux或Windows作業系統下都有終端機可用來接受裝置端的訊息，Windows下較常見的工具為putty，但比較建議還是在Linux下開發，會有較佳的彈性和支援的工具</p>
-<p>Linux下用來輸出訊息的工具就很多了，例如picocom screen minicom等等，這邊使用picocom作為範例</p>
-<p>首先當然要先安裝picocom</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install picocom</span><br></pre></td></tr></table></figure>
-<p>安裝完之後將UART板端配置好之後接到主機端的USB接口，可由以下指令知道是否有連接成功，此例可看出成功連接到ttyUSB0</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dmesg | grep tty</span><br></pre></td></tr></table></figure>
-<p><img src="/images/ftdi_attach.png" alt=""></p>
-<p>接著使用picocom接收UART訊息且指定ttyUSB0且baud rate為115200，若無法成功使用可加sudo增加權限</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo picocom -b 115200 /dev/ttyUSB0</span><br></pre></td></tr></table></figure>
-<p><img src="/images/picocom_start.png" alt=""></p>
-<p>最後就可以將micro USB(J6)接到主機端即可看到板端輸出的訊息</p>
-<p><img src="/images/uart_output.png" alt=""></p>
 
       
     </div>
@@ -340,16 +318,16 @@ USB傳輸介面主要是用來提供板端5V DC，也可以輸出log，但強烈
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/16/sama5d3_intro/" rel="next" title="[Atmel][Sama5d3-xp] - 簡介">
-                <i class="fa fa-chevron-left"></i> [Atmel][Sama5d3-xp] - 簡介
+              <a href="/2016/06/30/sama5d3_boot_sequence/" rel="next" title="[Atmel][Sama5d3-xp] - Boot sequence">
+                <i class="fa fa-chevron-left"></i> [Atmel][Sama5d3-xp] - Boot sequence
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/06/29/gets_fgets/" rel="prev" title="[C語言] - gets()設計缺陷">
-                [C語言] - gets()設計缺陷 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/07/01/linux_splint/" rel="prev" title="[Linux]cppcheck - 靜態程式分析工具">
+                [Linux]cppcheck - 靜態程式分析工具 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -464,7 +442,7 @@ USB傳輸介面主要是用來提供板端5V DC，也可以輸出log，但強烈
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#終端機"><span class="nav-number">1.</span> <span class="nav-text">終端機</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ROM-boot流程"><span class="nav-number">1.</span> <span class="nav-text">ROM boot流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-bootstrap"><span class="nav-number">2.</span> <span class="nav-text">Build bootstrap</span></a></li></ol></div>
             
           </div>
         </section>
@@ -584,9 +562,9 @@ USB傳輸介面主要是用來提供板端5V DC，也可以輸出log，但強烈
 
     <script type="text/javascript">
       var disqus_shortname = 'ivan7645';
-      var disqus_identifier = '2016/06/17/sama5d3_getting_started/';
-      var disqus_title = '[Atmel][Sama5d3-xp] - Getting Started';
-      var disqus_url = 'http://ivan7645.github.com/2016/06/17/sama5d3_getting_started/';
+      var disqus_identifier = '2016/07/01/sama5d3_boot_strap/';
+      var disqus_title = '[Atmel][Sama5d3-xp] - 簡介Bootstrap';
+      var disqus_url = 'http://ivan7645.github.com/2016/07/01/sama5d3_boot_strap/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
