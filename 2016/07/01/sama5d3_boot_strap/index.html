@@ -92,7 +92,7 @@ ROM boot流程板子一上電即開始執行ROM code，首先會先確認NAND ch
 <meta property="og:site_name" content="Ivan’s Blog">
 <meta property="og:description" content="AT91Bootstrap是bootloader的第二階段，緊接在ROM boot之後，主要負責硬體的初始化及配置，例如clock PIO DRAM等等的配置，以及複製Flash or SD card的uboot到RAM上
 ROM boot流程板子一上電即開始執行ROM code，首先會先確認NAND chip select(JP5)的配置若為1(short)則會開始從SPI CS0 flash、">
-<meta property="og:updated_time" content="2016-07-03T16:39:52.000Z">
+<meta property="og:updated_time" content="2016-07-03T16:45:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Atmel][Sama5d3-xp] - 簡介Bootstrap">
 <meta name="twitter:description" content="AT91Bootstrap是bootloader的第二階段，緊接在ROM boot之後，主要負責硬體的初始化及配置，例如clock PIO DRAM等等的配置，以及複製Flash or SD card的uboot到RAM上
@@ -287,7 +287,7 @@ ROM boot流程板子一上電即開始執行ROM code，首先會先確認NAND ch
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install gcc-arm-linux-gnueabi</span><br></pre></td></tr></table></figure>
 <p>安裝完cross compiler之後必須下載bootstrap的src code(當然必須先有git相關指令，這部份請自行安裝)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git://github.com/linux4sam/at91bootstrap.git</span><br></pre></td></tr></table></figure>
-<p>下載完成後進入at91bootstrap資料夾，即可使用make指令產生.config檔以及二進位檔</p>
+<p>下載完成後進入at91bootstrap資料夾，即可使用make相關指令產生.config檔以及二進位檔</p>
 <h2 id="建置作業"><a href="#建置作業" class="headerlink" title="建置作業"></a>建置作業</h2>
       
     </div>
