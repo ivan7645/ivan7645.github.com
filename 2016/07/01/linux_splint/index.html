@@ -95,8 +95,7 @@
 <meta property="og:image" content="http://ivan7645.github.com/images/cpp_chk_variable.png">
 <meta property="og:image" content="http://ivan7645.github.com/images/null_ptr.png">
 <meta property="og:image" content="http://ivan7645.github.com/images/buffer_over.png">
-<meta property="og:image" content="http://ivan7645.github.com/images/lint_often.png">
-<meta property="og:updated_time" content="2016-07-02T08:53:09.000Z">
+<meta property="og:updated_time" content="2016-07-03T16:19:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Linux] - cppcheck 靜態程式分析工具">
 <meta name="twitter:description" content="cppcheck是一套跨平台的靜態程式分析工具(static code analysis tool)，主要用來分析C語言在coding上的問題，包括memory leak、null pointer、buffer overflow這些算是bug的問題，也可檢查出多餘的程式碼達到增進程式效能的目的，例如沒使用到的變數、給定初始值的參數但從未使用過此初始值、不可能進入的condition等等
@@ -327,7 +326,10 @@
 <p>迴圈造成記憶體被overwrite</p>
 <p>目前市面上的靜態程式檢查工具眾多，例如splint, coverity, cppcheck等等，每個工具都有其擅長的部分<br>就使用過splint和cppcheck的經驗來看例如對於不需要使用或不需要給初始值的狀況cppcheck &gt; splint，但對於buffer overwrite的檢查splint &gt; cppchek，因此若想讓程式更加完善，可以使用多些檢查工具達成目標</p>
 <p>最後分享一下書上看到的</p>
-<p><img src="/images/lint_often.png" alt=""></p>
+<blockquote>
+<p>Lint Early, Lint Often</p>
+<p>Lint is your software conscience. It tells you when you are doing bad things. Always use lint. Listen to your conscience.</p>
+</blockquote>
 
       
     </div>
