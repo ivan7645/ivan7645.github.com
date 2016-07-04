@@ -289,6 +289,8 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install cppcheck</span><br></pre></td></tr></table></figure>
 <p>使用時輸入以下指令，最後的enable=all代表所有的檢查都執行，包含coding上的問題、邏輯上的問題、效能上的增進等等</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cppcheck xxx.c --enable=all</span><br></pre></td></tr></table></figure>
+<p>因cppcheck default會作許多preprocessor的檢查，這部分會耗費相當長的時間，若不需要可將其關閉</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cppcheck -DA xxx.c --enable=all</span><br></pre></td></tr></table></figure>
 <p>接著我們看一下一些都可編譯過但事實上是有問題的例子，看cppcheck是否可檢查出來</p>
 <h2 id="變數宣告"><a href="#變數宣告" class="headerlink" title="變數宣告"></a>變數宣告</h2><p>觀察下段程式碼，我們來看一下cppcheck可檢查出哪些問題</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">int a;</span><br><span class="line">int b;</span><br><span class="line">int c = 1;</span><br><span class="line">int d = 2;</span><br><span class="line"></span><br><span class="line">b++;</span><br><span class="line">c++;</span><br><span class="line">d = 4;</span><br></pre></td></tr></table></figure>
