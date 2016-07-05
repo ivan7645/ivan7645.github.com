@@ -433,7 +433,8 @@
         
           
             <p>AT91Bootstrap是bootloader的第二階段，緊接在ROM boot之後，主要負責硬體的初始化及配置，例如clock PIO DRAM等等的配置，以及複製Flash or SD card的uboot到RAM上</p>
-<h2 id="ROM-boot流程"><a href="#ROM-boot流程" class="headerlink" title="ROM boot流程"></a>ROM boot流程</h2><p>板子一上電即開始執行ROM code，首先會先確認NAND chip select(JP5)的配置<br>若為1(short)則會開始從SPI CS0 flash、SD card、NAND flash、SPI CS1 flash、EEPROM照順序尋找是否有可使用的bootstrap，若有的話則複製一份到SRAM且跳過去，若沒有任何可使用的bootstrap則進入SAM-BA監控模式<br>若為0(open)則會直接進入SAM-BA監控模式<br>進入SAM-BA模式則可藉由相關工具將程式燒到flash or EEPRM</p>
+<h2 id="ROM-boot流程"><a href="#ROM-boot流程" class="headerlink" title="ROM boot流程"></a>ROM boot流程</h2><p>板子一上電即開始執行ROM code，首先會先確認NAND chip select(JP5)的配置<br>若為1(short)則會開始從SPI CS0 flash、SD card、NAND flash、SPI CS1 flash、EEPROM照順序尋找是否有可使用的bootstrap(註1)，若有的話則讀取一份到SRAM且跳過去，若沒有任何可使用的bootstrap則進入SAM-BA監控模式<br>若為0(open)則會直接進入SAM-BA監控模式<br>進入SAM-BA模式則可藉由相關工具將程式燒到flash or EEPRM</p>
+<p><strong>註1: sama5d3-xplained僅支援nand flash或sd card boot</strong></p>
 <h2 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h2><p>要build在開發版上跑的程式必須先有cross compiler，而sama5d3是ARM Cortex-A5的CPU，因此用的gcc如下</p>
 <pre><code>sudo apt-get install gcc-arm-linux-gnueabi
 </code></pre><p>安裝完cross compiler之後必須下載bootstrap的src code(當然必須先有git相關指令，這部份請自行安裝)</p>
@@ -441,7 +442,11 @@
 </code></pre><p>下載完成後進入at91bootstrap資料夾，即可使用make相關指令產生.config檔以及二進位檔</p>
 <h2 id="建置程式"><a href="#建置程式" class="headerlink" title="建置程式"></a>建置程式</h2><p>因為Sama5d3預設本來就是跑Linux的，因此建置at91bootstrap過程和Linux的bootstrap/uboot基本上沒什麼太大的不同<br>你可以在抓下來的程式碼當中的board/sama5d3_xplained資料夾內發現四個default configuration files，如下</p>
 <pre><code>sama5d3_xplainednf_linux_image_dt_defconfig
-</code></pre>
+sama5d3_xplainednf_uboot_defconfig
+sama5d3_xplainedsd_linux_image_dt_defconfig
+sama5d3_xplainedsd_uboot_defconfig
+</code></pre><p>nf代表從nand flash讀取，sd代表從sd card讀取<br>linux代表讀取linux kerenel到RAM，dt代表讀取dtb到RAM，uboot代表讀取uboot到RAM</p>
+
           
         
       
@@ -549,9 +554,9 @@
 </ul>
 <h2 id="Boot"><a href="#Boot" class="headerlink" title="Boot"></a>Boot</h2><p>開機的流程如下圖</p>
 <ol>
-<li>ROM code先確認目前是由何種方式boot(Flash or SD card)，若選定的存取裝置中存在AT91Bootstrap，則ROM code會負責將此段二進位檔複製一份到SRAM，接著跳過去</li>
-<li>AT91Bootstrap負責相關的硬體配置，另外也必須將存取裝置中的U-Boot/barebox複製一份到SDRAM/DDRAM，接著跳過去</li>
-<li>U-Boot負責將Kernel從儲存裝置複製一份到SDRAM/DDRAM，之後即開始執行Kernel</li>
+<li>ROM code先確認目前是由何種方式boot(Flash or SD card)，若選定的存取裝置中存在AT91Bootstrap，則ROM code會負責將此段二進位檔讀取一份到SRAM，接著跳過去</li>
+<li>AT91Bootstrap負責相關的硬體配置，另外也必須將存取裝置中的U-Boot/barebox讀取一份到SDRAM/DDRAM，接著跳過去</li>
+<li>U-Boot負責將Kernel從儲存裝置讀取一份到SDRAM/DDRAM，之後即開始執行Kernel</li>
 </ol>
 <p><img src="/images/boot_sequence.png" alt=""></p>
 <p>一般Kernel會是Linux kernel，但也可以在bootstrap設定好相關硬體後載入其它OS，甚至沒有OS直接進入一無窮的while，照順序性的執行任務</p>

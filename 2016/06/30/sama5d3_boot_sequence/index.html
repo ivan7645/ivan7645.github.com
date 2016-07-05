@@ -92,7 +92,7 @@ U-Boot
 
 Boot開機的流程如下圖
 
-ROM code先確認目前是由何種方式boot(Flash or SD card)，若選定的存取裝置中存在AT91Bootstrap，則ROM code會負責將此段二進位檔複製一份到SRAM，接著跳過去
+ROM code先確認目前是由何種方式boot(Flash or SD card)，若選定的存取裝置中存在AT91Bootstrap，則ROM code會負責將此段二進位檔讀取一份到SRAM，接著跳過去
 AT91Bootstrap負責相關的硬體配置">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Atmel][Sama5d3-xp] - Boot sequence">
@@ -106,11 +106,11 @@ U-Boot
 
 Boot開機的流程如下圖
 
-ROM code先確認目前是由何種方式boot(Flash or SD card)，若選定的存取裝置中存在AT91Bootstrap，則ROM code會負責將此段二進位檔複製一份到SRAM，接著跳過去
+ROM code先確認目前是由何種方式boot(Flash or SD card)，若選定的存取裝置中存在AT91Bootstrap，則ROM code會負責將此段二進位檔讀取一份到SRAM，接著跳過去
 AT91Bootstrap負責相關的硬體配置">
 <meta property="og:image" content="http://ivan7645.github.com/images/boot_sequence.png">
 <meta property="og:image" content="http://ivan7645.github.com/images/memory_map.png">
-<meta property="og:updated_time" content="2016-06-29T16:38:39.000Z">
+<meta property="og:updated_time" content="2016-07-05T16:46:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Atmel][Sama5d3-xp] - Boot sequence">
 <meta name="twitter:description" content="Sama5d3的boot sequence主要分為三個階段
@@ -121,7 +121,7 @@ U-Boot
 
 Boot開機的流程如下圖
 
-ROM code先確認目前是由何種方式boot(Flash or SD card)，若選定的存取裝置中存在AT91Bootstrap，則ROM code會負責將此段二進位檔複製一份到SRAM，接著跳過去
+ROM code先確認目前是由何種方式boot(Flash or SD card)，若選定的存取裝置中存在AT91Bootstrap，則ROM code會負責將此段二進位檔讀取一份到SRAM，接著跳過去
 AT91Bootstrap負責相關的硬體配置">
 <meta name="twitter:image" content="http://ivan7645.github.com/images/boot_sequence.png">
 
@@ -316,9 +316,9 @@ AT91Bootstrap負責相關的硬體配置">
 </ul>
 <h2 id="Boot"><a href="#Boot" class="headerlink" title="Boot"></a>Boot</h2><p>開機的流程如下圖</p>
 <ol>
-<li>ROM code先確認目前是由何種方式boot(Flash or SD card)，若選定的存取裝置中存在AT91Bootstrap，則ROM code會負責將此段二進位檔複製一份到SRAM，接著跳過去</li>
-<li>AT91Bootstrap負責相關的硬體配置，另外也必須將存取裝置中的U-Boot/barebox複製一份到SDRAM/DDRAM，接著跳過去</li>
-<li>U-Boot負責將Kernel從儲存裝置複製一份到SDRAM/DDRAM，之後即開始執行Kernel</li>
+<li>ROM code先確認目前是由何種方式boot(Flash or SD card)，若選定的存取裝置中存在AT91Bootstrap，則ROM code會負責將此段二進位檔讀取一份到SRAM，接著跳過去</li>
+<li>AT91Bootstrap負責相關的硬體配置，另外也必須將存取裝置中的U-Boot/barebox讀取一份到SDRAM/DDRAM，接著跳過去</li>
+<li>U-Boot負責將Kernel從儲存裝置讀取一份到SDRAM/DDRAM，之後即開始執行Kernel</li>
 </ol>
 <p><img src="/images/boot_sequence.png" alt=""></p>
 <p>一般Kernel會是Linux kernel，但也可以在bootstrap設定好相關硬體後載入其它OS，甚至沒有OS直接進入一無窮的while，照順序性的執行任務</p>
