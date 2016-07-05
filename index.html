@@ -434,11 +434,13 @@
             <p>AT91Bootstrap是bootloader的第二階段，緊接在ROM boot之後，主要負責硬體的初始化及配置，例如clock PIO DRAM等等的配置，以及複製Flash or SD card的uboot到RAM上</p>
 <h2 id="ROM-boot流程"><a href="#ROM-boot流程" class="headerlink" title="ROM boot流程"></a>ROM boot流程</h2><p>板子一上電即開始執行ROM code，首先會先確認NAND chip select(JP5)的配置<br>若為1(short)則會開始從SPI CS0 flash、SD card、NAND flash、SPI CS1 flash、EEPROM照順序尋找是否有可使用的bootstrap，若有的話則複製一份到SRAM且跳過去，若沒有任何可使用的bootstrap則進入SAM-BA監控模式<br>若為0(open)則會直接進入SAM-BA監控模式<br>進入SAM-BA模式則可藉由相關工具將程式燒到flash or EEPRM</p>
 <h2 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h2><p>要build在開發版上跑的程式必須先有cross compiler，而sama5d3是ARM Cortex-A5的CPU，因此用的gcc如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install gcc-arm-linux-gnueabi</span><br></pre></td></tr></table></figure>
-<p>安裝完cross compiler之後必須下載bootstrap的src code(當然必須先有git相關指令，這部份請自行安裝)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git://github.com/linux4sam/at91bootstrap.git</span><br></pre></td></tr></table></figure>
-<p>下載完成後進入at91bootstrap資料夾，即可使用make相關指令產生.config檔以及二進位檔</p>
-<h2 id="建置作業"><a href="#建置作業" class="headerlink" title="建置作業"></a>建置作業</h2>
+<pre><code>sudo apt-get install gcc-arm-linux-gnueabi
+</code></pre><p>安裝完cross compiler之後必須下載bootstrap的src code(當然必須先有git相關指令，這部份請自行安裝)</p>
+<pre><code>git clone git://github.com/linux4sam/at91bootstrap.git
+</code></pre><p>下載完成後進入at91bootstrap資料夾，即可使用make相關指令產生.config檔以及二進位檔</p>
+<h2 id="建置程式"><a href="#建置程式" class="headerlink" title="建置程式"></a>建置程式</h2><p>因為Sama5d3預設本來就是跑Linux的，因此建置at91bootstrap過程和Linux的bootstrap/uboot基本上沒什麼太大的不同<br>你可以在抓下來的程式碼當中的board/sama5d3_xplained資料夾內發現四個default configuration files，如下</p>
+<pre><code>sama5d3_xplainednf_linux_image_dt_defconfig
+</code></pre>
           
         
       
@@ -771,13 +773,13 @@
 <h2 id="終端機"><a href="#終端機" class="headerlink" title="終端機"></a>終端機</h2><p>在Linux或Windows作業系統下都有終端機可用來接受裝置端的訊息，Windows下較常見的工具為putty，但比較建議還是在Linux下開發，會有較佳的彈性和支援的工具</p>
 <p>Linux下用來輸出訊息的工具就很多了，例如picocom screen minicom等等，這邊使用picocom作為範例</p>
 <p>首先當然要先安裝picocom</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install picocom</span><br></pre></td></tr></table></figure>
-<p>安裝完之後將UART板端配置好之後接到主機端的USB接口，可由以下指令知道是否有連接成功，此例可看出成功連接到ttyUSB0</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dmesg | grep tty</span><br></pre></td></tr></table></figure>
-<p><img src="/images/ftdi_attach.png" alt=""></p>
+<pre><code>sudo apt-get install picocom
+</code></pre><p>安裝完之後將UART板端配置好之後接到主機端的USB接口，可由以下指令知道是否有連接成功，此例可看出成功連接到ttyUSB0</p>
+<pre><code>dmesg | grep tty
+</code></pre><p><img src="/images/ftdi_attach.png" alt=""></p>
 <p>接著使用picocom接收UART訊息且指定ttyUSB0且baud rate為115200，若無法成功使用可加sudo增加權限</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo picocom -b 115200 /dev/ttyUSB0</span><br></pre></td></tr></table></figure>
-<p><img src="/images/picocom_start.png" alt=""></p>
+<pre><code>sudo picocom -b 115200 /dev/ttyUSB0
+</code></pre><p><img src="/images/picocom_start.png" alt=""></p>
 <p>最後就可以將micro USB(J6)接到主機端即可看到板端輸出的訊息</p>
 <p><img src="/images/uart_output.png" alt=""></p>
 
@@ -1244,12 +1246,12 @@
 <p>這時衍伸出一個有趣的問題，如果說default可放在任意位置，那是否代表switch在CPU執行時的行為和if…else並不相同，而是比較接近於goto的使用呢?</p>
 <p>我們在x86的機器上將以上的程式碼編譯成組合語言</p>
 <p><img src="/images/switch_default_asm_2.png" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov	DWORD PTR tv64[ebp], 4</span><br></pre></td></tr></table></figure>
-<p>將數字4移到ebp</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmp	DWORD PTR tv64[ebp], 1</span><br></pre></td></tr></table></figure>
-<p>將數字1和ebp比較</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">je	SHORT $LN4@main</span><br></pre></td></tr></table></figure>
-<p>若相等則跳到LN4</p>
+<pre><code>mov    DWORD PTR tv64[ebp], 4
+</code></pre><p>將數字4移到ebp</p>
+<pre><code>cmp    DWORD PTR tv64[ebp], 1
+</code></pre><p>將數字1和ebp比較</p>
+<pre><code>je    SHORT $LN4@main
+</code></pre><p>若相等則跳到LN4</p>
 <p><img src="/images/switch_default_asm_3.png" alt=""><br><img src="/images/switch_default_asm_4.png" alt=""></p>
 <p>因為ebp皆不等於1,2,3因此最終會跳到LN3，另外default裡沒有break，從組合語言可以看到最終沒有接jmp，因此會繼續往下跑執行case2最終執行jmp到LN5</p>
 <p>由此可見switch是由建立多個label+jmp到特地位置，而if…else則是經過不斷的cmp+jmp，兩者並不相同</p>

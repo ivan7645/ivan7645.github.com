@@ -2,16 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://ivan7645.github.com/2016/07/01/linux_cppcheck/</loc>
+    <loc>http://ivan7645.github.com/2016/07/01/sama5d3_boot_strap/</loc>
     
-    <lastmod>2016-07-04T01:46:51.000Z</lastmod>
+    <lastmod>2016-07-05T16:29:22.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://ivan7645.github.com/2016/07/01/sama5d3_boot_strap/</loc>
+    <loc>http://ivan7645.github.com/2016/06/17/sama5d3_getting_started/</loc>
     
-    <lastmod>2016-07-03T16:45:09.000Z</lastmod>
+    <lastmod>2016-07-05T16:28:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ivan7645.github.com/2016/05/25/c-break/</loc>
+    
+    <lastmod>2016-07-05T16:25:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ivan7645.github.com/2016/07/01/linux_cppcheck/</loc>
+    
+    <lastmod>2016-07-04T01:46:51.000Z</lastmod>
     
   </url>
   
@@ -26,13 +40,6 @@
     <loc>http://ivan7645.github.com/2016/06/29/gets_fgets/</loc>
     
     <lastmod>2016-06-29T06:40:57.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ivan7645.github.com/2016/06/17/sama5d3_getting_started/</loc>
-    
-    <lastmod>2016-06-27T16:34:16.000Z</lastmod>
     
   </url>
   
@@ -54,13 +61,6 @@
     <loc>http://ivan7645.github.com/2016/05/31/c_const_star_star/</loc>
     
     <lastmod>2016-06-14T09:59:56.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ivan7645.github.com/2016/05/25/c-break/</loc>
-    
-    <lastmod>2016-06-14T09:59:04.000Z</lastmod>
     
   </url>
   

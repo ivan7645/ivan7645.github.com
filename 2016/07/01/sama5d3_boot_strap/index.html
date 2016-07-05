@@ -92,7 +92,7 @@ ROM boot流程板子一上電即開始執行ROM code，首先會先確認NAND ch
 <meta property="og:site_name" content="Ivan’s Blog">
 <meta property="og:description" content="AT91Bootstrap是bootloader的第二階段，緊接在ROM boot之後，主要負責硬體的初始化及配置，例如clock PIO DRAM等等的配置，以及複製Flash or SD card的uboot到RAM上
 ROM boot流程板子一上電即開始執行ROM code，首先會先確認NAND chip select(JP5)的配置若為1(short)則會開始從SPI CS0 flash、">
-<meta property="og:updated_time" content="2016-07-03T16:45:09.000Z">
+<meta property="og:updated_time" content="2016-07-05T16:29:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Atmel][Sama5d3-xp] - 簡介Bootstrap">
 <meta name="twitter:description" content="AT91Bootstrap是bootloader的第二階段，緊接在ROM boot之後，主要負責硬體的初始化及配置，例如clock PIO DRAM等等的配置，以及複製Flash or SD card的uboot到RAM上
@@ -284,11 +284,13 @@ ROM boot流程板子一上電即開始執行ROM code，首先會先確認NAND ch
         <p>AT91Bootstrap是bootloader的第二階段，緊接在ROM boot之後，主要負責硬體的初始化及配置，例如clock PIO DRAM等等的配置，以及複製Flash or SD card的uboot到RAM上</p>
 <h2 id="ROM-boot流程"><a href="#ROM-boot流程" class="headerlink" title="ROM boot流程"></a>ROM boot流程</h2><p>板子一上電即開始執行ROM code，首先會先確認NAND chip select(JP5)的配置<br>若為1(short)則會開始從SPI CS0 flash、SD card、NAND flash、SPI CS1 flash、EEPROM照順序尋找是否有可使用的bootstrap，若有的話則複製一份到SRAM且跳過去，若沒有任何可使用的bootstrap則進入SAM-BA監控模式<br>若為0(open)則會直接進入SAM-BA監控模式<br>進入SAM-BA模式則可藉由相關工具將程式燒到flash or EEPRM</p>
 <h2 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h2><p>要build在開發版上跑的程式必須先有cross compiler，而sama5d3是ARM Cortex-A5的CPU，因此用的gcc如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install gcc-arm-linux-gnueabi</span><br></pre></td></tr></table></figure>
-<p>安裝完cross compiler之後必須下載bootstrap的src code(當然必須先有git相關指令，這部份請自行安裝)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git://github.com/linux4sam/at91bootstrap.git</span><br></pre></td></tr></table></figure>
-<p>下載完成後進入at91bootstrap資料夾，即可使用make相關指令產生.config檔以及二進位檔</p>
-<h2 id="建置作業"><a href="#建置作業" class="headerlink" title="建置作業"></a>建置作業</h2>
+<pre><code>sudo apt-get install gcc-arm-linux-gnueabi
+</code></pre><p>安裝完cross compiler之後必須下載bootstrap的src code(當然必須先有git相關指令，這部份請自行安裝)</p>
+<pre><code>git clone git://github.com/linux4sam/at91bootstrap.git
+</code></pre><p>下載完成後進入at91bootstrap資料夾，即可使用make相關指令產生.config檔以及二進位檔</p>
+<h2 id="建置程式"><a href="#建置程式" class="headerlink" title="建置程式"></a>建置程式</h2><p>因為Sama5d3預設本來就是跑Linux的，因此建置at91bootstrap過程和Linux的bootstrap/uboot基本上沒什麼太大的不同<br>你可以在抓下來的程式碼當中的board/sama5d3_xplained資料夾內發現四個default configuration files，如下</p>
+<pre><code>sama5d3_xplainednf_linux_image_dt_defconfig
+</code></pre>
       
     </div>
 
@@ -442,7 +444,7 @@ ROM boot流程板子一上電即開始執行ROM code，首先會先確認NAND ch
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ROM-boot流程"><span class="nav-number">1.</span> <span class="nav-text">ROM boot流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前置作業"><span class="nav-number">2.</span> <span class="nav-text">前置作業</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建置作業"><span class="nav-number">3.</span> <span class="nav-text">建置作業</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ROM-boot流程"><span class="nav-number">1.</span> <span class="nav-text">ROM boot流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前置作業"><span class="nav-number">2.</span> <span class="nav-text">前置作業</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建置程式"><span class="nav-number">3.</span> <span class="nav-text">建置程式</span></a></li></ol></div>
             
           </div>
         </section>
