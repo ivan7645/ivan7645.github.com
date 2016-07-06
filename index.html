@@ -446,7 +446,14 @@ sama5d3_xplainednf_uboot_defconfig
 sama5d3_xplainedsd_linux_image_dt_defconfig
 sama5d3_xplainedsd_uboot_defconfig
 </code></pre><p>nf代表從nand flash讀取，sd代表從sd card讀取<br>linux代表讀取linux kerenel到RAM，dt代表讀取dtb到RAM，uboot代表讀取uboot到RAM</p>
-
+<p>要使用怎樣的configuration file需看需求決定，不過從檔案當中可以發現也可以選擇不讀取uboot直接讀取kernel的方式帶起linux<br>一般我們都使用flash且帶uboot的方式，在最上層的資料夾裡輸入以下make指令可產生.config檔</p>
+<pre><code>make mrproper
+make sama5d3_xplainednf_uboot_defconfig
+</code></pre><p>另外也可以使用以下指令進行產生客製化的.config檔，細部使用不在此篇敘述</p>
+<pre><code>make menuconfig
+</code></pre><p>最後輸入以下指令，會在最上層目錄中產生一個binaries資料夾，裡面包含了bin檔及elf檔，將bin檔放置flash當中的bootstrap位置即可在ROM code執行完成後，跳到此段程式執行</p>
+<pre><code>make CROSS_COMPILE=arm-linux-gnueabi-
+</code></pre>
           
         
       
