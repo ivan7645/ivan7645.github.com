@@ -233,6 +233,119 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/06/c_func_return_ptr/" itemprop="url">
+                  [C語言] - function returning a pointer
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">發表於</span>
+            <time itemprop="dateCreated" datetime="2016-07-06T13:52:23+08:00" content="2016-07-06">
+              2016-07-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/06/c_func_return_ptr/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/06/c_func_return_ptr/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>函式除了可以回傳一般的變數類型外，也可以回傳指標，包含了變數指標、陣列指標、函式指標等等</p>
+<h2 id="函式回傳變數指標"><a href="#函式回傳變數指標" class="headerlink" title="函式回傳變數指標"></a>函式回傳變數指標</h2><p>函式可以回傳一個變數的位址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">int * fun_rt_para(int a)</span><br><span class="line">&#123;</span><br><span class="line">    static int b = 0;</span><br><span class="line">    </span><br><span class="line">    printf(&quot;input value : %d\n&quot;, a);</span><br><span class="line">    b += a;</span><br><span class="line">    </span><br><span class="line">    return &amp;b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">    printf(&quot;output value : %d\n\n&quot;, *fun_rt_para(1));</span><br><span class="line">    printf(&quot;output value : %d\n\n&quot;, *fun_rt_para(3));</span><br><span class="line">    printf(&quot;output value : %d\n\n&quot;, *fun_rt_para(5));</span><br><span class="line">    </span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上程式碼顯示結果如下，函式將b的位址傳回，這裡要注意的是b必須是全域變數或是static變數，因為local變數的生命週期只有在此函式內(local變數一般放在stack或CPU register)，出了這個函式再透過指標位址取值，有可能取到錯誤的值</p>
+<p><img src="/images/func_rt_para.png" alt=""></p>
+<h2 id="函式回傳陣列指標"><a href="#函式回傳陣列指標" class="headerlink" title="函式回傳陣列指標"></a>函式回傳陣列指標</h2><p>函式也可以回傳陣列指標</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">int * fun_rt_arr()</span><br><span class="line">&#123;</span><br><span class="line">    static int a[3] = &#123;1, 2, 3&#125;;</span><br><span class="line"></span><br><span class="line">    return a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">    printf(&quot;output value : %d\n&quot;, *(fun_rt_arr + 0));</span><br><span class="line">    printf(&quot;output value : %d\n&quot;, *(fun_rt_arr + 1));</span><br><span class="line">    printf(&quot;output value : %d\n&quot;, *(fun_rt_arr + 2));</span><br><span class="line">    </span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>顯示結果如下，不過使用此方式缺點為caller無法從function name得知陣列大小，caller有可能讀取到邊界外的值，甚至破壞到陣列外的資料，此方法在安全性來講並不妥當</p>
+<p><img src="/images/func_rtr_ar.png" alt=""></p>
+<p>若想讓caller看function就可以知道陣列大小，可以使用以下方式，輸出結果和上面的例子相同，但事實上回傳的type不完全相同</p>
+<p>上例回傳的type為<code>int *p</code>，指向int的指標</p>
+<p>下例回傳的type為<code>int (*p)[3]</code>指向int[3]的指標</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">int (* fun_rt_arr())[3]</span><br><span class="line">&#123;</span><br><span class="line">    static int a[3] = &#123;1, 2, 3&#125;;</span><br><span class="line"></span><br><span class="line">    return &amp;a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">    printf(&quot;output value : %d\n&quot;, (*fun_rt_arr())[0]);</span><br><span class="line">    printf(&quot;output value : %d\n&quot;, (*fun_rt_arr())[1]));</span><br><span class="line">    printf(&quot;output value : %d\n&quot;, (*fun_rt_arr())[2]);</span><br><span class="line">    </span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="函式回傳函式指標"><a href="#函式回傳函式指標" class="headerlink" title="函式回傳函式指標"></a>函式回傳函式指標</h2>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/01/linux_cppcheck/" itemprop="url">
                   [Linux] - cppcheck 靜態程式分析工具
                 </a>
@@ -1337,7 +1450,7 @@ make sama5d3_xplainednf_uboot_defconfig
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">文章</span>
             </a>
           </div>

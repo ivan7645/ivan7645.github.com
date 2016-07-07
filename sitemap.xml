@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://ivan7645.github.com/2016/07/06/c_func_return_ptr/</loc>
+    
+    <lastmod>2016-07-07T10:38:34.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://ivan7645.github.com/2016/07/01/sama5d3_boot_strap/</loc>
     
     <lastmod>2016-07-06T16:48:29.000Z</lastmod>

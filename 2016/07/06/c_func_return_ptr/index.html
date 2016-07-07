@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Sama5d3-Xplained," />
+  <meta name="keywords" content="C語言," />
 
 
 
@@ -84,46 +84,25 @@
 
 
 
-<meta name="description" content="Sama5d3的boot sequence主要分為三個階段
-
-ROM code
-AT91Bootstrap
-U-Boot
-
-Boot開機的流程如下圖
-
-ROM code先確認目前是由何種方式boot(Flash or SD card)，若選定的存取裝置中存在AT91Bootstrap，則ROM code會負責將此段二進位檔讀取一份到SRAM，接著跳過去
-AT91Bootstrap負責相關的硬體配置">
+<meta name="description" content="函式除了可以回傳一般的變數類型外，也可以回傳指標，包含了變數指標、陣列指標、函式指標等等
+函式回傳變數指標函式可以回傳一個變數的位址
+123456789101112131415161718int * fun_rt_para(int a)&amp;#123;    static int b = 0;        printf(&amp;quot;input value : %d\n&amp;quot;, a);    b">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Atmel][Sama5d3-xp] - Boot sequence">
-<meta property="og:url" content="http://ivan7645.github.com/2016/06/30/sama5d3_boot_sequence/index.html">
+<meta property="og:title" content="[C語言] - function returning a pointer">
+<meta property="og:url" content="http://ivan7645.github.com/2016/07/06/c_func_return_ptr/index.html">
 <meta property="og:site_name" content="Ivan’s Blog">
-<meta property="og:description" content="Sama5d3的boot sequence主要分為三個階段
-
-ROM code
-AT91Bootstrap
-U-Boot
-
-Boot開機的流程如下圖
-
-ROM code先確認目前是由何種方式boot(Flash or SD card)，若選定的存取裝置中存在AT91Bootstrap，則ROM code會負責將此段二進位檔讀取一份到SRAM，接著跳過去
-AT91Bootstrap負責相關的硬體配置">
-<meta property="og:image" content="http://ivan7645.github.com/images/boot_sequence.png">
-<meta property="og:image" content="http://ivan7645.github.com/images/memory_map.png">
-<meta property="og:updated_time" content="2016-07-05T16:46:27.000Z">
+<meta property="og:description" content="函式除了可以回傳一般的變數類型外，也可以回傳指標，包含了變數指標、陣列指標、函式指標等等
+函式回傳變數指標函式可以回傳一個變數的位址
+123456789101112131415161718int * fun_rt_para(int a)&amp;#123;    static int b = 0;        printf(&amp;quot;input value : %d\n&amp;quot;, a);    b">
+<meta property="og:image" content="http://ivan7645.github.com/images/func_rt_para.png">
+<meta property="og:image" content="http://ivan7645.github.com/images/func_rtr_ar.png">
+<meta property="og:updated_time" content="2016-07-07T10:38:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[Atmel][Sama5d3-xp] - Boot sequence">
-<meta name="twitter:description" content="Sama5d3的boot sequence主要分為三個階段
-
-ROM code
-AT91Bootstrap
-U-Boot
-
-Boot開機的流程如下圖
-
-ROM code先確認目前是由何種方式boot(Flash or SD card)，若選定的存取裝置中存在AT91Bootstrap，則ROM code會負責將此段二進位檔讀取一份到SRAM，接著跳過去
-AT91Bootstrap負責相關的硬體配置">
-<meta name="twitter:image" content="http://ivan7645.github.com/images/boot_sequence.png">
+<meta name="twitter:title" content="[C語言] - function returning a pointer">
+<meta name="twitter:description" content="函式除了可以回傳一般的變數類型外，也可以回傳指標，包含了變數指標、陣列指標、函式指標等等
+函式回傳變數指標函式可以回傳一個變數的位址
+123456789101112131415161718int * fun_rt_para(int a)&amp;#123;    static int b = 0;        printf(&amp;quot;input value : %d\n&amp;quot;, a);    b">
+<meta name="twitter:image" content="http://ivan7645.github.com/images/func_rt_para.png">
 
 
 
@@ -141,7 +120,7 @@ AT91Bootstrap負責相關的硬體配置">
   };
 </script>
 
-  <title> [Atmel][Sama5d3-xp] - Boot sequence | Ivan’s Blog </title>
+  <title> [C語言] - function returning a pointer | Ivan’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
@@ -261,7 +240,7 @@ AT91Bootstrap負責相關的硬體配置">
             
             
               
-                [Atmel][Sama5d3-xp] - Boot sequence
+                [C語言] - function returning a pointer
               
             
           </h1>
@@ -273,8 +252,8 @@ AT91Bootstrap負責相關的硬體配置">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">發表於</span>
-            <time itemprop="dateCreated" datetime="2016-06-30T00:13:12+08:00" content="2016-06-30">
-              2016-06-30
+            <time itemprop="dateCreated" datetime="2016-07-06T13:52:23+08:00" content="2016-07-06">
+              2016-07-06
             </time>
           </span>
 
@@ -284,8 +263,8 @@ AT91Bootstrap負責相關的硬體配置">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/06/30/sama5d3_boot_sequence/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/30/sama5d3_boot_sequence/" itemprop="commentsCount"></span>
+                <a href="/2016/07/06/c_func_return_ptr/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/06/c_func_return_ptr/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -308,25 +287,20 @@ AT91Bootstrap負責相關的硬體配置">
       
 
       
-        <p>Sama5d3的boot sequence主要分為三個階段</p>
-<ul>
-<li>ROM code</li>
-<li>AT91Bootstrap</li>
-<li>U-Boot</li>
-</ul>
-<h2 id="Boot"><a href="#Boot" class="headerlink" title="Boot"></a>Boot</h2><p>開機的流程如下圖</p>
-<ol>
-<li>ROM code先確認目前是由何種方式boot(Flash or SD card)，若選定的存取裝置中存在AT91Bootstrap，則ROM code會負責將此段二進位檔讀取一份到SRAM，接著跳過去</li>
-<li>AT91Bootstrap負責相關的硬體配置，另外也必須將存取裝置中的U-Boot/barebox讀取一份到SDRAM/DDRAM，接著跳過去</li>
-<li>U-Boot負責將Kernel從儲存裝置讀取一份到SDRAM/DDRAM，之後即開始執行Kernel</li>
-</ol>
-<p><img src="/images/boot_sequence.png" alt=""></p>
-<p>一般Kernel會是Linux kernel，但也可以在bootstrap設定好相關硬體後載入其它OS，甚至沒有OS直接進入一無窮的while，照順序性的執行任務</p>
-<p>也可以在Bootstrap時只設定需使用到的硬體，接著直接執行相關任務，也就是說從ROM code跳到RAM之後就開始執行任務</p>
-<p>當然還有各式各樣的不同應用，使用者只要知道當ROM code結束之後會跳到SRAM開始執行程式，其它端看需求使用</p>
-<h2 id="Memory-map"><a href="#Memory-map" class="headerlink" title="Memory map"></a>Memory map</h2><p>下圖為Sama5d3的儲存裝置配置圖，有了這張圖即可得知需把各段的程式碼放置何處，例如AT91Bootstrap就要放在offset 0x000000的地方，而U-Boot則需放在0x040000</p>
-<p><img src="/images/memory_map.png" alt=""></p>
-
+        <p>函式除了可以回傳一般的變數類型外，也可以回傳指標，包含了變數指標、陣列指標、函式指標等等</p>
+<h2 id="函式回傳變數指標"><a href="#函式回傳變數指標" class="headerlink" title="函式回傳變數指標"></a>函式回傳變數指標</h2><p>函式可以回傳一個變數的位址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">int * fun_rt_para(int a)</span><br><span class="line">&#123;</span><br><span class="line">    static int b = 0;</span><br><span class="line">    </span><br><span class="line">    printf(&quot;input value : %d\n&quot;, a);</span><br><span class="line">    b += a;</span><br><span class="line">    </span><br><span class="line">    return &amp;b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">    printf(&quot;output value : %d\n\n&quot;, *fun_rt_para(1));</span><br><span class="line">    printf(&quot;output value : %d\n\n&quot;, *fun_rt_para(3));</span><br><span class="line">    printf(&quot;output value : %d\n\n&quot;, *fun_rt_para(5));</span><br><span class="line">    </span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上程式碼顯示結果如下，函式將b的位址傳回，這裡要注意的是b必須是全域變數或是static變數，因為local變數的生命週期只有在此函式內(local變數一般放在stack或CPU register)，出了這個函式再透過指標位址取值，有可能取到錯誤的值</p>
+<p><img src="/images/func_rt_para.png" alt=""></p>
+<h2 id="函式回傳陣列指標"><a href="#函式回傳陣列指標" class="headerlink" title="函式回傳陣列指標"></a>函式回傳陣列指標</h2><p>函式也可以回傳陣列指標</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">int * fun_rt_arr()</span><br><span class="line">&#123;</span><br><span class="line">    static int a[3] = &#123;1, 2, 3&#125;;</span><br><span class="line"></span><br><span class="line">    return a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">    printf(&quot;output value : %d\n&quot;, *(fun_rt_arr + 0));</span><br><span class="line">    printf(&quot;output value : %d\n&quot;, *(fun_rt_arr + 1));</span><br><span class="line">    printf(&quot;output value : %d\n&quot;, *(fun_rt_arr + 2));</span><br><span class="line">    </span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>顯示結果如下，不過使用此方式缺點為caller無法從function name得知陣列大小，caller有可能讀取到邊界外的值，甚至破壞到陣列外的資料，此方法在安全性來講並不妥當</p>
+<p><img src="/images/func_rtr_ar.png" alt=""></p>
+<p>若想讓caller看function就可以知道陣列大小，可以使用以下方式，輸出結果和上面的例子相同，但事實上回傳的type不完全相同</p>
+<p>上例回傳的type為<code>int *p</code>，指向int的指標</p>
+<p>下例回傳的type為<code>int (*p)[3]</code>指向int[3]的指標</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">int (* fun_rt_arr())[3]</span><br><span class="line">&#123;</span><br><span class="line">    static int a[3] = &#123;1, 2, 3&#125;;</span><br><span class="line"></span><br><span class="line">    return &amp;a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">    printf(&quot;output value : %d\n&quot;, (*fun_rt_arr())[0]);</span><br><span class="line">    printf(&quot;output value : %d\n&quot;, (*fun_rt_arr())[1]));</span><br><span class="line">    printf(&quot;output value : %d\n&quot;, (*fun_rt_arr())[2]);</span><br><span class="line">    </span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="函式回傳函式指標"><a href="#函式回傳函式指標" class="headerlink" title="函式回傳函式指標"></a>函式回傳函式指標</h2>
       
     </div>
 
@@ -347,7 +321,7 @@ AT91Bootstrap負責相關的硬體配置">
       
         <div class="post-tags">
           
-            <a href="/tags/Sama5d3-Xplained/" rel="tag">#Sama5d3-Xplained</a>
+            <a href="/tags/C語言/" rel="tag">#C語言</a>
           
         </div>
       
@@ -356,17 +330,13 @@ AT91Bootstrap負責相關的硬體配置">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/29/gets_fgets/" rel="next" title="[C語言] - gets()設計缺陷">
-                <i class="fa fa-chevron-left"></i> [C語言] - gets()設計缺陷
+              <a href="/2016/07/01/linux_cppcheck/" rel="next" title="[Linux] - cppcheck 靜態程式分析工具">
+                <i class="fa fa-chevron-left"></i> [Linux] - cppcheck 靜態程式分析工具
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/01/sama5d3_boot_strap/" rel="prev" title="[Atmel][Sama5d3-xp] - 簡介Bootstrap">
-                [Atmel][Sama5d3-xp] - 簡介Bootstrap <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -480,7 +450,7 @@ AT91Bootstrap負責相關的硬體配置">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Boot"><span class="nav-number">1.</span> <span class="nav-text">Boot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memory-map"><span class="nav-number">2.</span> <span class="nav-text">Memory map</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#函式回傳變數指標"><span class="nav-number">1.</span> <span class="nav-text">函式回傳變數指標</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函式回傳陣列指標"><span class="nav-number">2.</span> <span class="nav-text">函式回傳陣列指標</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函式回傳函式指標"><span class="nav-number">3.</span> <span class="nav-text">函式回傳函式指標</span></a></li></ol></div>
             
           </div>
         </section>
@@ -600,9 +570,9 @@ AT91Bootstrap負責相關的硬體配置">
 
     <script type="text/javascript">
       var disqus_shortname = 'ivan7645';
-      var disqus_identifier = '2016/06/30/sama5d3_boot_sequence/';
-      var disqus_title = '[Atmel][Sama5d3-xp] - Boot sequence';
-      var disqus_url = 'http://ivan7645.github.com/2016/06/30/sama5d3_boot_sequence/';
+      var disqus_identifier = '2016/07/06/c_func_return_ptr/';
+      var disqus_title = '[C語言] - function returning a pointer';
+      var disqus_url = 'http://ivan7645.github.com/2016/07/06/c_func_return_ptr/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
