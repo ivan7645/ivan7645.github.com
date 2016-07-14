@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Sama5d3-Xplained," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,46 +84,15 @@
 
 
 
-<meta name="description" content="Sama5d3的boot sequence主要分為三個階段
-
-ROM code
-AT91Bootstrap
-U-Boot
-
-Boot開機的流程如下圖
-
-ROM code先確認目前是由何種方式boot(Flash or SD card)，若選定的存取裝置中存在AT91Bootstrap，則ROM code會負責將此段二進位檔讀取一份到SRAM，接著跳過去
-AT91Bootstrap負責相關的硬體配置">
-<meta property="og:type" content="article">
-<meta property="og:title" content="[Atmel][Sama5d3-xp] - Boot sequence">
-<meta property="og:url" content="http://ivan7645.github.com/2016/06/30/sama5d3_boot_sequence/index.html">
+<meta name="description" content="Ivna’s Blog">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ivan’s Blog">
+<meta property="og:url" content="http://ivan7645.github.com/page/2/index.html">
 <meta property="og:site_name" content="Ivan’s Blog">
-<meta property="og:description" content="Sama5d3的boot sequence主要分為三個階段
-
-ROM code
-AT91Bootstrap
-U-Boot
-
-Boot開機的流程如下圖
-
-ROM code先確認目前是由何種方式boot(Flash or SD card)，若選定的存取裝置中存在AT91Bootstrap，則ROM code會負責將此段二進位檔讀取一份到SRAM，接著跳過去
-AT91Bootstrap負責相關的硬體配置">
-<meta property="og:image" content="http://ivan7645.github.com/images/boot_sequence.png">
-<meta property="og:image" content="http://ivan7645.github.com/images/memory_map.png">
-<meta property="og:updated_time" content="2016-07-05T16:46:27.000Z">
+<meta property="og:description" content="Ivna’s Blog">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[Atmel][Sama5d3-xp] - Boot sequence">
-<meta name="twitter:description" content="Sama5d3的boot sequence主要分為三個階段
-
-ROM code
-AT91Bootstrap
-U-Boot
-
-Boot開機的流程如下圖
-
-ROM code先確認目前是由何種方式boot(Flash or SD card)，若選定的存取裝置中存在AT91Bootstrap，則ROM code會負責將此段二進位檔讀取一份到SRAM，接著跳過去
-AT91Bootstrap負責相關的硬體配置">
-<meta name="twitter:image" content="http://ivan7645.github.com/images/boot_sequence.png">
+<meta name="twitter:title" content="Ivan’s Blog">
+<meta name="twitter:description" content="Ivna’s Blog">
 
 
 
@@ -141,7 +110,7 @@ AT91Bootstrap負責相關的硬體配置">
   };
 </script>
 
-  <title> [Atmel][Sama5d3-xp] - Boot sequence | Ivan’s Blog </title>
+  <title> Ivan’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
@@ -162,7 +131,9 @@ AT91Bootstrap負責相關的硬體配置">
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -239,9 +210,9 @@ AT91Bootstrap負責相關的硬體配置">
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
   
@@ -261,7 +232,10 @@ AT91Bootstrap負責相關的硬體配置">
             
             
               
-                [Atmel][Sama5d3-xp] - Boot sequence
+                
+                <a class="post-title-link" href="/2016/05/25/c-break/" itemprop="url">
+                  [C語言] - switch使用探討
+                </a>
               
             
           </h1>
@@ -273,8 +247,8 @@ AT91Bootstrap負責相關的硬體配置">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">發表於</span>
-            <time itemprop="dateCreated" datetime="2016-06-30T00:13:12+08:00" content="2016-06-30">
-              2016-06-30
+            <time itemprop="dateCreated" datetime="2016-05-25T21:58:19+08:00" content="2016-05-25">
+              2016-05-25
             </time>
           </span>
 
@@ -284,8 +258,8 @@ AT91Bootstrap負責相關的硬體配置">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/06/30/sama5d3_boot_sequence/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/30/sama5d3_boot_sequence/" itemprop="commentsCount"></span>
+                <a href="/2016/05/25/c-break/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/25/c-break/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -308,81 +282,67 @@ AT91Bootstrap負責相關的硬體配置">
       
 
       
-        <p>Sama5d3的boot sequence主要分為三個階段</p>
-<ul>
-<li>ROM code</li>
-<li>AT91Bootstrap</li>
-<li>U-Boot</li>
-</ul>
-<h2 id="Boot"><a href="#Boot" class="headerlink" title="Boot"></a>Boot</h2><p>開機的流程如下圖</p>
-<ol>
-<li>ROM code先確認目前是由何種方式boot(Flash or SD card)，若選定的存取裝置中存在AT91Bootstrap，則ROM code會負責將此段二進位檔讀取一份到SRAM，接著跳過去</li>
-<li>AT91Bootstrap負責相關的硬體配置，另外也必須將存取裝置中的U-Boot/barebox讀取一份到SDRAM/DDRAM，接著跳過去</li>
-<li>U-Boot負責將Kernel從儲存裝置讀取一份到SDRAM/DDRAM，之後即開始執行Kernel</li>
-</ol>
-<p><img src="/images/boot_sequence.png" alt=""></p>
-<p>一般Kernel會是Linux kernel，但也可以在bootstrap設定好相關硬體後載入其它OS，甚至沒有OS直接進入一無窮的while，照順序性的執行任務</p>
-<p>也可以在Bootstrap時只設定需使用到的硬體，接著直接執行相關任務，也就是說從ROM code跳到RAM之後就開始執行任務</p>
-<p>當然還有各式各樣的不同應用，使用者只要知道當ROM code結束之後會跳到SRAM開始執行程式，其它端看需求使用</p>
-<h2 id="Memory-map"><a href="#Memory-map" class="headerlink" title="Memory map"></a>Memory map</h2><p>下圖為Sama5d3的儲存裝置配置圖，有了這張圖即可得知需把各段的程式碼放置何處，例如AT91Bootstrap就要放在offset 0x000000的地方，而U-Boot則需放在0x040000</p>
-<p><img src="/images/memory_map.png" alt=""></p>
+        
+          
+            <p>switch為C提供的條件判斷式，只能用來比較數值或字元。ANSI C標準規定switch裡面的case至少需支援257個成員，因為字元長度為8-bit (256個可用字元 + EOF)</p>
+<h2 id="貫穿-Fall-Through"><a href="#貫穿-Fall-Through" class="headerlink" title="貫穿 (Fall Through)"></a>貫穿 (Fall Through)</h2><p>貫穿(Fall Through)指的是當switch進到特定的case中執行完動作後並不會自動break，執行流程會繼續往下跑直到看到break聲明。某些場合我們會使用貫穿的特性讓程式較精簡，但使用此特性的場合並不多，因此仍然必須仔細確認程式流程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">switch (2) &#123;</span><br><span class="line">case 1: printf(&quot;case 1\n&quot;);</span><br><span class="line">case 2: printf(&quot;case 2\n&quot;);</span><br><span class="line">case 3: printf(&quot;case 3\n&quot;);</span><br><span class="line">default: printf(&quot;default\n&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此段程式碼結果如下，由case2貫穿到default</p>
+<p><img src="/images/switch_fall_through.png" alt=""></p>
+<h2 id="Break"><a href="#Break" class="headerlink" title="Break"></a>Break</h2><p>Break除了使用在switch來跳出外，也可用在迴圈中的跳出，也因此可能造成非預期的流程但編譯器無法檢查出來</p>
+<p>此段程式在<code>if (y == OTHER_STUFF)</code>後接了break(顯然是coding上有錯誤)，原本是預期break之後可以執行<code>initialize_modes_pointer();</code>但因為此break在case2裡，且也不在迴圈裡面，因此會直接跳離此switch判斷式造成非預期的行為</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">switch (2) &#123;</span><br><span class="line">case 1:</span><br><span class="line">	doit1();</span><br><span class="line">	break;</span><br><span class="line">case 2:</span><br><span class="line">	if (x == STUFF) &#123;</span><br><span class="line">		do_first_stuff();</span><br><span class="line">		if (y == OTHER_STUFF)</span><br><span class="line">			break;</span><br><span class="line">		do_later_stuff();</span><br><span class="line">	&#125; /* coder meant to break to here... */</span><br><span class="line">	initialize_modes_pointer();</span><br><span class="line">	break;</span><br><span class="line">default:</span><br><span class="line">	processing();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Default"><a href="#Default" class="headerlink" title="Default"></a>Default</h2><p>當所有的case都不滿足時會進入default條件裡面(如果有的話)，通常我們習慣將default放在最後一個判斷，但其實default是可以放在任何位置的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">switch (4) &#123;</span><br><span class="line">case 1: printf(&quot;case 1\n&quot;);</span><br><span class="line">	break;</span><br><span class="line">default: printf(&quot;default\n&quot;);</span><br><span class="line">case 2: printf(&quot;case 2\n&quot;);</span><br><span class="line">	break;</span><br><span class="line">case 3: printf(&quot;case 3\n&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此段程式，然仍能夠正確的達到預期的結果</p>
+<p><img src="/images/switch_default_any.png" alt=""></p>
+<p>這時衍伸出一個有趣的問題，如果說default可放在任意位置，那是否代表switch在CPU執行時的行為和if…else並不相同，而是比較接近於goto的使用呢?</p>
+<p>我們在x86的機器上將以上的程式碼編譯成組合語言</p>
+<p><img src="/images/switch_default_asm_2.png" alt=""></p>
+<pre><code>mov    DWORD PTR tv64[ebp], 4
+</code></pre><p>將數字4移到ebp</p>
+<pre><code>cmp    DWORD PTR tv64[ebp], 1
+</code></pre><p>將數字1和ebp比較</p>
+<pre><code>je    SHORT $LN4@main
+</code></pre><p>若相等則跳到LN4</p>
+<p><img src="/images/switch_default_asm_3.png" alt=""><br><img src="/images/switch_default_asm_4.png" alt=""></p>
+<p>因為ebp皆不等於1,2,3因此最終會跳到LN3，另外default裡沒有break，從組合語言可以看到最終沒有接jmp，因此會繼續往下跑執行case2最終執行jmp到LN5</p>
+<p>由此可見switch是由建立多個label+jmp到特地位置，而if…else則是經過不斷的cmp+jmp，兩者並不相同</p>
 
-      
-    </div>
-
-    <div>
-      
+          
         
       
     </div>
 
     <div>
       
-        
+    </div>
 
+    <div>
       
     </div>
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Sama5d3-Xplained/" rel="tag">#Sama5d3-Xplained</a>
-          
-        </div>
+
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/06/29/gets_fgets/" rel="next" title="[C語言] - gets()設計缺陷">
-                <i class="fa fa-chevron-left"></i> [C語言] - gets()設計缺陷
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/01/sama5d3_boot_strap/" rel="prev" title="[Atmel][Sama5d3-xp] - 簡介Bootstrap">
-                [Atmel][Sama5d3-xp] - 簡介Bootstrap <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
       
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>
@@ -390,17 +350,6 @@ AT91Bootstrap負責相關的硬體配置">
 
 
           
-  <div class="comments" id="comments">
-    
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    
-  </div>
-
 
         </div>
         
@@ -420,17 +369,8 @@ AT91Bootstrap負責相關的硬體配置">
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目錄
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            本站概覽
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avater.jpg"
@@ -473,17 +413,6 @@ AT91Bootstrap負責相關的硬體配置">
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Boot"><span class="nav-number">1.</span> <span class="nav-text">Boot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memory-map"><span class="nav-number">2.</span> <span class="nav-text">Memory map</span></a></li></ol></div>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -580,10 +509,6 @@ AT91Bootstrap負責相關的硬體配置">
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
-
-
 
   
 
@@ -600,9 +525,9 @@ AT91Bootstrap負責相關的硬體配置">
 
     <script type="text/javascript">
       var disqus_shortname = 'ivan7645';
-      var disqus_identifier = '2016/06/30/sama5d3_boot_sequence/';
-      var disqus_title = '[Atmel][Sama5d3-xp] - Boot sequence';
-      var disqus_url = 'http://ivan7645.github.com/2016/06/30/sama5d3_boot_sequence/';
+      var disqus_identifier = 'page/2/index.html';
+      var disqus_title = '';
+      var disqus_url = '';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
@@ -613,8 +538,6 @@ AT91Bootstrap負責相關的硬體配置">
       }
 
       run_disqus_script('count.js');
-      
-        run_disqus_script('embed.js');
       
     </script>
   

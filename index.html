@@ -233,6 +233,148 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/12/vim_to_si/" itemprop="url">
+                  [Linux] - 將vim打造成source insight
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">發表於</span>
+            <time itemprop="dateCreated" datetime="2016-07-12T00:48:23+08:00" content="2016-07-12">
+              2016-07-12
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/12/vim_to_si/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/12/vim_to_si/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="ctags"><a href="#ctags" class="headerlink" title="ctags"></a>ctags</h2><p>ctags可以在函式、變數之間自由進行切換，例如某主函式call了funca()，ctags可以直接跳到funca的函式裡面、也可使用在變數上</p>
+<ul>
+<li><strong>安裝</strong></li>
+</ul>
+<p>第一步先安裝ctags</p>
+<pre><code>sudo apt-get install ctags
+or
+sudo apt-get install exuberant-ctags
+</code></pre><ul>
+<li><strong>使用</strong></li>
+</ul>
+<p>進入程式目錄當中，若是多層的目錄則進到最上層的目錄，接著輸入</p>
+<pre><code>ctgs -R
+</code></pre><p>接著必須讓vim知道tags需要到哪裡找到，先用vim打開vimrc，之後把下面第二段的資訊加進去</p>
+<pre><code>vim ~/.vimrc
+set tags=./tags,./TAGS,tags;~,TAGS;~
+</code></pre><p>用vim進到.c .h檔之後移到函式或變數上即可使用快捷鍵找到該函式或變數的定義，也可跳回到使用此函式的地方</p>
+<pre><code>&quot;跳至該函式或變數定義
+Ctrl + ]
+&quot;跳回使用此函式或變數處
+Ctrl + t
+</code></pre><h2 id="cscope"><a href="#cscope" class="headerlink" title="cscope"></a>cscope</h2><p>cscope可以查詢函式或變數在哪些地方被使用過，或是函式當中使用了哪些函式</p>
+<ul>
+<li><strong>安裝</strong></li>
+</ul>
+<p>第一步先安裝cscope</p>
+<pre><code>sudo apt-get install cscope
+</code></pre><ul>
+<li><strong>使用</strong></li>
+</ul>
+<p>進入程式目錄當中，若是多層的目錄則進到最上層的目錄，接著輸入</p>
+<pre><code>cscope -Rbqk
+</code></pre><p>參數說明如下</p>
+<ol>
+<li>R : 將目錄及子目錄底下的所有文件都建立索引</li>
+<li>b : 僅建立關聯數據庫，不導入使用者介面</li>
+<li>q : 建立cscope.in.out和cscope.po.out，可增快搜尋速度</li>
+<li>k : 不搜尋預設會include進來的函式(/usr/include) </li>
+</ol>
+<p>進入vim的一般指令模式之後必須將cscope.out加入</p>
+<pre><code>:cs add cscope.out
+</code></pre><p>為了避免每次使用都必須重複輸入，因此可將此段加入vimrc裡，讓vim自動執行，另外cscope的官方網站也提供了建議的vimrc設定<br><a href="http://cscope.sourceforge.net/cscope_maps.vim" target="_blank" rel="external">http://cscope.sourceforge.net/cscope_maps.vim</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/06/c_func_return_ptr/" itemprop="url">
                   [C語言] - function returning a pointer
                 </a>
@@ -1313,133 +1455,13 @@ make sama5d3_xplainednf_uboot_defconfig
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/25/c-break/" itemprop="url">
-                  [C語言] - switch使用探討
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">發表於</span>
-            <time itemprop="dateCreated" datetime="2016-05-25T21:58:19+08:00" content="2016-05-25">
-              2016-05-25
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/05/25/c-break/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/25/c-break/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>switch為C提供的條件判斷式，只能用來比較數值或字元。ANSI C標準規定switch裡面的case至少需支援257個成員，因為字元長度為8-bit (256個可用字元 + EOF)</p>
-<h2 id="貫穿-Fall-Through"><a href="#貫穿-Fall-Through" class="headerlink" title="貫穿 (Fall Through)"></a>貫穿 (Fall Through)</h2><p>貫穿(Fall Through)指的是當switch進到特定的case中執行完動作後並不會自動break，執行流程會繼續往下跑直到看到break聲明。某些場合我們會使用貫穿的特性讓程式較精簡，但使用此特性的場合並不多，因此仍然必須仔細確認程式流程</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">switch (2) &#123;</span><br><span class="line">case 1: printf(&quot;case 1\n&quot;);</span><br><span class="line">case 2: printf(&quot;case 2\n&quot;);</span><br><span class="line">case 3: printf(&quot;case 3\n&quot;);</span><br><span class="line">default: printf(&quot;default\n&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此段程式碼結果如下，由case2貫穿到default</p>
-<p><img src="/images/switch_fall_through.png" alt=""></p>
-<h2 id="Break"><a href="#Break" class="headerlink" title="Break"></a>Break</h2><p>Break除了使用在switch來跳出外，也可用在迴圈中的跳出，也因此可能造成非預期的流程但編譯器無法檢查出來</p>
-<p>此段程式在<code>if (y == OTHER_STUFF)</code>後接了break(顯然是coding上有錯誤)，原本是預期break之後可以執行<code>initialize_modes_pointer();</code>但因為此break在case2裡，且也不在迴圈裡面，因此會直接跳離此switch判斷式造成非預期的行為</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">switch (2) &#123;</span><br><span class="line">case 1:</span><br><span class="line">	doit1();</span><br><span class="line">	break;</span><br><span class="line">case 2:</span><br><span class="line">	if (x == STUFF) &#123;</span><br><span class="line">		do_first_stuff();</span><br><span class="line">		if (y == OTHER_STUFF)</span><br><span class="line">			break;</span><br><span class="line">		do_later_stuff();</span><br><span class="line">	&#125; /* coder meant to break to here... */</span><br><span class="line">	initialize_modes_pointer();</span><br><span class="line">	break;</span><br><span class="line">default:</span><br><span class="line">	processing();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Default"><a href="#Default" class="headerlink" title="Default"></a>Default</h2><p>當所有的case都不滿足時會進入default條件裡面(如果有的話)，通常我們習慣將default放在最後一個判斷，但其實default是可以放在任何位置的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">switch (4) &#123;</span><br><span class="line">case 1: printf(&quot;case 1\n&quot;);</span><br><span class="line">	break;</span><br><span class="line">default: printf(&quot;default\n&quot;);</span><br><span class="line">case 2: printf(&quot;case 2\n&quot;);</span><br><span class="line">	break;</span><br><span class="line">case 3: printf(&quot;case 3\n&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此段程式，然仍能夠正確的達到預期的結果</p>
-<p><img src="/images/switch_default_any.png" alt=""></p>
-<p>這時衍伸出一個有趣的問題，如果說default可放在任意位置，那是否代表switch在CPU執行時的行為和if…else並不相同，而是比較接近於goto的使用呢?</p>
-<p>我們在x86的機器上將以上的程式碼編譯成組合語言</p>
-<p><img src="/images/switch_default_asm_2.png" alt=""></p>
-<pre><code>mov    DWORD PTR tv64[ebp], 4
-</code></pre><p>將數字4移到ebp</p>
-<pre><code>cmp    DWORD PTR tv64[ebp], 1
-</code></pre><p>將數字1和ebp比較</p>
-<pre><code>je    SHORT $LN4@main
-</code></pre><p>若相等則跳到LN4</p>
-<p><img src="/images/switch_default_asm_3.png" alt=""><br><img src="/images/switch_default_asm_4.png" alt=""></p>
-<p>因為ebp皆不等於1,2,3因此最終會跳到LN3，另外default裡沒有break，從組合語言可以看到最終沒有接jmp，因此會繼續往下跑執行case2最終執行jmp到LN5</p>
-<p>由此可見switch是由建立多個label+jmp到特地位置，而if…else則是經過不斷的cmp+jmp，兩者並不相同</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1478,7 +1500,7 @@ make sama5d3_xplainednf_uboot_defconfig
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-count">11</span>
               <span class="site-state-item-name">文章</span>
             </a>
           </div>

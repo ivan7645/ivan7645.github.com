@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Sama5d3-Xplained," />
+  <meta name="keywords" content="Linux," />
 
 
 
@@ -84,46 +84,52 @@
 
 
 
-<meta name="description" content="Sama5d3的boot sequence主要分為三個階段
+<meta name="description" content="ctagsctags可以在函式、變數之間自由進行切換，例如某主函式call了funca()，ctags可以直接跳到funca的函式裡面、也可使用在變數上
 
-ROM code
-AT91Bootstrap
-U-Boot
+安裝
 
-Boot開機的流程如下圖
+第一步先安裝ctags
+sudo apt-get install ctags
+or
+sudo apt-get install exuberant-ctags
 
-ROM code先確認目前是由何種方式boot(Flash or SD card)，若選定的存取裝置中存在AT91Bootstrap，則ROM code會負責將此段二進位檔讀取一份到SRAM，接著跳過去
-AT91Bootstrap負責相關的硬體配置">
+使用
+
+進入程式目錄當中，若是多層的目錄則進到最上層的目錄，接著輸入
+ctg">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Atmel][Sama5d3-xp] - Boot sequence">
-<meta property="og:url" content="http://ivan7645.github.com/2016/06/30/sama5d3_boot_sequence/index.html">
+<meta property="og:title" content="[Linux] - 將vim打造成source insight">
+<meta property="og:url" content="http://ivan7645.github.com/2016/07/12/vim_to_si/index.html">
 <meta property="og:site_name" content="Ivan’s Blog">
-<meta property="og:description" content="Sama5d3的boot sequence主要分為三個階段
+<meta property="og:description" content="ctagsctags可以在函式、變數之間自由進行切換，例如某主函式call了funca()，ctags可以直接跳到funca的函式裡面、也可使用在變數上
 
-ROM code
-AT91Bootstrap
-U-Boot
+安裝
 
-Boot開機的流程如下圖
+第一步先安裝ctags
+sudo apt-get install ctags
+or
+sudo apt-get install exuberant-ctags
 
-ROM code先確認目前是由何種方式boot(Flash or SD card)，若選定的存取裝置中存在AT91Bootstrap，則ROM code會負責將此段二進位檔讀取一份到SRAM，接著跳過去
-AT91Bootstrap負責相關的硬體配置">
-<meta property="og:image" content="http://ivan7645.github.com/images/boot_sequence.png">
-<meta property="og:image" content="http://ivan7645.github.com/images/memory_map.png">
-<meta property="og:updated_time" content="2016-07-05T16:46:27.000Z">
+使用
+
+進入程式目錄當中，若是多層的目錄則進到最上層的目錄，接著輸入
+ctg">
+<meta property="og:updated_time" content="2016-07-14T16:44:36.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[Atmel][Sama5d3-xp] - Boot sequence">
-<meta name="twitter:description" content="Sama5d3的boot sequence主要分為三個階段
+<meta name="twitter:title" content="[Linux] - 將vim打造成source insight">
+<meta name="twitter:description" content="ctagsctags可以在函式、變數之間自由進行切換，例如某主函式call了funca()，ctags可以直接跳到funca的函式裡面、也可使用在變數上
 
-ROM code
-AT91Bootstrap
-U-Boot
+安裝
 
-Boot開機的流程如下圖
+第一步先安裝ctags
+sudo apt-get install ctags
+or
+sudo apt-get install exuberant-ctags
 
-ROM code先確認目前是由何種方式boot(Flash or SD card)，若選定的存取裝置中存在AT91Bootstrap，則ROM code會負責將此段二進位檔讀取一份到SRAM，接著跳過去
-AT91Bootstrap負責相關的硬體配置">
-<meta name="twitter:image" content="http://ivan7645.github.com/images/boot_sequence.png">
+使用
+
+進入程式目錄當中，若是多層的目錄則進到最上層的目錄，接著輸入
+ctg">
 
 
 
@@ -141,7 +147,7 @@ AT91Bootstrap負責相關的硬體配置">
   };
 </script>
 
-  <title> [Atmel][Sama5d3-xp] - Boot sequence | Ivan’s Blog </title>
+  <title> [Linux] - 將vim打造成source insight | Ivan’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
@@ -261,7 +267,7 @@ AT91Bootstrap負責相關的硬體配置">
             
             
               
-                [Atmel][Sama5d3-xp] - Boot sequence
+                [Linux] - 將vim打造成source insight
               
             
           </h1>
@@ -273,8 +279,8 @@ AT91Bootstrap負責相關的硬體配置">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">發表於</span>
-            <time itemprop="dateCreated" datetime="2016-06-30T00:13:12+08:00" content="2016-06-30">
-              2016-06-30
+            <time itemprop="dateCreated" datetime="2016-07-12T00:48:23+08:00" content="2016-07-12">
+              2016-07-12
             </time>
           </span>
 
@@ -284,8 +290,8 @@ AT91Bootstrap負責相關的硬體配置">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/06/30/sama5d3_boot_sequence/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/30/sama5d3_boot_sequence/" itemprop="commentsCount"></span>
+                <a href="/2016/07/12/vim_to_si/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/12/vim_to_si/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -308,24 +314,48 @@ AT91Bootstrap負責相關的硬體配置">
       
 
       
-        <p>Sama5d3的boot sequence主要分為三個階段</p>
+        <h2 id="ctags"><a href="#ctags" class="headerlink" title="ctags"></a>ctags</h2><p>ctags可以在函式、變數之間自由進行切換，例如某主函式call了funca()，ctags可以直接跳到funca的函式裡面、也可使用在變數上</p>
 <ul>
-<li>ROM code</li>
-<li>AT91Bootstrap</li>
-<li>U-Boot</li>
+<li><strong>安裝</strong></li>
 </ul>
-<h2 id="Boot"><a href="#Boot" class="headerlink" title="Boot"></a>Boot</h2><p>開機的流程如下圖</p>
+<p>第一步先安裝ctags</p>
+<pre><code>sudo apt-get install ctags
+or
+sudo apt-get install exuberant-ctags
+</code></pre><ul>
+<li><strong>使用</strong></li>
+</ul>
+<p>進入程式目錄當中，若是多層的目錄則進到最上層的目錄，接著輸入</p>
+<pre><code>ctgs -R
+</code></pre><p>接著必須讓vim知道tags需要到哪裡找到，先用vim打開vimrc，之後把下面第二段的資訊加進去</p>
+<pre><code>vim ~/.vimrc
+set tags=./tags,./TAGS,tags;~,TAGS;~
+</code></pre><p>用vim進到.c .h檔之後移到函式或變數上即可使用快捷鍵找到該函式或變數的定義，也可跳回到使用此函式的地方</p>
+<pre><code>&quot;跳至該函式或變數定義
+Ctrl + ]
+&quot;跳回使用此函式或變數處
+Ctrl + t
+</code></pre><h2 id="cscope"><a href="#cscope" class="headerlink" title="cscope"></a>cscope</h2><p>cscope可以查詢函式或變數在哪些地方被使用過，或是函式當中使用了哪些函式</p>
+<ul>
+<li><strong>安裝</strong></li>
+</ul>
+<p>第一步先安裝cscope</p>
+<pre><code>sudo apt-get install cscope
+</code></pre><ul>
+<li><strong>使用</strong></li>
+</ul>
+<p>進入程式目錄當中，若是多層的目錄則進到最上層的目錄，接著輸入</p>
+<pre><code>cscope -Rbqk
+</code></pre><p>參數說明如下</p>
 <ol>
-<li>ROM code先確認目前是由何種方式boot(Flash or SD card)，若選定的存取裝置中存在AT91Bootstrap，則ROM code會負責將此段二進位檔讀取一份到SRAM，接著跳過去</li>
-<li>AT91Bootstrap負責相關的硬體配置，另外也必須將存取裝置中的U-Boot/barebox讀取一份到SDRAM/DDRAM，接著跳過去</li>
-<li>U-Boot負責將Kernel從儲存裝置讀取一份到SDRAM/DDRAM，之後即開始執行Kernel</li>
+<li>R : 將目錄及子目錄底下的所有文件都建立索引</li>
+<li>b : 僅建立關聯數據庫，不導入使用者介面</li>
+<li>q : 建立cscope.in.out和cscope.po.out，可增快搜尋速度</li>
+<li>k : 不搜尋預設會include進來的函式(/usr/include) </li>
 </ol>
-<p><img src="/images/boot_sequence.png" alt=""></p>
-<p>一般Kernel會是Linux kernel，但也可以在bootstrap設定好相關硬體後載入其它OS，甚至沒有OS直接進入一無窮的while，照順序性的執行任務</p>
-<p>也可以在Bootstrap時只設定需使用到的硬體，接著直接執行相關任務，也就是說從ROM code跳到RAM之後就開始執行任務</p>
-<p>當然還有各式各樣的不同應用，使用者只要知道當ROM code結束之後會跳到SRAM開始執行程式，其它端看需求使用</p>
-<h2 id="Memory-map"><a href="#Memory-map" class="headerlink" title="Memory map"></a>Memory map</h2><p>下圖為Sama5d3的儲存裝置配置圖，有了這張圖即可得知需把各段的程式碼放置何處，例如AT91Bootstrap就要放在offset 0x000000的地方，而U-Boot則需放在0x040000</p>
-<p><img src="/images/memory_map.png" alt=""></p>
+<p>進入vim的一般指令模式之後必須將cscope.out加入</p>
+<pre><code>:cs add cscope.out
+</code></pre><p>為了避免每次使用都必須重複輸入，因此可將此段加入vimrc裡，讓vim自動執行，另外cscope的官方網站也提供了建議的vimrc設定<br><a href="http://cscope.sourceforge.net/cscope_maps.vim" target="_blank" rel="external">http://cscope.sourceforge.net/cscope_maps.vim</a></p>
 
       
     </div>
@@ -347,7 +377,7 @@ AT91Bootstrap負責相關的硬體配置">
       
         <div class="post-tags">
           
-            <a href="/tags/Sama5d3-Xplained/" rel="tag">#Sama5d3-Xplained</a>
+            <a href="/tags/Linux/" rel="tag">#Linux</a>
           
         </div>
       
@@ -356,17 +386,13 @@ AT91Bootstrap負責相關的硬體配置">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/29/gets_fgets/" rel="next" title="[C語言] - gets()設計缺陷">
-                <i class="fa fa-chevron-left"></i> [C語言] - gets()設計缺陷
+              <a href="/2016/07/06/c_func_return_ptr/" rel="next" title="[C語言] - function returning a pointer">
+                <i class="fa fa-chevron-left"></i> [C語言] - function returning a pointer
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/01/sama5d3_boot_strap/" rel="prev" title="[Atmel][Sama5d3-xp] - 簡介Bootstrap">
-                [Atmel][Sama5d3-xp] - 簡介Bootstrap <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -480,7 +506,7 @@ AT91Bootstrap負責相關的硬體配置">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Boot"><span class="nav-number">1.</span> <span class="nav-text">Boot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memory-map"><span class="nav-number">2.</span> <span class="nav-text">Memory map</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ctags"><span class="nav-number">1.</span> <span class="nav-text">ctags</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cscope"><span class="nav-number">2.</span> <span class="nav-text">cscope</span></a></li></ol></div>
             
           </div>
         </section>
@@ -600,9 +626,9 @@ AT91Bootstrap負責相關的硬體配置">
 
     <script type="text/javascript">
       var disqus_shortname = 'ivan7645';
-      var disqus_identifier = '2016/06/30/sama5d3_boot_sequence/';
-      var disqus_title = '[Atmel][Sama5d3-xp] - Boot sequence';
-      var disqus_url = 'http://ivan7645.github.com/2016/06/30/sama5d3_boot_sequence/';
+      var disqus_identifier = '2016/07/12/vim_to_si/';
+      var disqus_title = '[Linux] - 將vim打造成source insight';
+      var disqus_url = 'http://ivan7645.github.com/2016/07/12/vim_to_si/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
