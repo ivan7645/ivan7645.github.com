@@ -326,6 +326,30 @@ Ctrl + t
 <p>進入vim的一般指令模式之後必須將cscope.out加入</p>
 <pre><code>:cs add cscope.out
 </code></pre><p>為了避免每次使用都必須重複輸入，因此可將此段加入vimrc裡，讓vim自動執行，另外cscope的官方網站也提供了建議的vimrc設定<br><a href="http://cscope.sourceforge.net/cscope_maps.vim" target="_blank" rel="external">http://cscope.sourceforge.net/cscope_maps.vim</a></p>
+<p>我挑了部分較常使用的加入vimrc</p>
+<pre><code>vim ~/.vimrc
+
+&quot;以下設定放在vimrc，建議自行參考上述連結加入註解
+set cscopetag
+set csto=0
+
+if filereadable(&quot;cscope.out&quot;)
+   cs add cscope.out   
+elseif $CSCOPE_DB != &quot;&quot;
+    cs add $CSCOPE_DB
+endif
+set cscopeverbose
+
+nmap zs :cs find s &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR&gt;
+nmap zg :cs find g &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR&gt;
+nmap zc :cs find c &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR&gt;
+nmap zt :cs find t &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR&gt;
+nmap ze :cs find e &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR&gt;
+nmap zf :cs find f &lt;C-R&gt;=expand(&quot;&lt;cfile&gt;&quot;)&lt;CR&gt;&lt;CR&gt;
+nmap zi :cs find i ^&lt;C-R&gt;=expand(&quot;&lt;cfile&gt;&quot;)&lt;CR&gt;$&lt;CR&gt;
+nmap zd :cs find d &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR&gt;
+</code></pre><p>其中最後的nmap部分為快捷鍵，其中的第一行指的是可使用zs取代在vim裡輸入<code>:cs find s</code>的指令，後面依此類拖</p>
+<p>最後附上各指令的用途</p>
 
           
         
