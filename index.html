@@ -326,11 +326,8 @@ Ctrl + t
 <p>進入vim的一般指令模式之後必須將cscope.out加入</p>
 <pre><code>:cs add cscope.out
 </code></pre><p>為了避免每次使用都必須重複輸入，因此可將此段加入vimrc裡，讓vim自動執行，另外cscope的官方網站也提供了建議的vimrc設定<br><a href="http://cscope.sourceforge.net/cscope_maps.vim" target="_blank" rel="external">http://cscope.sourceforge.net/cscope_maps.vim</a></p>
-<p>我挑了部分較常使用的加入vimrc</p>
-<pre><code>vim ~/.vimrc
-
-&quot;以下設定放在vimrc，建議自行參考上述連結加入註解
-set cscopetag
+<p>我挑了部分較常使用的加入vimrc<code>vim ~/.vimrc</code>，將以下設定加入vimrc，另外建議自行將註解加入</p>
+<pre><code>set cscopetag
 set csto=0
 
 if filereadable(&quot;cscope.out&quot;)
@@ -348,8 +345,24 @@ nmap ze :cs find e &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR
 nmap zf :cs find f &lt;C-R&gt;=expand(&quot;&lt;cfile&gt;&quot;)&lt;CR&gt;&lt;CR&gt;
 nmap zi :cs find i ^&lt;C-R&gt;=expand(&quot;&lt;cfile&gt;&quot;)&lt;CR&gt;$&lt;CR&gt;
 nmap zd :cs find d &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR&gt;
-</code></pre><p>其中最後的nmap部分為快捷鍵，其中的第一行指的是可使用zs取代在vim裡輸入<code>:cs find s</code>的指令，後面依此類拖</p>
+</code></pre><p>其中最後的nmap部分為快捷鍵，其中的第一行指的是可使用zs取代在vim裡輸入<code>:cs find s {name}</code>的指令，後面依此類拖<br>官網給的設定檔快捷鍵為Ctrl+/+s的組合，不過我是用VIM7.4，對於三個以上的組合鍵似乎有使用上的問題，這部分還沒找到解決方式，因此就先用兩個的組合鍵</p>
 <p>最後附上各指令的用途</p>
+<ol>
+<li>:cs find s {name} : 找出C語言name的符號</li>
+<li>:cs find g {name} : 找出name定義的地方</li>
+<li>:cs find c {name} : 找出使用name的地方</li>
+<li>:cs find t {name} : 找出name的字串</li>
+<li>:cs find e {name} : 相當於egrep功能，但速度更佳</li>
+<li>:cs find f {name} : 尋找檔案</li>
+<li>:cs find i {name} : 尋找include此檔案的檔案</li>
+<li>:cs find d {name} : 尋找name裡面使用到的函式</li>
+</ol>
+<h2 id="taglist"><a href="#taglist" class="headerlink" title="taglist"></a>taglist</h2><p>taglist可在左側切出一塊區塊，裡面顯示此檔案裡的macro，global variable，函式等資訊，且會隨著瀏覽到哪個地方便以不同顏色標示</p>
+<ul>
+<li><strong>安裝</strong></li>
+</ul>
+<p>下載plugin file，下載地址如下，請自行選擇最新版本下載</p>
+<p><a href="http://sourceforge.net/projects/vim-taglist/files/vim-taglist" target="_blank" rel="external">http://sourceforge.net/projects/vim-taglist/files/vim-taglist</a></p>
 
           
         
