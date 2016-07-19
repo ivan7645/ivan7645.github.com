@@ -114,7 +114,7 @@ sudo apt-get install exuberant-ctags
 
 進入程式目錄當中，若是多層的目錄則進到最上層的目錄，接著輸入
 ctg">
-<meta property="og:updated_time" content="2016-07-18T16:55:56.000Z">
+<meta property="og:updated_time" content="2016-07-19T11:16:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Linux] - 將vim打造成source insight">
 <meta name="twitter:description" content="ctagsctags可以在函式、變數之間自由進行切換，例如某主函式call了funca()，ctags可以直接跳到funca的函式裡面、也可使用在變數上
@@ -387,13 +387,39 @@ nmap zd :cs find d &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR
 <li>:cs find i {name} : 尋找include此檔案的檔案</li>
 <li>:cs find d {name} : 尋找name裡面使用到的函式</li>
 </ol>
-<h2 id="taglist"><a href="#taglist" class="headerlink" title="taglist"></a>taglist</h2><p>taglist可在左側切出一塊區塊，裡面顯示此檔案裡的macro，global variable，函式等資訊，且會隨著瀏覽到哪個地方便以不同顏色標示</p>
+<h2 id="taglist"><a href="#taglist" class="headerlink" title="taglist"></a>taglist</h2><p>taglist可在切出一區塊，顯示此檔案裡的macro，global variable，函式等資訊，且會隨著瀏覽到哪個地方便以不同顏色標示</p>
 <ul>
 <li><strong>安裝</strong></li>
 </ul>
 <p>下載plugin file，下載地址如下，請自行選擇最新版本下載</p>
 <p><a href="http://sourceforge.net/projects/vim-taglist/files/vim-taglist" target="_blank" rel="external">http://sourceforge.net/projects/vim-taglist/files/vim-taglist</a></p>
-
+<p>將plugin/taglist.vim複製到~/.vim/plugin/，doc/taglist.txt複製到~/.vim/doc</p>
+<p>可在~/.vimrc裡配置相關設定，其他配置選項請參考官網說明</p>
+<pre><code>nnoremap&lt;silent&gt;&lt;F8&gt; :TlistToggle&lt;CR&gt;&lt;CR&gt;
+let Tlist_Show_One_File=1
+let Tlist_Exit_OnlyWindow=1
+set ut=100
+</code></pre><ol>
+<li>nnoremap : 將F8設為開啟taglist的快捷鍵</li>
+<li>Tlist_Show_One_File : 只顯示當下瀏覽檔案的func，不顯示之前瀏覽的檔案</li>
+<li>Tlist_Exit_OnlyWindow : 如果taglist區塊是最後一個，則退出vim</li>
+<li>ut=100 : taglist會標示目前在操作哪個function or variable，但更新速度很慢，這裡把更新速度設成100ms</li>
+</ol>
+<h2 id="nerdtree"><a href="#nerdtree" class="headerlink" title="nerdtree"></a>nerdtree</h2><p>NERD tree可切出一區塊，顯示根目錄開始的檔案結構，且可由list直接跳到選取的檔案</p>
+<ul>
+<li><strong>安裝</strong></li>
+</ul>
+<p>下載plugin file，下載地址如下，請自行選擇最新版本下載</p>
+<p><a href="http://www.vim.org/scripts/script.php?script_id=1658" target="_blank" rel="external">http://www.vim.org/scripts/script.php?script_id=1658</a></p>
+<p>將plugin/NERD_tree.vim複製到~/.vim/plugin/，doc/NERD_tree.txt複製到~/.vim/doc<br>剩下的資料夾autoload, lib, nerdtree_plugin, syntax全部複製到~/.vim底下</p>
+<p>可在~/.vimrc裡配置相關設定，其他配置選項請參考官網說明</p>
+<pre><code>nnoremap&lt;silent&gt;&lt;F9&gt; :NERDTreeFind&lt;CR&gt;&lt;CR&gt;
+let NERDTreeWinPos=1
+</code></pre><ol>
+<li>nnoremap : 將F9設為開啟nerdtree的快捷鍵</li>
+<li>NERDTreeWinPos : 將nerdtree區塊放在右邊</li>
+</ol>
+<h2 id="SrcExpl-Source-Explorer"><a href="#SrcExpl-Source-Explorer" class="headerlink" title="SrcExpl(Source Explorer)"></a>SrcExpl(Source Explorer)</h2>
       
     </div>
 
@@ -543,7 +569,7 @@ nmap zd :cs find d &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ctags"><span class="nav-number">1.</span> <span class="nav-text">ctags</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cscope"><span class="nav-number">2.</span> <span class="nav-text">cscope</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#taglist"><span class="nav-number">3.</span> <span class="nav-text">taglist</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ctags"><span class="nav-number">1.</span> <span class="nav-text">ctags</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cscope"><span class="nav-number">2.</span> <span class="nav-text">cscope</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#taglist"><span class="nav-number">3.</span> <span class="nav-text">taglist</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nerdtree"><span class="nav-number">4.</span> <span class="nav-text">nerdtree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SrcExpl-Source-Explorer"><span class="nav-number">5.</span> <span class="nav-text">SrcExpl(Source Explorer)</span></a></li></ol></div>
             
           </div>
         </section>
