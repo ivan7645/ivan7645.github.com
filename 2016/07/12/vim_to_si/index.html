@@ -96,7 +96,7 @@ sudo apt-get install exuberant-ctags
 使用
 
 進入程式目錄當中，若是多層的目錄則進到最上層的目錄，接著輸入
-ctg">
+cta">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Linux] - 將vim打造成source insight">
 <meta property="og:url" content="http://ivan7645.github.com/2016/07/12/vim_to_si/index.html">
@@ -113,8 +113,8 @@ sudo apt-get install exuberant-ctags
 使用
 
 進入程式目錄當中，若是多層的目錄則進到最上層的目錄，接著輸入
-ctg">
-<meta property="og:updated_time" content="2016-07-19T11:16:44.000Z">
+cta">
+<meta property="og:updated_time" content="2016-07-19T16:43:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Linux] - 將vim打造成source insight">
 <meta name="twitter:description" content="ctagsctags可以在函式、變數之間自由進行切換，例如某主函式call了funca()，ctags可以直接跳到funca的函式裡面、也可使用在變數上
@@ -129,7 +129,7 @@ sudo apt-get install exuberant-ctags
 使用
 
 進入程式目錄當中，若是多層的目錄則進到最上層的目錄，接著輸入
-ctg">
+cta">
 
 
 
@@ -326,7 +326,7 @@ sudo apt-get install exuberant-ctags
 <li><strong>使用</strong></li>
 </ul>
 <p>進入程式目錄當中，若是多層的目錄則進到最上層的目錄，接著輸入</p>
-<pre><code>ctgs -R
+<pre><code>ctags -R
 </code></pre><p>接著必須讓vim知道tags需要到哪裡找到，先用vim打開vimrc，之後把下面第二段的資訊加進去</p>
 <pre><code>vim ~/.vimrc
 set tags=./tags,./TAGS,tags;~,TAGS;~
@@ -395,7 +395,7 @@ nmap zd :cs find d &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR
 <p><a href="http://sourceforge.net/projects/vim-taglist/files/vim-taglist" target="_blank" rel="external">http://sourceforge.net/projects/vim-taglist/files/vim-taglist</a></p>
 <p>將plugin/taglist.vim複製到~/.vim/plugin/，doc/taglist.txt複製到~/.vim/doc</p>
 <p>可在~/.vimrc裡配置相關設定，其他配置選項請參考官網說明</p>
-<pre><code>nnoremap&lt;silent&gt;&lt;F8&gt; :TlistToggle&lt;CR&gt;&lt;CR&gt;
+<pre><code>nnoremap &lt;silent&gt;&lt;F8&gt; :TlistToggle&lt;CR&gt;&lt;CR&gt;
 let Tlist_Show_One_File=1
 let Tlist_Exit_OnlyWindow=1
 set ut=100
@@ -413,13 +413,20 @@ set ut=100
 <p><a href="http://www.vim.org/scripts/script.php?script_id=1658" target="_blank" rel="external">http://www.vim.org/scripts/script.php?script_id=1658</a></p>
 <p>將plugin/NERD_tree.vim複製到~/.vim/plugin/，doc/NERD_tree.txt複製到~/.vim/doc<br>剩下的資料夾autoload, lib, nerdtree_plugin, syntax全部複製到~/.vim底下</p>
 <p>可在~/.vimrc裡配置相關設定，其他配置選項請參考官網說明</p>
-<pre><code>nnoremap&lt;silent&gt;&lt;F9&gt; :NERDTreeFind&lt;CR&gt;&lt;CR&gt;
+<pre><code>nnoremap &lt;silent&gt;&lt;F9&gt; :NERDTreeFind&lt;CR&gt;&lt;CR&gt;
 let NERDTreeWinPos=1
 </code></pre><ol>
 <li>nnoremap : 將F9設為開啟nerdtree的快捷鍵</li>
 <li>NERDTreeWinPos : 將nerdtree區塊放在右邊</li>
 </ol>
-<h2 id="SrcExpl-Source-Explorer"><a href="#SrcExpl-Source-Explorer" class="headerlink" title="SrcExpl(Source Explorer)"></a>SrcExpl(Source Explorer)</h2>
+<h2 id="SrcExpl-Source-Explorer"><a href="#SrcExpl-Source-Explorer" class="headerlink" title="SrcExpl(Source Explorer)"></a>SrcExpl(Source Explorer)</h2><p>SrcExpl可以將當下function的定義顯示出來，或是將當下的變數宣告處顯示出來</p>
+<ul>
+<li><strong>安裝</strong></li>
+</ul>
+<p>使用git下載plugin檔</p>
+<pre><code>git clone https://github.com/wesleyche/SrcExpl
+</code></pre><p>將plugin/srcexpl.vim複製到~/.vim/plugin/，doc/srcexpl.txt複製到~/.vim/doc</p>
+
       
     </div>
 
