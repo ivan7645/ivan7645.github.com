@@ -84,52 +84,24 @@
 
 
 
-<meta name="description" content="ctagsctags可以在函式、變數之間自由進行切換，例如某主函式call了funca()，ctags可以直接跳到funca的函式裡面、也可使用在變數上
-
-安裝
-
-第一步先安裝ctags
-sudo apt-get install ctags
-or
-sudo apt-get install exuberant-ctags
-
-使用
-
-進入程式目錄當中，若是多層的目錄則進到最上層的目錄，接著輸入
-cta">
+<meta name="description" content="vim是套在Linux上非常好用的編輯軟體，但在trace code的能力上卻比不上Windows上的source insight，但我們可以另外安裝套件，讓vim接近於source insight的使用方式
+以下使用了ctags + cscope + taglist + nerdtree + srcexpl + trinity來達成此目標
+ctagsctags可以在函式、變數之間自由進行切換，例">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Linux] - 將vim打造成source insight">
 <meta property="og:url" content="http://ivan7645.github.com/2016/07/12/vim_to_si/index.html">
 <meta property="og:site_name" content="Ivan’s Blog">
-<meta property="og:description" content="ctagsctags可以在函式、變數之間自由進行切換，例如某主函式call了funca()，ctags可以直接跳到funca的函式裡面、也可使用在變數上
-
-安裝
-
-第一步先安裝ctags
-sudo apt-get install ctags
-or
-sudo apt-get install exuberant-ctags
-
-使用
-
-進入程式目錄當中，若是多層的目錄則進到最上層的目錄，接著輸入
-cta">
-<meta property="og:updated_time" content="2016-07-19T16:43:56.000Z">
+<meta property="og:description" content="vim是套在Linux上非常好用的編輯軟體，但在trace code的能力上卻比不上Windows上的source insight，但我們可以另外安裝套件，讓vim接近於source insight的使用方式
+以下使用了ctags + cscope + taglist + nerdtree + srcexpl + trinity來達成此目標
+ctagsctags可以在函式、變數之間自由進行切換，例">
+<meta property="og:image" content="http://ivan7645.github.com/images/trinity.png">
+<meta property="og:updated_time" content="2016-07-20T17:09:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Linux] - 將vim打造成source insight">
-<meta name="twitter:description" content="ctagsctags可以在函式、變數之間自由進行切換，例如某主函式call了funca()，ctags可以直接跳到funca的函式裡面、也可使用在變數上
-
-安裝
-
-第一步先安裝ctags
-sudo apt-get install ctags
-or
-sudo apt-get install exuberant-ctags
-
-使用
-
-進入程式目錄當中，若是多層的目錄則進到最上層的目錄，接著輸入
-cta">
+<meta name="twitter:description" content="vim是套在Linux上非常好用的編輯軟體，但在trace code的能力上卻比不上Windows上的source insight，但我們可以另外安裝套件，讓vim接近於source insight的使用方式
+以下使用了ctags + cscope + taglist + nerdtree + srcexpl + trinity來達成此目標
+ctagsctags可以在函式、變數之間自由進行切換，例">
+<meta name="twitter:image" content="http://ivan7645.github.com/images/trinity.png">
 
 
 
@@ -314,7 +286,9 @@ cta">
       
 
       
-        <h2 id="ctags"><a href="#ctags" class="headerlink" title="ctags"></a>ctags</h2><p>ctags可以在函式、變數之間自由進行切換，例如某主函式call了funca()，ctags可以直接跳到funca的函式裡面、也可使用在變數上</p>
+        <p>vim是套在Linux上非常好用的編輯軟體，但在trace code的能力上卻比不上Windows上的source insight，但我們可以另外安裝套件，讓vim接近於source insight的使用方式</p>
+<p>以下使用了ctags + cscope + taglist + nerdtree + srcexpl + trinity來達成此目標</p>
+<h2 id="ctags"><a href="#ctags" class="headerlink" title="ctags"></a>ctags</h2><p>ctags可以在函式、變數之間自由進行切換，例如某主函式call了funca()，ctags可以直接跳到funca的函式裡面、也可使用在變數上</p>
 <ul>
 <li><strong>安裝</strong></li>
 </ul>
@@ -394,13 +368,16 @@ nmap zd :cs find d &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR
 <p>下載plugin file，下載地址如下，請自行選擇最新版本下載</p>
 <p><a href="http://sourceforge.net/projects/vim-taglist/files/vim-taglist" target="_blank" rel="external">http://sourceforge.net/projects/vim-taglist/files/vim-taglist</a></p>
 <p>將plugin/taglist.vim複製到~/.vim/plugin/，doc/taglist.txt複製到~/.vim/doc</p>
+<ul>
+<li><strong>使用</strong></li>
+</ul>
 <p>可在~/.vimrc裡配置相關設定，其他配置選項請參考官網說明</p>
-<pre><code>nnoremap &lt;silent&gt;&lt;F8&gt; :TlistToggle&lt;CR&gt;&lt;CR&gt;
+<pre><code>nmap &lt;F8&gt; :TlistToggle&lt;CR&gt;&lt;CR&gt;
 let Tlist_Show_One_File=1
 let Tlist_Exit_OnlyWindow=1
 set ut=100
 </code></pre><ol>
-<li>nnoremap : 將F8設為開啟taglist的快捷鍵</li>
+<li>nmap : 將F8設為開啟taglist的快捷鍵</li>
 <li>Tlist_Show_One_File : 只顯示當下瀏覽檔案的func，不顯示之前瀏覽的檔案</li>
 <li>Tlist_Exit_OnlyWindow : 如果taglist區塊是最後一個，則退出vim</li>
 <li>ut=100 : taglist會標示目前在操作哪個function or variable，但更新速度很慢，這裡把更新速度設成100ms</li>
@@ -412,11 +389,14 @@ set ut=100
 <p>下載plugin file，下載地址如下，請自行選擇最新版本下載</p>
 <p><a href="http://www.vim.org/scripts/script.php?script_id=1658" target="_blank" rel="external">http://www.vim.org/scripts/script.php?script_id=1658</a></p>
 <p>將plugin/NERD_tree.vim複製到~/.vim/plugin/，doc/NERD_tree.txt複製到~/.vim/doc<br>剩下的資料夾autoload, lib, nerdtree_plugin, syntax全部複製到~/.vim底下</p>
+<ul>
+<li><strong>使用</strong></li>
+</ul>
 <p>可在~/.vimrc裡配置相關設定，其他配置選項請參考官網說明</p>
-<pre><code>nnoremap &lt;silent&gt;&lt;F9&gt; :NERDTreeFind&lt;CR&gt;&lt;CR&gt;
+<pre><code>nmap &lt;F9&gt; :NERDTreeFind&lt;CR&gt;&lt;CR&gt;
 let NERDTreeWinPos=1
 </code></pre><ol>
-<li>nnoremap : 將F9設為開啟nerdtree的快捷鍵</li>
+<li>nmap : 將F9設為開啟nerdtree的快捷鍵</li>
 <li>NERDTreeWinPos : 將nerdtree區塊放在右邊</li>
 </ol>
 <h2 id="SrcExpl-Source-Explorer"><a href="#SrcExpl-Source-Explorer" class="headerlink" title="SrcExpl(Source Explorer)"></a>SrcExpl(Source Explorer)</h2><p>SrcExpl可以將當下function的定義顯示出來，或是將當下的變數宣告處顯示出來</p>
@@ -426,6 +406,36 @@ let NERDTreeWinPos=1
 <p>使用git下載plugin檔</p>
 <pre><code>git clone https://github.com/wesleyche/SrcExpl
 </code></pre><p>將plugin/srcexpl.vim複製到~/.vim/plugin/，doc/srcexpl.txt複製到~/.vim/doc</p>
+<ul>
+<li><strong>使用</strong></li>
+</ul>
+<p>官方網站有詳細介紹在.vimrc可用的設定，這裡只列出我有用到的設定</p>
+<pre><code>nmap &lt;F10&gt; :SrcExplToggle&lt;CR&gt;
+let g:SrcExpl_pluginList = [
+    \&quot;__Tag_List__&quot;,
+    \&quot;_NERD_tree_&quot;
+    \
+]
+</code></pre><ol>
+<li>nmap : 將F10設為開啟srcexpl的快捷鍵</li>
+<li>若有安裝taglist or nerdtree則需輸入</li>
+</ol>
+<h2 id="trinity"><a href="#trinity" class="headerlink" title="trinity"></a>trinity</h2><p>trinity用來整合taglist, nerdtree, srcexpl，使可以一鍵開啟三個plgin的功能</p>
+<ul>
+<li><strong>安裝</strong></li>
+</ul>
+<p>使用git下載plugin檔</p>
+<pre><code>git clone https://github.com/wesleyche/Trinity
+</code></pre><p>將plugin/trinity.vim複製到~/.vim/plugin/</p>
+<ul>
+<li><strong>使用</strong></li>
+</ul>
+<p>接著設定vimrc</p>
+<pre><code>nmap &lt;F7&gt; :TrinityToggleAll
+</code></pre><ol>
+<li>nmap : 將F7設為一次打開taglist, nerdtree, srcexpl的快捷鍵</li>
+</ol>
+<p>一次打開之後，畫面如下<br><img src="/images/trinity.png" alt=""></p>
 
       
     </div>
@@ -576,7 +586,7 @@ let NERDTreeWinPos=1
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ctags"><span class="nav-number">1.</span> <span class="nav-text">ctags</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cscope"><span class="nav-number">2.</span> <span class="nav-text">cscope</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#taglist"><span class="nav-number">3.</span> <span class="nav-text">taglist</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nerdtree"><span class="nav-number">4.</span> <span class="nav-text">nerdtree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SrcExpl-Source-Explorer"><span class="nav-number">5.</span> <span class="nav-text">SrcExpl(Source Explorer)</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ctags"><span class="nav-number">1.</span> <span class="nav-text">ctags</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cscope"><span class="nav-number">2.</span> <span class="nav-text">cscope</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#taglist"><span class="nav-number">3.</span> <span class="nav-text">taglist</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nerdtree"><span class="nav-number">4.</span> <span class="nav-text">nerdtree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SrcExpl-Source-Explorer"><span class="nav-number">5.</span> <span class="nav-text">SrcExpl(Source Explorer)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#trinity"><span class="nav-number">6.</span> <span class="nav-text">trinity</span></a></li></ol></div>
             
           </div>
         </section>
