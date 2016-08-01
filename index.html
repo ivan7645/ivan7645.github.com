@@ -844,7 +844,20 @@ make sama5d3_xplainednf_uboot_defconfig
 <pre><code>make menuconfig
 </code></pre><p>最後輸入以下指令，會在最上層目錄中產生一個binaries資料夾，裡面包含了bin檔及elf檔，將bin檔放置flash當中的bootstrap位置即可在ROM code執行完成後，跳到此段程式執行</p>
 <pre><code>make CROSS_COMPILE=arm-linux-gnueabi-
-</code></pre>
+</code></pre><h2 id="燒錄到nandflash"><a href="#燒錄到nandflash" class="headerlink" title="燒錄到nandflash"></a>燒錄到nandflash</h2><p>建置完bootstrap之後可看到最上層目錄多出了一個binaries資料夾，裡面的sama5d3_xplained-nandflashboot-uboot-3.8.5.bin即是我們要燒錄到flah的檔案</p>
+<p>我們可以到atmel官網下載SAM-BA工具，檔名為SAM-BA 2.16 for Linux，下載完之後解壓縮可得到一sam-ba_cdc_linux資料夾，裡面的執行檔(sam-ba or sam-ba_64)即是我們要使用的工具</p>
+<p>首先先把NAND chip select(JP5)設為0接著RESET，若從UART看到<code>RomBoot</code>的log代表成功進入sam-ba監控模式，接著必須把JP5再設回1</p>
+<p>接下來要啟動sam-ba，正常打開應可看到Select connection有相關資訊，若沒有的話可能是權限問題，可以用sudo開啟此檔案</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./sam-ba</span><br></pre></td></tr></table></figure>
+<p>開啟後畫面如下，將板子選至at91sama5d3x-xplained後按Connect</p>
+<p><img src="/images/sam-ba_bootstrap.png" alt=""></p>
+<p>將標籤頁選至NandFlash，Scripts選擇Enable NandFlash，之後按Execute，沒看到紅色字代表成功</p>
+<p><img src="/images/sam-ba_bootstrap_2.png" alt=""></p>
+<p>現在要把bootstrap燒到nandflash裡了，將Scripts選至Send Boot File，之後按Execute再選擇bin檔，一樣沒看到紅色字代表成功</p>
+<p><img src="/images/sam-ba_bootstrap_3.png" alt=""></p>
+<p>現在bootstrap已經燒好了，可以將sam-ba關掉，且將板子RESET即可看到以下畫面代表成功執行bootstrap了</p>
+<p><img src="/images/bootstrap_log.png" alt=""></p>
+
           
         
       
