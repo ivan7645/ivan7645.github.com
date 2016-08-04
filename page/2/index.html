@@ -233,6 +233,136 @@
             
               
                 
+                <a class="post-title-link" href="/2016/05/31/c_const_star_star/" itemprop="url">
+                  [C語言] - char** 和 const char** 賦值問題
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">發表於</span>
+            <time itemprop="dateCreated" datetime="2016-05-31T17:20:19+08:00" content="2016-05-31">
+              2016-05-31
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/31/c_const_star_star/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/31/c_const_star_star/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在討論賦值問題以前，我們先看ANSI C標準6.3.16.1，包含了以下限制</p>
+<ol>
+<li>兩個操作都是指向有修飾符或無修飾符相容類型的指標</li>
+<li>左邊指標指向類型必須擁有右邊指標指向類型的所有修飾符</li>
+</ol>
+<h2 id="char-和-const-char-賦值"><a href="#char-和-const-char-賦值" class="headerlink" title="char* 和 const char* 賦值"></a>char* 和 const char* 賦值</h2><p>接著我們看一下下面這段程式碼</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">char *cp;</span><br><span class="line">const char *ccp;</span><br><span class="line">ccp = cp;</span><br><span class="line">cp = ccp;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>char* 型別為指到char型別的指標，且由const修飾</li>
+<li>const char* 型別為指到char型別的指標，沒有修飾符</li>
+</ul>
+<p>使用gcc編譯後會得到下面訊息，為什麼cp = ccp會有warning?原因如下</p>
+<p><img src="/images/const_char_star.png" alt=""></p>
+<ul>
+<li>ccp和cp皆為指到char型別的指標，只是ccp有const修飾符，符合上述ANSI C標準第一項</li>
+<li>ccp = cp左操作(const)擁有右操作(none)所有修飾符，符合上述標準第二項</li>
+<li>cp = ccp左操作(none)沒有擁有右操作(const)所有修飾符，違反上述標準第二項</li>
+</ul>
+<p>事實上這樣的限制也蠻好理解的，若是cp = ccp成立的話，那我們就可以用任意的指標修改一個經由const修飾過後的指標的值</p>
+<h2 id="char-和-const-char-賦值-1"><a href="#char-和-const-char-賦值-1" class="headerlink" title="char** 和 const char** 賦值"></a>char** 和 const char** 賦值</h2><p>接著我們看以下這段程式碼</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">char **cp;</span><br><span class="line">const char **ccp;</span><br><span class="line">ccp = cp;</span><br></pre></td></tr></table></figure>
+<p>使用gcc編譯後會得到下面訊息，為什麼多了一層的指標就無法順利編譯完成了呢?</p>
+<p><img src="/images/const_char_star_star.png" alt=""></p>
+<p>根據ANSI C標準6.1.2.5</p>
+<ul>
+<li>char** 型別為指向char型別指標的指標，沒有修飾符</li>
+<li>const char** 為指向有const修飾符指標的指標，沒有修飾符</li>
+</ul>
+<p>兩者指向的型別不一樣，違反了上述標準的第一項</p>
+<p><strong>Note</strong> : 部分編譯器並不遵守此項規範，但為了程式的可移植性，還是盡量避免這樣的用法</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/05/25/c-break/" itemprop="url">
                   [C語言] - switch使用探討
                 </a>
@@ -381,7 +511,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">文章</span>
             </a>
           </div>

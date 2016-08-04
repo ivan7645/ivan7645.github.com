@@ -233,6 +233,136 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/03/sama5d3_uboot/" itemprop="url">
+                  [Atmel][Sama5d3-xp] - 簡介U-Boot
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">發表於</span>
+            <time itemprop="dateCreated" datetime="2016-08-03T00:23:17+08:00" content="2016-08-03">
+              2016-08-03
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/03/sama5d3_uboot/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/08/03/sama5d3_uboot/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>對於Sama5d3這塊板子來說，uboot是在bootstrap之後執行的，可視為第三階段的bootloader，uboot使用的非常廣泛，尤其是在Linux的環境下，幾乎是所有開發者的優先選擇<br>uboot負責配置主要介面以及帶起kernel(也可以從bootstrap帶起kernel，但這不是一般狀況故不在此討論)</p>
+<h2 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h2><p>要build在開發版上跑的程式必須先有cross compiler，而sama5d3是ARM Cortex-A5的CPU，因此用的gcc如下</p>
+<pre><code>sudo apt-get install gcc-arm-linux-gnueabi
+</code></pre><p>安裝完cross compiler之後必須下載uboot的src code(當然必須先有git相關指令，這部份請自行安裝)</p>
+<pre><code>sudo apt-get git://github.com/linux4sam/u-boot-at91.git
+</code></pre><h2 id="建置程式"><a href="#建置程式" class="headerlink" title="建置程式"></a>建置程式</h2><p>因為Sama5d3預設本來就是跑Linux的，因此建置u-boot-at91過程和Linux的bootstrap/uboot基本上沒什麼太大的不同<br>你可以在抓下來的程式碼當中的configs資料夾內發現許多default configuration files<br>若要從flash boot輸入以下指令</p>
+<pre><code>make mrproper
+make sama5d3_xplained_nandflash_defconfig
+</code></pre><p>若要從SD/MMC card boot輸入以下指令</p>
+<pre><code>make mrproper
+make sama5d3_xplained_mmc_defconfig
+</code></pre><p>另外也可以使用以下指令進行產生客製化的.config檔，細部使用不在此篇敘述</p>
+<pre><code>make menuconfig
+</code></pre><p>最後輸入以下指令，會在最上層目錄看到u-boot.bin，將bin檔放置flash當中的u-boot位置即可在bootstrap執行完成後，跳到此段程式執行</p>
+<pre><code>make CROSS_COMPILE=arm-linux-gnueabi-
+</code></pre><h2 id="燒錄到nandflash"><a href="#燒錄到nandflash" class="headerlink" title="燒錄到nandflash"></a>燒錄到nandflash</h2><p>建置完u-boot之後可看到最上層目錄多出了一個u-boot.bin，即是我們要燒錄到flash的檔案</p>
+<p>我們可以到atmel官網下載SAM-BA工具，檔名為SAM-BA 2.16 for Linux，下載完之後解壓縮可得到sam-ba_cdc_linux資料夾，裡面的執行檔(sam-ba or sam-ba_64)即是我們要使用的工具</p>
+<p>首先先把NAND chip select(JP5)設為0接著RESET，若從UART看到<code>RomBoot</code>的log代表成功進入sam-ba監控模式，接著必須把JP5再設回1</p>
+<p>接下來要啟動sam-ba，正常打開應可看到Select connection有相關資訊，若沒有的話可能是權限問題，可以用sudo開啟此檔案</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./sam-ba</span><br></pre></td></tr></table></figure>
+<p>開啟後畫面如下，將板子選至at91sama5d3x-xplained後按Connect</p>
+<p><img src="/images/sam-ba_bootstrap.png" alt=""></p>
+<p>將標籤頁選至NandFlash，Scripts選擇Enable NandFlash，之後按Execute，沒看到紅色字代表成功</p>
+<p><img src="/images/sam-ba_bootstrap_2.png" alt=""></p>
+<p>在燒uboot前需先Enable OS PMECC parameters</p>
+<p><img src="/images/uboot2.png" alt=""></p>
+<p>接著就可以燒uboot了，先選擇Send File Name開啟要燒的u-boot.bin，接著將Address設為0x40000，最後按Send File，若沒看到紅字代表成功</p>
+<p><img src="/images/uboot.png" alt=""></p>
+<p>最後按RESET可以從UART看到log進入到uboot，且最終會停在可輸入指令的狀態(輸入?可顯示可使用的指令)</p>
+<p><img src="/images/uboot3.png" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/12/vim_to_si/" itemprop="url">
                   [Linux] - 將vim打造成source insight
                 </a>
@@ -1446,136 +1576,6 @@ make sama5d3_xplainednf_uboot_defconfig
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/31/c_const_star_star/" itemprop="url">
-                  [C語言] - char** 和 const char** 賦值問題
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">發表於</span>
-            <time itemprop="dateCreated" datetime="2016-05-31T17:20:19+08:00" content="2016-05-31">
-              2016-05-31
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/05/31/c_const_star_star/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/31/c_const_star_star/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在討論賦值問題以前，我們先看ANSI C標準6.3.16.1，包含了以下限制</p>
-<ol>
-<li>兩個操作都是指向有修飾符或無修飾符相容類型的指標</li>
-<li>左邊指標指向類型必須擁有右邊指標指向類型的所有修飾符</li>
-</ol>
-<h2 id="char-和-const-char-賦值"><a href="#char-和-const-char-賦值" class="headerlink" title="char* 和 const char* 賦值"></a>char* 和 const char* 賦值</h2><p>接著我們看一下下面這段程式碼</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">char *cp;</span><br><span class="line">const char *ccp;</span><br><span class="line">ccp = cp;</span><br><span class="line">cp = ccp;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>char* 型別為指到char型別的指標，且由const修飾</li>
-<li>const char* 型別為指到char型別的指標，沒有修飾符</li>
-</ul>
-<p>使用gcc編譯後會得到下面訊息，為什麼cp = ccp會有warning?原因如下</p>
-<p><img src="/images/const_char_star.png" alt=""></p>
-<ul>
-<li>ccp和cp皆為指到char型別的指標，只是ccp有const修飾符，符合上述ANSI C標準第一項</li>
-<li>ccp = cp左操作(const)擁有右操作(none)所有修飾符，符合上述標準第二項</li>
-<li>cp = ccp左操作(none)沒有擁有右操作(const)所有修飾符，違反上述標準第二項</li>
-</ul>
-<p>事實上這樣的限制也蠻好理解的，若是cp = ccp成立的話，那我們就可以用任意的指標修改一個經由const修飾過後的指標的值</p>
-<h2 id="char-和-const-char-賦值-1"><a href="#char-和-const-char-賦值-1" class="headerlink" title="char** 和 const char** 賦值"></a>char** 和 const char** 賦值</h2><p>接著我們看以下這段程式碼</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">char **cp;</span><br><span class="line">const char **ccp;</span><br><span class="line">ccp = cp;</span><br></pre></td></tr></table></figure>
-<p>使用gcc編譯後會得到下面訊息，為什麼多了一層的指標就無法順利編譯完成了呢?</p>
-<p><img src="/images/const_char_star_star.png" alt=""></p>
-<p>根據ANSI C標準6.1.2.5</p>
-<ul>
-<li>char** 型別為指向char型別指標的指標，沒有修飾符</li>
-<li>const char** 為指向有const修飾符指標的指標，沒有修飾符</li>
-</ul>
-<p>兩者指向的型別不一樣，違反了上述標準的第一項</p>
-<p><strong>Note</strong> : 部分編譯器並不遵守此項規範，但為了程式的可移植性，還是盡量避免這樣的用法</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1621,7 +1621,7 @@ make sama5d3_xplainednf_uboot_defconfig
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">文章</span>
             </a>
           </div>
