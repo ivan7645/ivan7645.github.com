@@ -233,6 +233,135 @@
             
               
                 
+                <a class="post-title-link" href="/2016/11/03/sama5d3_toolchain/" itemprop="url">
+                  [Atmel][Sama5d3-xp] - 由Crosstool-ng取得toolchain
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">發表於</span>
+            <time itemprop="dateCreated" datetime="2016-11-03T00:03:12+08:00" content="2016-11-03">
+              2016-11-03
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/03/sama5d3_toolchain/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/11/03/sama5d3_toolchain/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>一般在開發嵌入式系統時會先在主機端作開發，接著在主機端產生代碼後再放到目標板上執行程式，直接在主機端開發會有較好的開發效率<br>但一般主機端大部分是x86的系統，如果想要產生可以在ARM或是其他硬體架構可以執行的程式碼，就需要cross-compiler等相關工具的幫忙，而toolchain就像一個懶人包，裡面包含了特定硬體架構下要產生程式碼所需要用到的所有工具</p>
+<p>我們可以使用Crosstool-ng來得到需要的toolcahin</p>
+<h2 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h2><p>安裝ct-ng需要有以下package才可以安裝及編譯</p>
+<pre><code>sudo apt-get install autoconf automake libtool-bin libexpat1-dev libncurses5-dev bison flex patch curl cvs texinfo git bc build-essential subversion gawk python-dev gperf unzip pkg-config wget help2man
+</code></pre><p>不同版本的ct-ng所需的package有可能不完全相同，或是某些package已經停止支援必須使用替代的package，這部分可由印出來的log得知來增加或更新需要的package</p>
+<h2 id="下載安裝ct-ng"><a href="#下載安裝ct-ng" class="headerlink" title="下載安裝ct-ng"></a>下載安裝ct-ng</h2><p>我們可由github得到相關的檔案</p>
+<pre><code>git clone https://github.com/crosstool-ng/crosstool-ng.git
+cd crosstool-ng
+</code></pre><p>進入到ct-ng目錄之後即可以開始安裝，初始設定會將安裝路徑設在/usr/local/，也可以安裝在local端(目前所在的路徑)，我們選擇安裝在local端</p>
+<pre><code>autoreconf
+./configure --enable-local
+make
+make install
+</code></pre><p>ct-ng即可使用(因為是安裝在local端，所以必須在此路徑下使用)</p>
+<h2 id="配置toolchain"><a href="#配置toolchain" class="headerlink" title="配置toolchain"></a>配置toolchain</h2><p>在產生toolchain之前，我們必須先配置好我們需要的toolchain，如果想得知ct-ng可支援產生的toolchain可使用./ct-ng list-samples</p>
+<p>Sama5d3-Xplained使用的是ARM Cortex-A5的架構，因此直接輸入以下指令</p>
+<pre><code>./ct-ng arm-cortexa5-linux-uclibcgnueabihf
+</code></pre><p>也可以客製化的設定需要的功能</p>
+<pre><code>./ct-ng menuconfig
+</code></pre><ul>
+<li>Toolchain options裡面的Tuples’s alias可以設定使用cross compiler gcc時要下的指令，我們改成arm-linux來取代原本很長的arm-cortexa5-linux-uclibcgnueabihf</li>
+<li>打開c-library裡的Add support for IPV6</li>
+</ul>
+<h2 id="產生toolchain"><a href="#產生toolchain" class="headerlink" title="產生toolchain"></a>產生toolchain</h2><p>輸入指令</p>
+<pre><code>./ct-ng build
+</code></pre><p>等後一段不短的時間之後即可在home底下看到x-tools，裡面即是產生出來的toolchain，接著將bin資料夾的路徑export之後即可使用arm-linux-相關指令</p>
+<pre><code>export PATH=$PATH:/home/xxx/x-tools/arm-cortexa5-linux-uclibcgnueabihf/bin
+</code></pre><p>可輸入arm-linux-gcc確認是否可正常使用，若不想每次都重新export此bin檔也可將此段指令加入bashrc</p>
+<pre><code>vim ~/.bashrc
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/03/sama5d3_uboot/" itemprop="url">
                   [Atmel][Sama5d3-xp] - 簡介U-Boot
                 </a>
@@ -1463,119 +1592,6 @@ make sama5d3_xplainednf_uboot_defconfig
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/02/order_of_evaluation/" itemprop="url">
-                  [C語言] - 執行順序探討
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">發表於</span>
-            <time itemprop="dateCreated" datetime="2016-06-02T19:24:32+08:00" content="2016-06-02">
-              2016-06-02
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/02/order_of_evaluation/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/02/order_of_evaluation/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>C語言在作算術運算時會遵守先乘除後加減後加減的基本規則，而各種運算元也都有相對應的優先權(某些運算元的優先權並不符合直覺，因此對於不熟悉的運算盡量加大括號來限制運算順序)</p>
-<p>若非一般的運算，某些執行順序是屬於未定義的(undefined)</p>
-<h2 id="賦值順序"><a href="#賦值順序" class="headerlink" title="賦值順序"></a>賦值順序</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int a;</span><br><span class="line">int b = 1, c = 2;</span><br><span class="line">a = b = c;</span><br></pre></td></tr></table></figure>
-<p>此段程式只有賦值運算，因此無法從優先權判斷優先順序，必須從關聯性(Associativity)判斷，而賦值是右關聯性(right associativity)，也就是c會先賦值給b再賦值給a，因此a最終為2</p>
-<p>為了符合正常使用，一般的 + - * / 運算皆為左關聯性(left  associativity)運算，但像上述例子又是右關聯性運算，容易造成混淆，較好的作法則是將非一般使用的情況可以分開寫或加上大括號，以避免因為錯誤認知關聯性造成運算結果不如預期，例如上例應改為<code>b = c; a = b;</code>較佳</p>
-<h2 id="函式順序"><a href="#函式順序" class="headerlink" title="函式順序"></a>函式順序</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = f() + g() * h();</span><br></pre></td></tr></table></figure>
-<p>此運算會將g()和h()的回傳值相乘之後再加上f()的回傳值。但是g()和h()的執行順序則是未定義，可能g()先執行之後再執行h()，也可能h()先執行之後再執行g()，編譯器可根據狀況任意決定執行順序，若是這兩個函式皆會更改某一個全域變數，且根據此全域變數來決定回傳值的話，那麼執行順序不同會得到不同的結果</p>
-<h2 id="函式參數順序"><a href="#函式參數順序" class="headerlink" title="函式參數順序"></a>函式參數順序</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int a[] = &#123;1, 2, 3&#125;;</span><br><span class="line">int *pa;</span><br><span class="line"></span><br><span class="line">pa = &amp;a[0];</span><br><span class="line">printf(&quot;a[0] = %d\ta[1] = %d\ta[2] = %d\n&quot;,*(pa), *(pa++),*(++pa));</span><br></pre></td></tr></table></figure>
-<p>此段程式碼的 *(pa), *(pa++), *(++pa)的執行順序是未定義的，因此在不同的編譯器上有可能得到不同的結果，我們在同一部x86機器上先用VS2010編譯且執行得到以下結果</p>
-<p><img src="/images/func_para_undef_1.png" alt=""></p>
-<p>接著以同樣的機器在ubutu下使用gcc編譯可得到以下結果</p>
-<p><img src="/images/func_para_undef_2.png" alt=""></p>
-<p>由此可見非定義行為將會由compiler決定，大部分的未定義行為可視為coding上的錯誤</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1621,7 +1637,7 @@ make sama5d3_xplainednf_uboot_defconfig
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-count">13</span>
               <span class="site-state-item-name">文章</span>
             </a>
           </div>

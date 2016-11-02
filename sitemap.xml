@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://ivan7645.github.com/2016/11/03/sama5d3_toolchain/</loc>
+    
+    <lastmod>2016-11-02T16:05:22.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://ivan7645.github.com/2016/08/03/sama5d3_uboot/</loc>
     
     <lastmod>2016-08-04T16:30:51.000Z</lastmod>

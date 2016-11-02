@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="C語言," />
+  <meta name="keywords" content="Sama5d3-Xplained," />
 
 
 
@@ -84,43 +84,19 @@
 
 
 
-<meta name="description" content="在討論賦值問題以前，我們先看ANSI C標準6.3.16.1，包含了以下限制
-
-兩個操作都是指向有修飾符或無修飾符相容類型的指標
-左邊指標指向類型必須擁有右邊指標指向類型的所有修飾符
-
-char* 和 const char* 賦值接著我們看一下下面這段程式碼
-1234char *cp;const char *ccp;ccp = cp;cp = ccp;
-
-char* 型別為指到char型別的指標，">
+<meta name="description" content="一般在開發嵌入式系統時會先在主機端作開發，接著在主機端產生代碼後再放到目標板上執行程式，直接在主機端開發會有較好的開發效率但一般主機端大部分是x86的系統，如果想要產生可以在ARM或是其他硬體架構可以執行的程式碼，就需要cross-compiler等相關工具的幫忙，而toolchain就像一個懶人包，裡面包含了特定硬體架構下要產生程式碼所需要用到的所有工具
+我們可以使用Crosstool-ng來得">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[C語言] - char** 和 const char** 賦值問題">
-<meta property="og:url" content="http://ivan7645.github.com/2016/05/31/c_const_star_star/index.html">
+<meta property="og:title" content="[Atmel][Sama5d3-xp] - 由Crosstool-ng取得toolchain">
+<meta property="og:url" content="http://ivan7645.github.com/2016/11/03/sama5d3_toolchain/index.html">
 <meta property="og:site_name" content="Ivan’s Blog">
-<meta property="og:description" content="在討論賦值問題以前，我們先看ANSI C標準6.3.16.1，包含了以下限制
-
-兩個操作都是指向有修飾符或無修飾符相容類型的指標
-左邊指標指向類型必須擁有右邊指標指向類型的所有修飾符
-
-char* 和 const char* 賦值接著我們看一下下面這段程式碼
-1234char *cp;const char *ccp;ccp = cp;cp = ccp;
-
-char* 型別為指到char型別的指標，">
-<meta property="og:image" content="http://ivan7645.github.com/images/const_char_star.png">
-<meta property="og:image" content="http://ivan7645.github.com/images/const_char_star_star.png">
-<meta property="og:updated_time" content="2016-06-14T09:59:56.000Z">
+<meta property="og:description" content="一般在開發嵌入式系統時會先在主機端作開發，接著在主機端產生代碼後再放到目標板上執行程式，直接在主機端開發會有較好的開發效率但一般主機端大部分是x86的系統，如果想要產生可以在ARM或是其他硬體架構可以執行的程式碼，就需要cross-compiler等相關工具的幫忙，而toolchain就像一個懶人包，裡面包含了特定硬體架構下要產生程式碼所需要用到的所有工具
+我們可以使用Crosstool-ng來得">
+<meta property="og:updated_time" content="2016-11-02T16:05:22.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[C語言] - char** 和 const char** 賦值問題">
-<meta name="twitter:description" content="在討論賦值問題以前，我們先看ANSI C標準6.3.16.1，包含了以下限制
-
-兩個操作都是指向有修飾符或無修飾符相容類型的指標
-左邊指標指向類型必須擁有右邊指標指向類型的所有修飾符
-
-char* 和 const char* 賦值接著我們看一下下面這段程式碼
-1234char *cp;const char *ccp;ccp = cp;cp = ccp;
-
-char* 型別為指到char型別的指標，">
-<meta name="twitter:image" content="http://ivan7645.github.com/images/const_char_star.png">
+<meta name="twitter:title" content="[Atmel][Sama5d3-xp] - 由Crosstool-ng取得toolchain">
+<meta name="twitter:description" content="一般在開發嵌入式系統時會先在主機端作開發，接著在主機端產生代碼後再放到目標板上執行程式，直接在主機端開發會有較好的開發效率但一般主機端大部分是x86的系統，如果想要產生可以在ARM或是其他硬體架構可以執行的程式碼，就需要cross-compiler等相關工具的幫忙，而toolchain就像一個懶人包，裡面包含了特定硬體架構下要產生程式碼所需要用到的所有工具
+我們可以使用Crosstool-ng來得">
 
 
 
@@ -138,7 +114,7 @@ char* 型別為指到char型別的指標，">
   };
 </script>
 
-  <title> [C語言] - char** 和 const char** 賦值問題 | Ivan’s Blog </title>
+  <title> [Atmel][Sama5d3-xp] - 由Crosstool-ng取得toolchain | Ivan’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
@@ -258,7 +234,7 @@ char* 型別為指到char型別的指標，">
             
             
               
-                [C語言] - char** 和 const char** 賦值問題
+                [Atmel][Sama5d3-xp] - 由Crosstool-ng取得toolchain
               
             
           </h1>
@@ -270,8 +246,8 @@ char* 型別為指到char型別的指標，">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">發表於</span>
-            <time itemprop="dateCreated" datetime="2016-05-31T17:20:19+08:00" content="2016-05-31">
-              2016-05-31
+            <time itemprop="dateCreated" datetime="2016-11-03T00:03:12+08:00" content="2016-11-03">
+              2016-11-03
             </time>
           </span>
 
@@ -281,8 +257,8 @@ char* 型別為指到char型別的指標，">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/05/31/c_const_star_star/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/31/c_const_star_star/" itemprop="commentsCount"></span>
+                <a href="/2016/11/03/sama5d3_toolchain/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/11/03/sama5d3_toolchain/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -305,37 +281,36 @@ char* 型別為指到char型別的指標，">
       
 
       
-        <p>在討論賦值問題以前，我們先看ANSI C標準6.3.16.1，包含了以下限制</p>
-<ol>
-<li>兩個操作都是指向有修飾符或無修飾符相容類型的指標</li>
-<li>左邊指標指向類型必須擁有右邊指標指向類型的所有修飾符</li>
-</ol>
-<h2 id="char-和-const-char-賦值"><a href="#char-和-const-char-賦值" class="headerlink" title="char* 和 const char* 賦值"></a>char* 和 const char* 賦值</h2><p>接著我們看一下下面這段程式碼</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">char *cp;</span><br><span class="line">const char *ccp;</span><br><span class="line">ccp = cp;</span><br><span class="line">cp = ccp;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>char* 型別為指到char型別的指標，且由const修飾</li>
-<li>const char* 型別為指到char型別的指標，沒有修飾符</li>
+        <p>一般在開發嵌入式系統時會先在主機端作開發，接著在主機端產生代碼後再放到目標板上執行程式，直接在主機端開發會有較好的開發效率<br>但一般主機端大部分是x86的系統，如果想要產生可以在ARM或是其他硬體架構可以執行的程式碼，就需要cross-compiler等相關工具的幫忙，而toolchain就像一個懶人包，裡面包含了特定硬體架構下要產生程式碼所需要用到的所有工具</p>
+<p>我們可以使用Crosstool-ng來得到需要的toolcahin</p>
+<h2 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h2><p>安裝ct-ng需要有以下package才可以安裝及編譯</p>
+<pre><code>sudo apt-get install autoconf automake libtool-bin libexpat1-dev libncurses5-dev bison flex patch curl cvs texinfo git bc build-essential subversion gawk python-dev gperf unzip pkg-config wget help2man
+</code></pre><p>不同版本的ct-ng所需的package有可能不完全相同，或是某些package已經停止支援必須使用替代的package，這部分可由印出來的log得知來增加或更新需要的package</p>
+<h2 id="下載安裝ct-ng"><a href="#下載安裝ct-ng" class="headerlink" title="下載安裝ct-ng"></a>下載安裝ct-ng</h2><p>我們可由github得到相關的檔案</p>
+<pre><code>git clone https://github.com/crosstool-ng/crosstool-ng.git
+cd crosstool-ng
+</code></pre><p>進入到ct-ng目錄之後即可以開始安裝，初始設定會將安裝路徑設在/usr/local/，也可以安裝在local端(目前所在的路徑)，我們選擇安裝在local端</p>
+<pre><code>autoreconf
+./configure --enable-local
+make
+make install
+</code></pre><p>ct-ng即可使用(因為是安裝在local端，所以必須在此路徑下使用)</p>
+<h2 id="配置toolchain"><a href="#配置toolchain" class="headerlink" title="配置toolchain"></a>配置toolchain</h2><p>在產生toolchain之前，我們必須先配置好我們需要的toolchain，如果想得知ct-ng可支援產生的toolchain可使用./ct-ng list-samples</p>
+<p>Sama5d3-Xplained使用的是ARM Cortex-A5的架構，因此直接輸入以下指令</p>
+<pre><code>./ct-ng arm-cortexa5-linux-uclibcgnueabihf
+</code></pre><p>也可以客製化的設定需要的功能</p>
+<pre><code>./ct-ng menuconfig
+</code></pre><ul>
+<li>Toolchain options裡面的Tuples’s alias可以設定使用cross compiler gcc時要下的指令，我們改成arm-linux來取代原本很長的arm-cortexa5-linux-uclibcgnueabihf</li>
+<li>打開c-library裡的Add support for IPV6</li>
 </ul>
-<p>使用gcc編譯後會得到下面訊息，為什麼cp = ccp會有warning?原因如下</p>
-<p><img src="/images/const_char_star.png" alt=""></p>
-<ul>
-<li>ccp和cp皆為指到char型別的指標，只是ccp有const修飾符，符合上述ANSI C標準第一項</li>
-<li>ccp = cp左操作(const)擁有右操作(none)所有修飾符，符合上述標準第二項</li>
-<li>cp = ccp左操作(none)沒有擁有右操作(const)所有修飾符，違反上述標準第二項</li>
-</ul>
-<p>事實上這樣的限制也蠻好理解的，若是cp = ccp成立的話，那我們就可以用任意的指標修改一個經由const修飾過後的指標的值</p>
-<h2 id="char-和-const-char-賦值-1"><a href="#char-和-const-char-賦值-1" class="headerlink" title="char** 和 const char** 賦值"></a>char** 和 const char** 賦值</h2><p>接著我們看以下這段程式碼</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">char **cp;</span><br><span class="line">const char **ccp;</span><br><span class="line">ccp = cp;</span><br></pre></td></tr></table></figure>
-<p>使用gcc編譯後會得到下面訊息，為什麼多了一層的指標就無法順利編譯完成了呢?</p>
-<p><img src="/images/const_char_star_star.png" alt=""></p>
-<p>根據ANSI C標準6.1.2.5</p>
-<ul>
-<li>char** 型別為指向char型別指標的指標，沒有修飾符</li>
-<li>const char** 為指向有const修飾符指標的指標，沒有修飾符</li>
-</ul>
-<p>兩者指向的型別不一樣，違反了上述標準的第一項</p>
-<p><strong>Note</strong> : 部分編譯器並不遵守此項規範，但為了程式的可移植性，還是盡量避免這樣的用法</p>
-
+<h2 id="產生toolchain"><a href="#產生toolchain" class="headerlink" title="產生toolchain"></a>產生toolchain</h2><p>輸入指令</p>
+<pre><code>./ct-ng build
+</code></pre><p>等後一段不短的時間之後即可在home底下看到x-tools，裡面即是產生出來的toolchain，接著將bin資料夾的路徑export之後即可使用arm-linux-相關指令</p>
+<pre><code>export PATH=$PATH:/home/xxx/x-tools/arm-cortexa5-linux-uclibcgnueabihf/bin
+</code></pre><p>可輸入arm-linux-gcc確認是否可正常使用，若不想每次都重新export此bin檔也可將此段指令加入bashrc</p>
+<pre><code>vim ~/.bashrc
+</code></pre>
       
     </div>
 
@@ -356,7 +331,7 @@ char* 型別為指到char型別的指標，">
       
         <div class="post-tags">
           
-            <a href="/tags/C語言/" rel="tag">#C語言</a>
+            <a href="/tags/Sama5d3-Xplained/" rel="tag">#Sama5d3-Xplained</a>
           
         </div>
       
@@ -365,17 +340,13 @@ char* 型別為指到char型別的指標，">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/05/25/c-break/" rel="next" title="[C語言] - switch使用探討">
-                <i class="fa fa-chevron-left"></i> [C語言] - switch使用探討
+              <a href="/2016/08/03/sama5d3_uboot/" rel="next" title="[Atmel][Sama5d3-xp] - 簡介U-Boot">
+                <i class="fa fa-chevron-left"></i> [Atmel][Sama5d3-xp] - 簡介U-Boot
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/06/02/order_of_evaluation/" rel="prev" title="[C語言] - 執行順序探討">
-                [C語言] - 執行順序探討 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -489,7 +460,7 @@ char* 型別為指到char型別的指標，">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#char-和-const-char-賦值"><span class="nav-number">1.</span> <span class="nav-text">char* 和 const char* 賦值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#char-和-const-char-賦值-1"><span class="nav-number">2.</span> <span class="nav-text">char** 和 const char** 賦值</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前置作業"><span class="nav-number">1.</span> <span class="nav-text">前置作業</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下載安裝ct-ng"><span class="nav-number">2.</span> <span class="nav-text">下載安裝ct-ng</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置toolchain"><span class="nav-number">3.</span> <span class="nav-text">配置toolchain</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#產生toolchain"><span class="nav-number">4.</span> <span class="nav-text">產生toolchain</span></a></li></ol></div>
             
           </div>
         </section>
@@ -609,9 +580,9 @@ char* 型別為指到char型別的指標，">
 
     <script type="text/javascript">
       var disqus_shortname = 'ivan7645';
-      var disqus_identifier = '2016/05/31/c_const_star_star/';
-      var disqus_title = '[C語言] - char** 和 const char** 賦值問題';
-      var disqus_url = 'http://ivan7645.github.com/2016/05/31/c_const_star_star/';
+      var disqus_identifier = '2016/11/03/sama5d3_toolchain/';
+      var disqus_title = '[Atmel][Sama5d3-xp] - 由Crosstool-ng取得toolchain';
+      var disqus_url = 'http://ivan7645.github.com/2016/11/03/sama5d3_toolchain/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
