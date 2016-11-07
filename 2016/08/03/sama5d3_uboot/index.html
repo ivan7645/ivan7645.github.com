@@ -97,7 +97,7 @@
 <meta property="og:image" content="http://ivan7645.github.com/images/uboot2.png">
 <meta property="og:image" content="http://ivan7645.github.com/images/uboot.png">
 <meta property="og:image" content="http://ivan7645.github.com/images/uboot3.png">
-<meta property="og:updated_time" content="2016-08-04T16:30:51.000Z">
+<meta property="og:updated_time" content="2016-11-07T15:57:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Atmel][Sama5d3-xp] - 簡介U-Boot">
 <meta name="twitter:description" content="對於Sama5d3這塊板子來說，uboot是在bootstrap之後執行的，可視為第三階段的bootloader，uboot使用的非常廣泛，尤其是在Linux的環境下，幾乎是所有開發者的優先選擇uboot負責配置主要介面以及帶起kernel(也可以從bootstrap帶起kernel，但這不是一般狀況故不在此討論)
@@ -292,7 +292,8 @@
 <pre><code>sudo apt-get install gcc-arm-linux-gnueabi
 </code></pre><p>安裝完cross compiler之後必須下載uboot的src code(當然必須先有git相關指令，這部份請自行安裝)</p>
 <pre><code>sudo apt-get git://github.com/linux4sam/u-boot-at91.git
-</code></pre><h2 id="建置程式"><a href="#建置程式" class="headerlink" title="建置程式"></a>建置程式</h2><p>因為Sama5d3預設本來就是跑Linux的，因此建置u-boot-at91過程和Linux的bootstrap/uboot基本上沒什麼太大的不同<br>你可以在抓下來的程式碼當中的configs資料夾內發現許多default configuration files<br>若要從flash boot輸入以下指令</p>
+</code></pre><p><strong>註1: 也可建立<a href="http://ivan7645.github.io/2016/11/03/sama5d3_toolchain/" target="_blank" rel="external">完整的toolchain</a>來得到cross-compile gcc</strong></p>
+<h2 id="建置程式"><a href="#建置程式" class="headerlink" title="建置程式"></a>建置程式</h2><p>因為Sama5d3預設本來就是跑Linux的，因此建置u-boot-at91過程和Linux的bootstrap/uboot基本上沒什麼太大的不同<br>你可以在抓下來的程式碼當中的configs資料夾內發現許多default configuration files<br>若要從flash boot輸入以下指令</p>
 <pre><code>make mrproper
 make sama5d3_xplained_nandflash_defconfig
 </code></pre><p>若要從SD/MMC card boot輸入以下指令</p>

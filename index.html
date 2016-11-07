@@ -418,7 +418,8 @@ make install
 <pre><code>sudo apt-get install gcc-arm-linux-gnueabi
 </code></pre><p>安裝完cross compiler之後必須下載uboot的src code(當然必須先有git相關指令，這部份請自行安裝)</p>
 <pre><code>sudo apt-get git://github.com/linux4sam/u-boot-at91.git
-</code></pre><h2 id="建置程式"><a href="#建置程式" class="headerlink" title="建置程式"></a>建置程式</h2><p>因為Sama5d3預設本來就是跑Linux的，因此建置u-boot-at91過程和Linux的bootstrap/uboot基本上沒什麼太大的不同<br>你可以在抓下來的程式碼當中的configs資料夾內發現許多default configuration files<br>若要從flash boot輸入以下指令</p>
+</code></pre><p><strong>註1: 也可建立<a href="http://ivan7645.github.io/2016/11/03/sama5d3_toolchain/" target="_blank" rel="external">完整的toolchain</a>來得到cross-compile gcc</strong></p>
+<h2 id="建置程式"><a href="#建置程式" class="headerlink" title="建置程式"></a>建置程式</h2><p>因為Sama5d3預設本來就是跑Linux的，因此建置u-boot-at91過程和Linux的bootstrap/uboot基本上沒什麼太大的不同<br>你可以在抓下來的程式碼當中的configs資料夾內發現許多default configuration files<br>若要從flash boot輸入以下指令</p>
 <pre><code>make mrproper
 make sama5d3_xplained_nandflash_defconfig
 </code></pre><p>若要從SD/MMC card boot輸入以下指令</p>
@@ -1090,6 +1091,7 @@ printf(&quot;output value : %d\n\n&quot;, func_ptr[1](20)(40));
 </code></pre><p>安裝完cross compiler之後必須下載bootstrap的src code(當然必須先有git相關指令，這部份請自行安裝)</p>
 <pre><code>git clone git://github.com/linux4sam/at91bootstrap.git
 </code></pre><p>下載完成後進入at91bootstrap資料夾，即可使用make相關指令產生.config檔以及二進位檔</p>
+<p><strong>註2: 也可建立<a href="http://ivan7645.github.io/2016/11/03/sama5d3_toolchain/" target="_blank" rel="external">完整的toolchain</a>來得到cross-compile gcc</strong></p>
 <h2 id="建置程式"><a href="#建置程式" class="headerlink" title="建置程式"></a>建置程式</h2><p>因為Sama5d3預設本來就是跑Linux的，因此建置at91bootstrap過程和Linux的bootstrap/uboot基本上沒什麼太大的不同<br>你可以在抓下來的程式碼當中的board/sama5d3_xplained資料夾內發現四個default configuration files，如下</p>
 <pre><code>sama5d3_xplainednf_linux_image_dt_defconfig
 sama5d3_xplainednf_uboot_defconfig

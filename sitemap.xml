@@ -2,23 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://ivan7645.github.com/2016/11/03/sama5d3_toolchain/</loc>
-    
-    <lastmod>2016-11-02T16:05:22.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://ivan7645.github.com/2016/08/03/sama5d3_uboot/</loc>
     
-    <lastmod>2016-08-04T16:30:51.000Z</lastmod>
+    <lastmod>2016-11-07T15:57:53.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ivan7645.github.com/2016/07/01/sama5d3_boot_strap/</loc>
     
-    <lastmod>2016-08-01T16:45:39.000Z</lastmod>
+    <lastmod>2016-11-07T15:56:02.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ivan7645.github.com/2016/11/03/sama5d3_toolchain/</loc>
+    
+    <lastmod>2016-11-02T16:05:22.000Z</lastmod>
     
   </url>
   
