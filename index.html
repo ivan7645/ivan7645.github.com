@@ -611,239 +611,6 @@ a[1][0][1] = 13, a[1][2][3] = 23
             
               
                 
-                <a class="post-title-link" href="/2016/12/30/sama5d3_tftp/" itemprop="url">
-                  [Atmel][Sama5d3-xp] - 在u-boot使用ethernet
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">發表於</span>
-            <time itemprop="dateCreated" datetime="2016-12-30T00:14:27+08:00" content="2016-12-30">
-              2016-12-30
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/12/30/sama5d3_tftp/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/12/30/sama5d3_tftp/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>sama5d3提供的u-boot提供了TFTP相關的協定，因此可以運作ethernet，我們可經由ethernet將檔案簡單的傳送到板端的memory，甚至可以藉由ethernet將kernel送到板端並且啟動kernel，此篇僅簡單介紹如何在u-boot作TFTP的相關設定</p>
-<p>在介紹前建議大家可以準備一條USB to ethernet adapter，因為一般的host都只有一個網路孔，往後應該也會常常用到</p>
-<p><img src="/images/usb2ether.jpg" alt=""></p>
-<h2 id="Host端設定Ethernet"><a href="#Host端設定Ethernet" class="headerlink" title="Host端設定Ethernet"></a>Host端設定Ethernet</h2><p>首先先將板子上電，讓u-boot被帶起來，接著會在host端看到網路連線資訊會多出一個”有線網路連線 n”，一般n = 1是原本的網路連線，和板端建立的會是n = 2以上，若是沒有看到可以在u-boot底下輸入tftp讓host和板端建立連線</p>
-<p>接著選擇編輯連線，選擇和板端建立的連線編輯，進入編輯畫面後選擇IPV4設定，設定想要的IP address，我們以192.168.0.1為範例(當然IP address不能和已存在的連線相衝突)</p>
-<p><img src="/images/usb2ether.jpg" alt=""></p>
-<h2 id="Devive端設定Ethernet"><a href="#Devive端設定Ethernet" class="headerlink" title="Devive端設定Ethernet"></a>Devive端設定Ethernet</h2><p>Host端設定好IP address後，板端也必須作相關的設定，我們也必須設定板端的IP address(ipaddr)，且必須告知host的IP address(serverip)，板端的IP address我們以192.168.0.2為範例</p>
-<pre><code>setenv ipaddr 192.168.0.2
-setenv serverip 192.168.0.1
-</code></pre><p>接著必須設定MAC address</p>
-<pre><code>setenv ethaddr 12:34:56:ab:cd:ef
-</code></pre><p>儲存相關設定</p>
-<pre><code>saveenv
-</code></pre><p>最後reset板子</p>
-<h2 id="使用TFTP"><a href="#使用TFTP" class="headerlink" title="使用TFTP"></a>使用TFTP</h2><p>要確定環境配置是否正確可以用ping看ethernet是否有通，後面接的IP address為host端的IP address，看到host is alive就代表建立連線成功</p>
-<pre><code>ping 192.168.0.1
-</code></pre><p><img src="/images/usb2ether.jpg" alt=""></p>
-<p>接著就可以藉由host傳送資料到板端</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/28/sama5d3_kernel/" itemprop="url">
-                  [Atmel][Sama5d3-xp] - 簡介DTB + Kenrel
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">發表於</span>
-            <time itemprop="dateCreated" datetime="2016-12-28T00:05:32+08:00" content="2016-12-28">
-              2016-12-28
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/12/28/sama5d3_kernel/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/12/28/sama5d3_kernel/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在bootstrap及uboot階段將大部分的硬體初始化之後，uboot就會試著帶起kernel，要帶起kernel需要三個主要的檔案，分別是Device Tree Blob(dtb)、Linux kernel、File System，此篇僅簡單介紹dtb以及如何build code燒到sama5d3-xp上，File system將在之後的文章作較詳細的介紹，會使用embedded system蠻常使用的busy box</p>
-<h2 id="Device-Tree-Blob"><a href="#Device-Tree-Blob" class="headerlink" title="Device Tree Blob"></a>Device Tree Blob</h2><p>DTB類似一份資料庫，紀錄了板子的硬體組成元件，為bootloader傳送低階硬體資訊給核心的機制，若是沒有dtb，要讓kernel知道uboot裡所設定的硬體資訊，則必須擁有一份和uboot一樣的header file，但要同時維護兩份資料的同步是非常困難的，因此需要一種機制讓kernel得知硬體細節</p>
-<h2 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h2><p>要build在開發版上跑的程式必須先有cross compiler，而sama5d3是ARM Cortex-A5的CPU，因此用的gcc如下</p>
-<pre><code>sudo apt-get install gcc-arm-linux-gnueabi
-</code></pre><p>接著必須下載Linux kernel，網址為<a href="http://www.kernel.org/" target="_blank" rel="external">http://www.kernel.org/</a>，這邊下載的版本為linux-4.6</p>
-<p><strong>註1: 也可建立<a href="http://ivan7645.github.io/2016/11/03/sama5d3_toolchain/" target="_blank" rel="external">完整的toolchain</a>來得到cross-compile gcc</strong></p>
-<h2 id="建置程式"><a href="#建置程式" class="headerlink" title="建置程式"></a>建置程式</h2><p>我們不需要從頭開始建出configuration file，一般都可以找到建立好的檔案，使用下列指令</p>
-<pre><code>make help ARCH=arm
-</code></pre><p>可過濾出使用arm的開發版，可以找到sama5_defconfig即是我們要使用的defconfig</p>
-<p>要建置kernel則是輸入以下指令</p>
-<pre><code>make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi-
-</code></pre><p>若是主機為多核心則可使用下列指令增加建置的速度，其中n指的是核心數目</p>
-<pre><code>make -j&lt;n&gt; RCH=arm CROSS_COMPILE=arm-linux-gnueabi-
-</code></pre><p>經過一段時間之後即可成功建置kernel，我們需要燒錄到目標板上的檔案有兩個，第一個是zImage，也就是kernel本身，可在arch/arm/boot找到，第二個則是at91-sama5d3_xplained.dtb，即為前面提到的device tree，可在arch/arm/boot/dts找到</p>
-<h2 id="燒錄到nandflash"><a href="#燒錄到nandflash" class="headerlink" title="燒錄到nandflash"></a>燒錄到nandflash</h2><p>最簡單燒錄的方式一樣是用sam-ba，燒錄方式可參考<a href="http://ivan7645.github.io/2016/08/03/sama5d3_uboot/" target="_blank" rel="external">簡介U-boot</a>，不一樣的是U-boot將Address = 0x40000，而我們需將dtb file燒到Address = 0x180000，kernel燒到Address = 0x200000</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/11/03/sama5d3_toolchain/" itemprop="url">
                   [Atmel][Sama5d3-xp] - 由Crosstool-ng取得toolchain
                 </a>
@@ -1875,6 +1642,230 @@ make sama5d3_xplainednf_uboot_defconfig
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/29/gets_fgets/" itemprop="url">
+                  [C語言] - gets()設計缺陷
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">發表於</span>
+            <time itemprop="dateCreated" datetime="2016-06-29T13:56:05+08:00" content="2016-06-29">
+              2016-06-29
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/29/gets_fgets/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/29/gets_fgets/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>gets()設計是用來取得輸入的字串。但此function有重大的缺陷，即不會去檢查buffer是否足夠使用</p>
+<h2 id="Bug"><a href="#Bug" class="headerlink" title="Bug"></a>Bug</h2><p>先看以下這段程式碼</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line"> char line[512];</span><br><span class="line">	 ...</span><br><span class="line">	 ...</span><br><span class="line"> gets(line);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>程式會將取得的字串放進<code>line</code>這個buffer，但gets()不會去確認buffer是否足夠，實際上也無法確認，因gets()無法得知buffer大小的資訊，如果輸入的字串大於buffer，那gets()會將此字串完整的貼到buffer裡，即便會超過此buffer造成其他的memory被覆蓋掉</p>
+<h2 id="Internet-worm"><a href="#Internet-worm" class="headerlink" title="Internet worm"></a>Internet worm</h2><p>這個簡單的bug卻可以造成嚴重的危害。正常來說local variable的buffer會放在stack裡面，某些重要資訊也可能放在stack，例如return address(RA)，若剛好遇到此架構的RA是放在stack，那惡意的使用者就可以輸入一個非常長的字串，讓gets()蓋掉其它stack的資訊，包括了RA，當此function執行完之後準備jump回原本的caller function，但RA已經被改成惡意使用者的function address，即可破壞甚至取得此架構的控制權</p>
+<h2 id="Patch"><a href="#Patch" class="headerlink" title="Patch"></a>Patch</h2><p>還好已經有可替代的function避免這個問題，就是改使用fgets()，fgets()需帶入buffer大小的參數，因此會幫忙檢查是否造成overwrite，在Linux下輸入<code>man gets</code>可得到相關資訊，其中最後的部分寫到<code>SECURITY CONSIDERATIONS</code>即為相關說明</p>
+<p><img src="/images/gets_sec_consider.png" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/17/sama5d3_getting_started/" itemprop="url">
+                  [Atmel][Sama5d3-xp] - Getting Started
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">發表於</span>
+            <time itemprop="dateCreated" datetime="2016-06-17T21:32:23+08:00" content="2016-06-17">
+              2016-06-17
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/17/sama5d3_getting_started/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/17/sama5d3_getting_started/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在開始開發之前必須先有相關的工具，首先你必須有一條USB Micro-A轉USB Type A的傳輸線，用來連接主機端和板端(J6)</p>
+<p><img src="/images/usb_microa_2_a.jpg" alt=""></p>
+<p>USB傳輸介面主要是用來提供板端5V DC，也可以輸出log，但強烈建議使用UART(J23 Debug port)，來進行相關訊息的輸入與輸出，某些較底層的資訊只會從UART輸出</p>
+<p>要使用UART最方便的方式就是準備一個RS232轉USB的裝置，一邊連接到J23一邊連接到主機端，之後藉由終端機來輸出或輸入訊息，FTDI作了許多相關的產品，市面上可以很輕易的取得</p>
+<p><img src="/images/rs232_2_usb.jpg" alt=""></p>
+<h2 id="終端機"><a href="#終端機" class="headerlink" title="終端機"></a>終端機</h2><p>在Linux或Windows作業系統下都有終端機可用來接受裝置端的訊息，Windows下較常見的工具為putty，但比較建議還是在Linux下開發，會有較佳的彈性和支援的工具</p>
+<p>Linux下用來輸出訊息的工具就很多了，例如picocom screen minicom等等，這邊使用picocom作為範例</p>
+<p>首先當然要先安裝picocom</p>
+<pre><code>sudo apt-get install picocom
+</code></pre><p>安裝完之後將UART板端配置好之後接到主機端的USB接口，可由以下指令知道是否有連接成功，此例可看出成功連接到ttyUSB0</p>
+<pre><code>dmesg | grep tty
+</code></pre><p><img src="/images/ftdi_attach.png" alt=""></p>
+<p>接著使用picocom接收UART訊息且指定ttyUSB0且baud rate為115200，若無法成功使用可加sudo增加權限</p>
+<pre><code>sudo picocom -b 115200 /dev/ttyUSB0
+</code></pre><p><img src="/images/picocom_start.png" alt=""></p>
+<p>最後就可以將micro USB(J6)接到主機端即可看到板端輸出的訊息</p>
+<p><img src="/images/uart_output.png" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1920,7 +1911,7 @@ make sama5d3_xplainednf_uboot_defconfig
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-count">14</span>
               <span class="site-state-item-name">文章</span>
             </a>
           </div>
