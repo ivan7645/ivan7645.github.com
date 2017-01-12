@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://ivan7645.github.com/2017/01/11/ptr_multi_arr/</loc>
+    
+    <lastmod>2017-01-12T11:46:25.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ivan7645.github.com/2016/12/30/sama5d3_tftp/</loc>
+    
+    <lastmod>2017-01-04T16:34:42.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ivan7645.github.com/2016/12/28/sama5d3_kernel/</loc>
+    
+    <lastmod>2016-12-29T16:13:01.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://ivan7645.github.com/2016/08/03/sama5d3_uboot/</loc>
     
     <lastmod>2016-11-07T15:57:53.000Z</lastmod>

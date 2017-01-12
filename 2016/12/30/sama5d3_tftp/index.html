@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="C語言," />
+  <meta name="keywords" content="Sama5d3-Xplained," />
 
 
 
@@ -84,27 +84,23 @@
 
 
 
-<meta name="description" content="gets()設計是用來取得輸入的字串。但此function有重大的缺陷，即不會去檢查buffer是否足夠使用
-Bug先看以下這段程式碼
-1234567int main(void)&amp;#123; char line[512];	 ...	 ... gets(line);&amp;#125;
-程式會將取得的字串放進line這個buffer，但gets()不會去確認buffer是否足夠，實際上也無法確認，因get">
+<meta name="description" content="sama5d3提供的u-boot提供了TFTP相關的協定，因此可以運作ethernet，我們可經由ethernet將檔案簡單的傳送到板端的memory，甚至可以藉由ethernet將kernel送到板端並且啟動kernel，此篇僅簡單介紹如何在u-boot作TFTP的相關設定
+在介紹前建議大家可以準備一條USB to ethernet adapter，因為一般的host都只有一個網路孔，往後應該也">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[C語言] - gets()設計缺陷">
-<meta property="og:url" content="http://ivan7645.github.com/2016/06/29/gets_fgets/index.html">
+<meta property="og:title" content="[Atmel][Sama5d3-xp] - 在u-boot使用ethernet">
+<meta property="og:url" content="http://ivan7645.github.com/2016/12/30/sama5d3_tftp/index.html">
 <meta property="og:site_name" content="Ivan’s Blog">
-<meta property="og:description" content="gets()設計是用來取得輸入的字串。但此function有重大的缺陷，即不會去檢查buffer是否足夠使用
-Bug先看以下這段程式碼
-1234567int main(void)&amp;#123; char line[512];	 ...	 ... gets(line);&amp;#125;
-程式會將取得的字串放進line這個buffer，但gets()不會去確認buffer是否足夠，實際上也無法確認，因get">
-<meta property="og:image" content="http://ivan7645.github.com/images/gets_sec_consider.png">
-<meta property="og:updated_time" content="2016-06-29T06:40:57.000Z">
+<meta property="og:description" content="sama5d3提供的u-boot提供了TFTP相關的協定，因此可以運作ethernet，我們可經由ethernet將檔案簡單的傳送到板端的memory，甚至可以藉由ethernet將kernel送到板端並且啟動kernel，此篇僅簡單介紹如何在u-boot作TFTP的相關設定
+在介紹前建議大家可以準備一條USB to ethernet adapter，因為一般的host都只有一個網路孔，往後應該也">
+<meta property="og:image" content="http://ivan7645.github.com/images/usb2ether.jpg">
+<meta property="og:image" content="http://ivan7645.github.com/images/usb2ether.jpg">
+<meta property="og:image" content="http://ivan7645.github.com/images/usb2ether.jpg">
+<meta property="og:updated_time" content="2017-01-04T16:34:42.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[C語言] - gets()設計缺陷">
-<meta name="twitter:description" content="gets()設計是用來取得輸入的字串。但此function有重大的缺陷，即不會去檢查buffer是否足夠使用
-Bug先看以下這段程式碼
-1234567int main(void)&amp;#123; char line[512];	 ...	 ... gets(line);&amp;#125;
-程式會將取得的字串放進line這個buffer，但gets()不會去確認buffer是否足夠，實際上也無法確認，因get">
-<meta name="twitter:image" content="http://ivan7645.github.com/images/gets_sec_consider.png">
+<meta name="twitter:title" content="[Atmel][Sama5d3-xp] - 在u-boot使用ethernet">
+<meta name="twitter:description" content="sama5d3提供的u-boot提供了TFTP相關的協定，因此可以運作ethernet，我們可經由ethernet將檔案簡單的傳送到板端的memory，甚至可以藉由ethernet將kernel送到板端並且啟動kernel，此篇僅簡單介紹如何在u-boot作TFTP的相關設定
+在介紹前建議大家可以準備一條USB to ethernet adapter，因為一般的host都只有一個網路孔，往後應該也">
+<meta name="twitter:image" content="http://ivan7645.github.com/images/usb2ether.jpg">
 
 
 
@@ -122,7 +118,7 @@ Bug先看以下這段程式碼
   };
 </script>
 
-  <title> [C語言] - gets()設計缺陷 | Ivan’s Blog </title>
+  <title> [Atmel][Sama5d3-xp] - 在u-boot使用ethernet | Ivan’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
@@ -242,7 +238,7 @@ Bug先看以下這段程式碼
             
             
               
-                [C語言] - gets()設計缺陷
+                [Atmel][Sama5d3-xp] - 在u-boot使用ethernet
               
             
           </h1>
@@ -254,8 +250,8 @@ Bug先看以下這段程式碼
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">發表於</span>
-            <time itemprop="dateCreated" datetime="2016-06-29T13:56:05+08:00" content="2016-06-29">
-              2016-06-29
+            <time itemprop="dateCreated" datetime="2016-12-30T00:14:27+08:00" content="2016-12-30">
+              2016-12-30
             </time>
           </span>
 
@@ -265,8 +261,8 @@ Bug先看以下這段程式碼
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/06/29/gets_fgets/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/29/gets_fgets/" itemprop="commentsCount"></span>
+                <a href="/2016/12/30/sama5d3_tftp/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/12/30/sama5d3_tftp/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -289,13 +285,24 @@ Bug先看以下這段程式碼
       
 
       
-        <p>gets()設計是用來取得輸入的字串。但此function有重大的缺陷，即不會去檢查buffer是否足夠使用</p>
-<h2 id="Bug"><a href="#Bug" class="headerlink" title="Bug"></a>Bug</h2><p>先看以下這段程式碼</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line"> char line[512];</span><br><span class="line">	 ...</span><br><span class="line">	 ...</span><br><span class="line"> gets(line);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>程式會將取得的字串放進<code>line</code>這個buffer，但gets()不會去確認buffer是否足夠，實際上也無法確認，因gets()無法得知buffer大小的資訊，如果輸入的字串大於buffer，那gets()會將此字串完整的貼到buffer裡，即便會超過此buffer造成其他的memory被覆蓋掉</p>
-<h2 id="Internet-worm"><a href="#Internet-worm" class="headerlink" title="Internet worm"></a>Internet worm</h2><p>這個簡單的bug卻可以造成嚴重的危害。正常來說local variable的buffer會放在stack裡面，某些重要資訊也可能放在stack，例如return address(RA)，若剛好遇到此架構的RA是放在stack，那惡意的使用者就可以輸入一個非常長的字串，讓gets()蓋掉其它stack的資訊，包括了RA，當此function執行完之後準備jump回原本的caller function，但RA已經被改成惡意使用者的function address，即可破壞甚至取得此架構的控制權</p>
-<h2 id="Patch"><a href="#Patch" class="headerlink" title="Patch"></a>Patch</h2><p>還好已經有可替代的function避免這個問題，就是改使用fgets()，fgets()需帶入buffer大小的參數，因此會幫忙檢查是否造成overwrite，在Linux下輸入<code>man gets</code>可得到相關資訊，其中最後的部分寫到<code>SECURITY CONSIDERATIONS</code>即為相關說明</p>
-<p><img src="/images/gets_sec_consider.png" alt=""></p>
+        <p>sama5d3提供的u-boot提供了TFTP相關的協定，因此可以運作ethernet，我們可經由ethernet將檔案簡單的傳送到板端的memory，甚至可以藉由ethernet將kernel送到板端並且啟動kernel，此篇僅簡單介紹如何在u-boot作TFTP的相關設定</p>
+<p>在介紹前建議大家可以準備一條USB to ethernet adapter，因為一般的host都只有一個網路孔，往後應該也會常常用到</p>
+<p><img src="/images/usb2ether.jpg" alt=""></p>
+<h2 id="Host端設定Ethernet"><a href="#Host端設定Ethernet" class="headerlink" title="Host端設定Ethernet"></a>Host端設定Ethernet</h2><p>首先先將板子上電，讓u-boot被帶起來，接著會在host端看到網路連線資訊會多出一個”有線網路連線 n”，一般n = 1是原本的網路連線，和板端建立的會是n = 2以上，若是沒有看到可以在u-boot底下輸入tftp讓host和板端建立連線</p>
+<p>接著選擇編輯連線，選擇和板端建立的連線編輯，進入編輯畫面後選擇IPV4設定，設定想要的IP address，我們以192.168.0.1為範例(當然IP address不能和已存在的連線相衝突)</p>
+<p><img src="/images/usb2ether.jpg" alt=""></p>
+<h2 id="Devive端設定Ethernet"><a href="#Devive端設定Ethernet" class="headerlink" title="Devive端設定Ethernet"></a>Devive端設定Ethernet</h2><p>Host端設定好IP address後，板端也必須作相關的設定，我們也必須設定板端的IP address(ipaddr)，且必須告知host的IP address(serverip)，板端的IP address我們以192.168.0.2為範例</p>
+<pre><code>setenv ipaddr 192.168.0.2
+setenv serverip 192.168.0.1
+</code></pre><p>接著必須設定MAC address</p>
+<pre><code>setenv ethaddr 12:34:56:ab:cd:ef
+</code></pre><p>儲存相關設定</p>
+<pre><code>saveenv
+</code></pre><p>最後reset板子</p>
+<h2 id="使用TFTP"><a href="#使用TFTP" class="headerlink" title="使用TFTP"></a>使用TFTP</h2><p>要確定環境配置是否正確可以用ping看ethernet是否有通，後面接的IP address為host端的IP address，看到host is alive就代表建立連線成功</p>
+<pre><code>ping 192.168.0.1
+</code></pre><p><img src="/images/usb2ether.jpg" alt=""></p>
+<p>接著就可以藉由host傳送資料到板端</p>
 
       
     </div>
@@ -317,7 +324,7 @@ Bug先看以下這段程式碼
       
         <div class="post-tags">
           
-            <a href="/tags/C語言/" rel="tag">#C語言</a>
+            <a href="/tags/Sama5d3-Xplained/" rel="tag">#Sama5d3-Xplained</a>
           
         </div>
       
@@ -326,16 +333,16 @@ Bug先看以下這段程式碼
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/17/sama5d3_getting_started/" rel="next" title="[Atmel][Sama5d3-xp] - Getting Started">
-                <i class="fa fa-chevron-left"></i> [Atmel][Sama5d3-xp] - Getting Started
+              <a href="/2016/12/28/sama5d3_kernel/" rel="next" title="[Atmel][Sama5d3-xp] - 簡介DTB + Kenrel">
+                <i class="fa fa-chevron-left"></i> [Atmel][Sama5d3-xp] - 簡介DTB + Kenrel
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/06/30/sama5d3_boot_sequence/" rel="prev" title="[Atmel][Sama5d3-xp] - Boot sequence">
-                [Atmel][Sama5d3-xp] - Boot sequence <i class="fa fa-chevron-right"></i>
+              <a href="/2017/01/11/ptr_multi_arr/" rel="prev" title="[C語言] - 指標及多維陣列">
+                [C語言] - 指標及多維陣列 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -450,7 +457,7 @@ Bug先看以下這段程式碼
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Bug"><span class="nav-number">1.</span> <span class="nav-text">Bug</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Internet-worm"><span class="nav-number">2.</span> <span class="nav-text">Internet worm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Patch"><span class="nav-number">3.</span> <span class="nav-text">Patch</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Host端設定Ethernet"><span class="nav-number">1.</span> <span class="nav-text">Host端設定Ethernet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Devive端設定Ethernet"><span class="nav-number">2.</span> <span class="nav-text">Devive端設定Ethernet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用TFTP"><span class="nav-number">3.</span> <span class="nav-text">使用TFTP</span></a></li></ol></div>
             
           </div>
         </section>
@@ -570,9 +577,9 @@ Bug先看以下這段程式碼
 
     <script type="text/javascript">
       var disqus_shortname = 'ivan7645';
-      var disqus_identifier = '2016/06/29/gets_fgets/';
-      var disqus_title = '[C語言] - gets()設計缺陷';
-      var disqus_url = 'http://ivan7645.github.com/2016/06/29/gets_fgets/';
+      var disqus_identifier = '2016/12/30/sama5d3_tftp/';
+      var disqus_title = '[Atmel][Sama5d3-xp] - 在u-boot使用ethernet';
+      var disqus_url = 'http://ivan7645.github.com/2016/12/30/sama5d3_tftp/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');

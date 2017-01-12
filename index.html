@@ -233,6 +233,617 @@
             
               
                 
+                <a class="post-title-link" href="/2017/01/11/ptr_multi_arr/" itemprop="url">
+                  [C語言] - 指標及多維陣列
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">發表於</span>
+            <time itemprop="dateCreated" datetime="2017-01-11T10:41:15+08:00" content="2017-01-11">
+              2017-01-11
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/01/11/ptr_multi_arr/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/01/11/ptr_multi_arr/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="指標及一維陣列"><a href="#指標及一維陣列" class="headerlink" title="指標及一維陣列"></a>指標及一維陣列</h2><p>在不少的書籍，我們都可以看到可以把陣列看成指標，這不完全正確，但在實作上也不能說完全不正確</p>
+<p>本質上陣列名稱代表的是一個位址，而指標代表的是位址的位址，因此在宣告上是不相等的，例如你在某一個地方宣告了int a[10]，而在其他地方想extern進來，但如果使用的是extern *a，那會compile error，因為位址和位址的位址並不一樣<br>再來如果a[10]真的和*a是一樣的，那sizeof(a)就會應該是4</p>
+<p>那為什麼我們在實際使用上結果會是一樣的呢呢?下面這個例子都會印出20</p>
+<pre><code>int a[] = {10, 20, 30};
+
+printf(&quot;%d&quot;, a[1]);
+printf(&quot;%d&quot;, *(a + 1));
+</code></pre><p>那是因為陣列在compiler階段都會被轉成指標，當看到a[1]的時候就從a的位址加上1個integer的size，如果看到*(a + 1)那行為會一樣<br>差別只在如果compiler知道a是陣列那會忽略’*’和’&amp;’也就是不會作dereference，這樣也可以解釋為什麼下面這情況compiler認為是合法的</p>
+<pre><code>int b[3] = {10, 20, 30};
+
+b[99] = 40;
+</code></pre><p>那在什麼狀況下會完全相等呢?只有在傳陣列參數到函式的時候，以下三種情況compiler編出來會一模一樣，事實上在傳陣列到函式裡面時，真正傳的是指標並不是整份陣列複製過去</p>
+<pre><code>func(int *verctor) {...};
+func(int verctor[]) {...};
+func(int verctor[10]) {...};
+</code></pre><p>試著想一下以下這段程式碼會印出什麼</p>
+<pre><code>#include &lt;stdio.h&gt;
+
+char ga[2] = {&apos;a&apos;, &apos;b&apos;};
+
+void func_in_vec(char ca[2])
+{
+    printf(&quot;sizeof ca : %ld \n&quot;, sizeof(ca));
+    printf(&quot;&amp;ca : %p \n&quot;, &amp;ca);
+    printf(&quot;&amp;(ca[0]) : %p \n&quot;, &amp;(ca[0]));
+     printf(&quot;&amp;(ca[1]) : %p \n&quot;, &amp;(ca[1]));
+     printf(&quot;\n&quot;);
+}
+
+void func_in_ptr(char *pa)
+{
+     printf(&quot;sizeof pa : %ld \n&quot;, sizeof(pa));
+     printf(&quot;&amp;pa : %p \n&quot;, &amp;pa);
+     printf(&quot;&amp;(pa[0]) : %p \n&quot;, &amp;(pa[0]));
+     printf(&quot;&amp;(pa[1]) : %p \n&quot;, &amp;(pa[1]));
+     printf(&quot;\n&quot;);
+}
+
+int main(void)
+{
+     printf(&quot;sizeof ga : %ld \n&quot;, sizeof(ga));
+     printf(&quot;&amp;ga : %p \n&quot;, &amp;ga);
+     printf(&quot;ga : %p \n&quot;, ga);
+     printf(&quot;&amp;(ga[0]) : %p \n&quot;, &amp;(ga[0]));
+     printf(&quot;&amp;(ga[1]) : %p \n&quot;, &amp;(ga[1]));
+    printf(&quot;\n&quot;);
+
+    func_in_vec(ga);
+     func_in_ptr(ga);         
+
+    return 0;
+}
+</code></pre><p>結果如下(有可能在不同平台會有不同結果，這邊是在x64平台的結果，不過概念是一樣的)</p>
+<pre><code>sizeof ga : 2 -------------(1)    
+&amp;ga : 0x601048 ------------(2)
+ga : 0x601048 -------------(3)
+&amp;(ga[0]) : 0x601048 -------(4)
+&amp;(ga[1]) : 0x601049 -------(5)
+
+sizeof ca : 8 -------------(6)
+&amp;ca : 0x7fffd7b1c718 ------(7)
+&amp;(ca[0]) : 0x601048 -------(8)
+&amp;(ca[1]) : 0x601049 -------(9)
+
+sizeof pa : 8 -------------(10)
+&amp;pa : 0x7fffd7b1c718 ------(11)
+&amp;(pa[0]) : 0x601048 -------(12)
+&amp;(pa[1]) : 0x601049 -------(13)
+</code></pre><p>由(1)可看出ga的型別為2byte的陣列，代表不直接相等指標<br>(2)(3)可看出&amp;ga = ga，代表雖然compiler會將陣列轉成指標，但會忽略’*’和’&amp;’，<br>(6)(8)可看出若經由funtion傳入參數後皆轉為指標，因此取sizeof為8(64位元平台)</p>
+<h2 id="指標及二維陣列-矩陣"><a href="#指標及二維陣列-矩陣" class="headerlink" title="指標及二維陣列(矩陣)"></a>指標及二維陣列(矩陣)</h2><p>在現實生活上我們有二維陣列的概念，用來作運算或儲存各種資料，但是在記憶體裡是如何儲存這些資料?記憶體只是一大塊連續的位址空間，如何實現二維陣列的概念?</p>
+<p>事實上在記憶體裡面二維陣列就是陣列的陣列，而三維陣列則是陣列的陣列的陣列，依此類推</p>
+<p>舉個例子來說，一個[3][2]的陣列代表的是有一個大小3的陣列裡面有大小2的陣列，共6個，參考下圖即可清楚看出，裡面的數字代表的就是程式取值時需給的二維陣列位址，橘色代表的是第一層陣列，藍色代表第二層陣列(陣列的陣列)</p>
+<p><img src="/images/2dim_vector1.jpg" alt=""></p>
+<p>試著想一下以下這段程式碼會印出什麼</p>
+<pre><code>int main(void)
+{
+    int a[3][2] = {{10, 20}, {30, 40}, {50, 60}};
+    int *b = a[0];
+
+    printf(&quot;a[0][0] = %d\n&quot;, a[0][0]);
+    printf(&quot;a[0][1] = %d\n&quot;, a[0][1]);
+    printf(&quot;a[1][1] = %d\n&quot;, a[1][1]);
+    printf(&quot;a[2][1] = %d\n&quot;, a[2][1]);
+
+    printf(&quot;*(b + 0) = %d\n&quot;, *(b + 0));
+     printf(&quot;*(b + 1) = %d\n&quot;, *(b + 1));
+     printf(&quot;*(b + 3) = %d\n&quot;, *(b + 3));
+     printf(&quot;*(b + 5) = %d\n&quot;, *(b + 5));
+
+     return 0;
+}
+</code></pre><p>結果如下</p>
+<pre><code>a[0][0] = 10 ---(1)
+a[0][1] = 20 ---(2)
+a[1][1] = 40 ---(3)
+a[2][1] = 60 ---(4)
+*(b + 0) = 10 ---(5)
+*(b + 1) = 20 ---(6)
+*(b + 3) = 40 ---(7)
+*(b + 5) = 60 ---(8)
+</code></pre><p>從下圖可看出此段程式將b指向第一層陣列a[0]的位址，搭配下圖和以上的結果可清楚看出(1) = (5)、(2) = (6)、(3) = (7)、(4) = (8)，也可看出記憶體擺放的位址和二維陣列的關係</p>
+<p><img src="/images/2dim_vector2.jpg" alt=""></p>
+<h2 id="指標及三維陣列"><a href="#指標及三維陣列" class="headerlink" title="指標及三維陣列"></a>指標及三維陣列</h2><p>了解指標與陣列關係之後，我們可以來看更為抽象的三維以上的陣列，事實上如果能轉換成記憶體實際擺放的位址來看，也就不會覺得抽象了，假如有一個a[2][3][4]的三維陣列，那在記憶體擺放的情形如下，橘色代表第一維陣列，藍色代表第二維陣列，綠色代表第三維陣列，<br>因此此陣列為一個大小為2的陣列裡面有大小為3的陣列裡面有大小為4的陣列，共24個</p>
+<p><img src="/images/2dim_vector3.jpg" alt=""></p>
+<p>試著想一下以下這段程式碼會印出什麼</p>
+<pre><code>int main(void)
+{
+    int a[2][3][4] = {0};
+    int *b = a[0][0];
+    int i, j, k;
+
+     for (i = 0; i &lt; 2; i++)
+        for (j = 0; j &lt; 3; j++)
+             for (k = 0; k &lt; 4; k++)
+                 a[i][j][k] = i + j + k;
+
+     printf(&quot;a[0][0][0] = %d\n&quot;, a[0][0][0]);
+     printf(&quot;a[0][0][2] = %d\n&quot;, a[0][0][2]);
+     printf(&quot;a[0][1][1] = %d\n&quot;, a[0][1][1]);
+     printf(&quot;a[0][2][3] = %d\n&quot;, a[0][2][3]);
+     printf(&quot;a[1][0][0] = %d\n&quot;, a[1][0][0]);
+     printf(&quot;a[1][2][2] = %d\n&quot;, a[1][2][2]);
+
+     printf(&quot;*(b + 0) = %d\n&quot;, *(b + 0));
+     printf(&quot;*(b + 2) = %d\n&quot;, *(b + 2));
+     printf(&quot;*(b + 5) = %d\n&quot;, *(b + 5));
+     printf(&quot;*(b + 11) = %d\n&quot;, *(b + 11));
+     printf(&quot;*(b + 12) = %d\n&quot;, *(b + 12));
+     printf(&quot;*(b + 22) = %d\n&quot;, *(b + 22));
+
+     return 0;
+}
+</code></pre><p>結果如下</p>
+<pre><code>a[0][0][0] = 0
+a[0][0][2] = 2
+a[0][1][1] = 2
+a[0][2][3] = 5
+a[1][0][0] = 1
+a[1][2][2] = 5
+*(b + 0) = 0
+*(b + 2) = 2
+*(b + 5) = 2
+*(b + 11) = 5
+*(b + 12) = 1
+*(b + 22) = 5
+</code></pre><p>從下圖可看出三維陣列和記憶體的關係，將指標b指到三維陣列的頭，四維以上的陣列和二維三維陣列的原理一樣，可以此類推</p>
+<p><img src="/images/2dim_vector4.jpg" alt=""></p>
+<p>接下來我們可以看一下不同type的指標和陣列的關係，首先先看int的指標，試著想一下以下這段程式碼會印出什麼</p>
+<pre><code>int main(void)
+{
+    int a[2][3][4] = {0};
+    int *b = a[0][0];
+    int *c = a[0][2];
+    int *d = a[1][1];
+    int i, j, k;
+    int cnt = 0;
+
+    for (i = 0; i &lt; 2; i++)
+        for (j = 0; j &lt; 3; j++)
+            for (k = 0; k &lt; 4; k++) {
+                a[i][j][k] = cnt;
+                cnt++;
+            }
+
+    printf(&quot;b = %p, b + 1 = %p\n&quot;, b, b + 1);
+
+    printf(&quot;*(b + 0) = %d, *(b + 1) = %d\n&quot;, *(b + 0), *(b + 1));
+    printf(&quot;a[0][0][0] = %d, a[0][0][1] = %d\n\n&quot;, a[0][0][0], a[0][0][1]);
+
+    printf(&quot;*(c + 0) = %d, *(c + 6) = %d\n&quot;, *(c + 0), *(c + 6));
+    printf(&quot;a[0][2][0] = %d, a[1][0][2] = %d\n\n&quot;, a[0][2][0], a[1][0][2]);
+
+    printf(&quot;*(d + 0) = %d, *(d + 7) = %d\n&quot;, *(d + 0), *(d + 7));
+    printf(&quot;a[1][1][0] = %d, a[1][2][3] = %d\n\n&quot;, a[1][1][0], a[1][2][3]);
+
+    return 0;
+}
+</code></pre><p>結果如下</p>
+<pre><code>b = 0x7fffedac8880, b + 1 = 0x7fffedac8884
+*(b + 0) = 0, *(b + 1) = 1
+a[0][0][0] = 0, a[0][0][1] = 1
+
+*(c + 0) = 8, *(c + 6) = 14
+a[0][2][0] = 8, a[1][0][2] = 14
+
+*(d + 0) = 16, *(d + 7) = 23
+a[1][1][0] = 16, a[1][2][3] = 23
+</code></pre><p>b因為指到的是int type，所以b和b+1的差距為4byte</p>
+<p>b, c, d皆為指到int的指標，因此可指到此三維陣列的第三維陣列，大小為4(藍色框住的綠色部份)</p>
+<p>b指到a[0][0]的大小為4的陣列，因此*(b + 0) = a[0][0][0]，*(b + 1)會加一個int size(4byte)之後取值所以*(b + 1) = a[0][0][1]</p>
+<p>c指到a[0][2]的大小為4的陣列，因此*(c + 0) = a[0][2][0]，*(c + 6)會加六個int size(4byte)之後取值所以*(c + 6) = a[1][0][2]</p>
+<p>d指到a[1][1]的大小為4的陣列，因此*(d + 0) = a[1][1][0]，*(d + 7)會加七個int size(4byte)之後取值所以*(d + 7) = a[1][2][3]</p>
+<p><img src="/images/2dim_vector5.jpg" alt=""></p>
+<p>再來看int[]的指標，試著想一下以下這段程式碼會印出什麼</p>
+<pre><code>int main(void)
+{
+    int a[2][3][4] = {0};
+    int (*b)[4] = a[0];
+     int (*c)[4] = a[1];
+     int i, j, k;
+     int cnt = 0;
+
+     for (i = 0; i &lt; 2; i++)
+         for (j = 0; j &lt; 3; j++)
+             for (k = 0; k &lt; 4; k++) {
+                 a[i][j][k] = cnt;
+                 cnt++;
+             }
+
+     printf(&quot;b = %p, b + 1 = %p\n&quot;, b, b + 1);
+
+     printf(&quot;(*(b + 0))[0] = %d, (*(b + 1))[0] = %d\n&quot;, (*(b + 0))[0], (*(b + 1))[0]);
+     printf(&quot;a[0][0][0] = %d, a[0][0][1] = %d\n\n&quot;, a[0][0][0], a[0][1][0]);
+
+     printf(&quot;(*(b + 2))[2] = %d, (*(b + 4))[3] = %d\n&quot;, (*(b + 2))[2], (*(b + 4))[3]);
+     printf(&quot;a[0][2][2] = %d, a[1][1][3] = %d\n\n&quot;, a[0][2][2], a[1][1][3]);
+
+     printf(&quot;(*(c + 1))[1] = %d, (*(c + 2))[2] = %d\n&quot;, (*(c + 1))[1], (*(c + 2))[2]);
+     printf(&quot;a[1][1][1] = %d, a[1][2][2] = %d\n\n&quot;, a[1][1][1], a[1][2][2]);    
+
+     return 0;
+}
+</code></pre><p>結果如下</p>
+<pre><code>b = 0x7fff2c1a96c0, b + 1 = 0x7fff2c1a96d0
+(*(b + 0))[0] = 0, (*(b + 1))[0] = 4
+a[0][0][0] = 0, a[0][1][0] = 4
+
+(*(b + 2))[2] = 10, (*(b + 4))[3] = 19
+a[0][2][2] = 10, a[1][1][3] = 19
+
+(*(c + 1))[1] = 17, (*(c + 2))[2] = 22
+a[1][1][1] = 17, a[1][2][2] = 22
+</code></pre><p>b因為是指到int[4]的指標因此b和b+1的差距為16byte(4byte(int) * 4(size))</p>
+<p>b, c, d皆為指到int[4]的指標，因此可指到此三維陣列的第二維陣列，大小為3(橘色框住的藍色部份)</p>
+<p>b指到a[0]的大小為3的陣列，因此(*(b + 0))[0] = a[0][0][0]，*(b + 1)會加四個int size(16byte)之後取值所以(*(b + 1))[0] = a[0][1][0]，*(b + 2)會加八個int size(32byte)之後取值所以(*(b + 2))[2] = a[0][2][2]，*(b + 4)會加十六個int size(64byte)之後取值所以(*(b + 4))[3] = a[1][1][3]</p>
+<p>c指到a[1]的大小為4的陣列，因此(*(c + 1))[1] = a[1][1][1]，*(c + 2)會加八個int size(32byte)之後取值所以(*(c + 2))[2] = a[1][2][2]</p>
+<p><img src="/images/2dim_vector6.jpg" alt=""></p>
+<p>再來看int[][]的指標，試著想一下以下這段程式碼會印出什麼</p>
+<pre><code>int main(void)
+{
+    int a[2][3][4] = {0};
+     int (*b)[3][4] = a;
+     int i, j, k;
+     int cnt = 0;
+
+     for (i = 0; i &lt; 2; i++)
+         for (j = 0; j &lt; 3; j++)
+             for (k = 0; k &lt; 4; k++) {
+                 a[i][j][k] = cnt;
+                 cnt++;
+             }
+
+     printf(&quot;b = %p, b + 1 = %p\n&quot;, b, b + 1);
+
+     printf(&quot;(*(b + 0))[0][0] = %d, (*(b + 0))[0][2] = %d\n&quot;, (*(b + 0))[0][0], (*(b + 0))[0][2]);
+     printf(&quot;a[0][0][0] = %d, a[0][0][2] = %d\n\n&quot;, a[0][0][0], a[0][0][2]);
+     printf(&quot;(*(b + 0))[2][1] = %d, (*(b + 0))[2][3] = %d\n&quot;, (*(b + 0))[2][1], (*(b + 0))[2][3]);
+     printf(&quot;a[0][2][1] = %d, a[0][2][3] = %d\n\n&quot;, a[0][2][1], a[0][2][3]);
+
+     printf(&quot;(*(b + 1))[0][1] = %d, (*(b + 1))[2][3] = %d\n&quot;, (*(b + 1))[0][1], (*(b + 1))[2][3]);
+     printf(&quot;a[1][0][1] = %d, a[1][2][3] = %d\n\n&quot;, a[1][0][1], a[1][2][3]);
+
+     return 0;
+}
+</code></pre><p>結果如下</p>
+<pre><code>b = 0x7fff1604c440, b + 1 = 0x7fff1604c470
+(*(b + 0))[0][0] = 0, (*(b + 0))[0][2] = 2
+a[0][0][0] = 0, a[0][0][2] = 2
+
+(*(b + 0))[2][1] = 9, (*(b + 0))[2][3] = 11
+a[0][2][1] = 9, a[0][2][3] = 11
+
+(*(b + 1))[0][1] = 13, (*(b + 1))[2][3] = 23
+a[1][0][1] = 13, a[1][2][3] = 23
+</code></pre><p>b因為是指到int[3][4]的指標因此b和b+1的差距為48byte(4byte(int) <em> (3 </em> 4)(size))</p>
+<p>b, c, d皆為指到int[3][4]的指標，因此可指到此三維陣列的第一維陣列，大小為3 * 4(橘色部份)</p>
+<p>b指到a的大小為3 <em> 4的陣列，因此(\</em>(b + 0))[0][0] = a[0][0][0]，(*(b + 0))[0][2] = a[0][0][2]，(*(b + 0))[2][1] = a[0][2][1]，(*(b + 0))[2][3] = a[0][2][3]，*(b + 1)會加十二個int size(48byte)之後取值所以(*(b + 1))[0][1] = a[1][0][1]，(*(b + 1))[2][3] = a[1][2][3]，</p>
+<p><img src="/images/2dim_vector7.jpg" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/30/sama5d3_tftp/" itemprop="url">
+                  [Atmel][Sama5d3-xp] - 在u-boot使用ethernet
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">發表於</span>
+            <time itemprop="dateCreated" datetime="2016-12-30T00:14:27+08:00" content="2016-12-30">
+              2016-12-30
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/30/sama5d3_tftp/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/12/30/sama5d3_tftp/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>sama5d3提供的u-boot提供了TFTP相關的協定，因此可以運作ethernet，我們可經由ethernet將檔案簡單的傳送到板端的memory，甚至可以藉由ethernet將kernel送到板端並且啟動kernel，此篇僅簡單介紹如何在u-boot作TFTP的相關設定</p>
+<p>在介紹前建議大家可以準備一條USB to ethernet adapter，因為一般的host都只有一個網路孔，往後應該也會常常用到</p>
+<p><img src="/images/usb2ether.jpg" alt=""></p>
+<h2 id="Host端設定Ethernet"><a href="#Host端設定Ethernet" class="headerlink" title="Host端設定Ethernet"></a>Host端設定Ethernet</h2><p>首先先將板子上電，讓u-boot被帶起來，接著會在host端看到網路連線資訊會多出一個”有線網路連線 n”，一般n = 1是原本的網路連線，和板端建立的會是n = 2以上，若是沒有看到可以在u-boot底下輸入tftp讓host和板端建立連線</p>
+<p>接著選擇編輯連線，選擇和板端建立的連線編輯，進入編輯畫面後選擇IPV4設定，設定想要的IP address，我們以192.168.0.1為範例(當然IP address不能和已存在的連線相衝突)</p>
+<p><img src="/images/usb2ether.jpg" alt=""></p>
+<h2 id="Devive端設定Ethernet"><a href="#Devive端設定Ethernet" class="headerlink" title="Devive端設定Ethernet"></a>Devive端設定Ethernet</h2><p>Host端設定好IP address後，板端也必須作相關的設定，我們也必須設定板端的IP address(ipaddr)，且必須告知host的IP address(serverip)，板端的IP address我們以192.168.0.2為範例</p>
+<pre><code>setenv ipaddr 192.168.0.2
+setenv serverip 192.168.0.1
+</code></pre><p>接著必須設定MAC address</p>
+<pre><code>setenv ethaddr 12:34:56:ab:cd:ef
+</code></pre><p>儲存相關設定</p>
+<pre><code>saveenv
+</code></pre><p>最後reset板子</p>
+<h2 id="使用TFTP"><a href="#使用TFTP" class="headerlink" title="使用TFTP"></a>使用TFTP</h2><p>要確定環境配置是否正確可以用ping看ethernet是否有通，後面接的IP address為host端的IP address，看到host is alive就代表建立連線成功</p>
+<pre><code>ping 192.168.0.1
+</code></pre><p><img src="/images/usb2ether.jpg" alt=""></p>
+<p>接著就可以藉由host傳送資料到板端</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/28/sama5d3_kernel/" itemprop="url">
+                  [Atmel][Sama5d3-xp] - 簡介DTB + Kenrel
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">發表於</span>
+            <time itemprop="dateCreated" datetime="2016-12-28T00:05:32+08:00" content="2016-12-28">
+              2016-12-28
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/28/sama5d3_kernel/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/12/28/sama5d3_kernel/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在bootstrap及uboot階段將大部分的硬體初始化之後，uboot就會試著帶起kernel，要帶起kernel需要三個主要的檔案，分別是Device Tree Blob(dtb)、Linux kernel、File System，此篇僅簡單介紹dtb以及如何build code燒到sama5d3-xp上，File system將在之後的文章作較詳細的介紹，會使用embedded system蠻常使用的busy box</p>
+<h2 id="Device-Tree-Blob"><a href="#Device-Tree-Blob" class="headerlink" title="Device Tree Blob"></a>Device Tree Blob</h2><p>DTB類似一份資料庫，紀錄了板子的硬體組成元件，為bootloader傳送低階硬體資訊給核心的機制，若是沒有dtb，要讓kernel知道uboot裡所設定的硬體資訊，則必須擁有一份和uboot一樣的header file，但要同時維護兩份資料的同步是非常困難的，因此需要一種機制讓kernel得知硬體細節</p>
+<h2 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h2><p>要build在開發版上跑的程式必須先有cross compiler，而sama5d3是ARM Cortex-A5的CPU，因此用的gcc如下</p>
+<pre><code>sudo apt-get install gcc-arm-linux-gnueabi
+</code></pre><p>接著必須下載Linux kernel，網址為<a href="http://www.kernel.org/" target="_blank" rel="external">http://www.kernel.org/</a>，這邊下載的版本為linux-4.6</p>
+<p><strong>註1: 也可建立<a href="http://ivan7645.github.io/2016/11/03/sama5d3_toolchain/" target="_blank" rel="external">完整的toolchain</a>來得到cross-compile gcc</strong></p>
+<h2 id="建置程式"><a href="#建置程式" class="headerlink" title="建置程式"></a>建置程式</h2><p>我們不需要從頭開始建出configuration file，一般都可以找到建立好的檔案，使用下列指令</p>
+<pre><code>make help ARCH=arm
+</code></pre><p>可過濾出使用arm的開發版，可以找到sama5_defconfig即是我們要使用的defconfig</p>
+<p>要建置kernel則是輸入以下指令</p>
+<pre><code>make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi-
+</code></pre><p>若是主機為多核心則可使用下列指令增加建置的速度，其中n指的是核心數目</p>
+<pre><code>make -j&lt;n&gt; RCH=arm CROSS_COMPILE=arm-linux-gnueabi-
+</code></pre><p>經過一段時間之後即可成功建置kernel，我們需要燒錄到目標板上的檔案有兩個，第一個是zImage，也就是kernel本身，可在arch/arm/boot找到，第二個則是at91-sama5d3_xplained.dtb，即為前面提到的device tree，可在arch/arm/boot/dts找到</p>
+<h2 id="燒錄到nandflash"><a href="#燒錄到nandflash" class="headerlink" title="燒錄到nandflash"></a>燒錄到nandflash</h2><p>最簡單燒錄的方式一樣是用sam-ba，燒錄方式可參考<a href="http://ivan7645.github.io/2016/08/03/sama5d3_uboot/" target="_blank" rel="external">簡介U-boot</a>，不一樣的是U-boot將Address = 0x40000，而我們需將dtb file燒到Address = 0x180000，kernel燒到Address = 0x200000</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/11/03/sama5d3_toolchain/" itemprop="url">
                   [Atmel][Sama5d3-xp] - 由Crosstool-ng取得toolchain
                 </a>
@@ -1264,336 +1875,6 @@ make sama5d3_xplainednf_uboot_defconfig
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/29/gets_fgets/" itemprop="url">
-                  [C語言] - gets()設計缺陷
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">發表於</span>
-            <time itemprop="dateCreated" datetime="2016-06-29T13:56:05+08:00" content="2016-06-29">
-              2016-06-29
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/29/gets_fgets/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/29/gets_fgets/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>gets()設計是用來取得輸入的字串。但此function有重大的缺陷，即不會去檢查buffer是否足夠使用</p>
-<h2 id="Bug"><a href="#Bug" class="headerlink" title="Bug"></a>Bug</h2><p>先看以下這段程式碼</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line"> char line[512];</span><br><span class="line">	 ...</span><br><span class="line">	 ...</span><br><span class="line"> gets(line);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>程式會將取得的字串放進<code>line</code>這個buffer，但gets()不會去確認buffer是否足夠，實際上也無法確認，因gets()無法得知buffer大小的資訊，如果輸入的字串大於buffer，那gets()會將此字串完整的貼到buffer裡，即便會超過此buffer造成其他的memory被覆蓋掉</p>
-<h2 id="Internet-worm"><a href="#Internet-worm" class="headerlink" title="Internet worm"></a>Internet worm</h2><p>這個簡單的bug卻可以造成嚴重的危害。正常來說local variable的buffer會放在stack裡面，某些重要資訊也可能放在stack，例如return address(RA)，若剛好遇到此架構的RA是放在stack，那惡意的使用者就可以輸入一個非常長的字串，讓gets()蓋掉其它stack的資訊，包括了RA，當此function執行完之後準備jump回原本的caller function，但RA已經被改成惡意使用者的function address，即可破壞甚至取得此架構的控制權</p>
-<h2 id="Patch"><a href="#Patch" class="headerlink" title="Patch"></a>Patch</h2><p>還好已經有可替代的function避免這個問題，就是改使用fgets()，fgets()需帶入buffer大小的參數，因此會幫忙檢查是否造成overwrite，在Linux下輸入<code>man gets</code>可得到相關資訊，其中最後的部分寫到<code>SECURITY CONSIDERATIONS</code>即為相關說明</p>
-<p><img src="/images/gets_sec_consider.png" alt=""></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/17/sama5d3_getting_started/" itemprop="url">
-                  [Atmel][Sama5d3-xp] - Getting Started
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">發表於</span>
-            <time itemprop="dateCreated" datetime="2016-06-17T21:32:23+08:00" content="2016-06-17">
-              2016-06-17
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/17/sama5d3_getting_started/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/17/sama5d3_getting_started/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在開始開發之前必須先有相關的工具，首先你必須有一條USB Micro-A轉USB Type A的傳輸線，用來連接主機端和板端(J6)</p>
-<p><img src="/images/usb_microa_2_a.jpg" alt=""></p>
-<p>USB傳輸介面主要是用來提供板端5V DC，也可以輸出log，但強烈建議使用UART(J23 Debug port)，來進行相關訊息的輸入與輸出，某些較底層的資訊只會從UART輸出</p>
-<p>要使用UART最方便的方式就是準備一個RS232轉USB的裝置，一邊連接到J23一邊連接到主機端，之後藉由終端機來輸出或輸入訊息，FTDI作了許多相關的產品，市面上可以很輕易的取得</p>
-<p><img src="/images/rs232_2_usb.jpg" alt=""></p>
-<h2 id="終端機"><a href="#終端機" class="headerlink" title="終端機"></a>終端機</h2><p>在Linux或Windows作業系統下都有終端機可用來接受裝置端的訊息，Windows下較常見的工具為putty，但比較建議還是在Linux下開發，會有較佳的彈性和支援的工具</p>
-<p>Linux下用來輸出訊息的工具就很多了，例如picocom screen minicom等等，這邊使用picocom作為範例</p>
-<p>首先當然要先安裝picocom</p>
-<pre><code>sudo apt-get install picocom
-</code></pre><p>安裝完之後將UART板端配置好之後接到主機端的USB接口，可由以下指令知道是否有連接成功，此例可看出成功連接到ttyUSB0</p>
-<pre><code>dmesg | grep tty
-</code></pre><p><img src="/images/ftdi_attach.png" alt=""></p>
-<p>接著使用picocom接收UART訊息且指定ttyUSB0且baud rate為115200，若無法成功使用可加sudo增加權限</p>
-<pre><code>sudo picocom -b 115200 /dev/ttyUSB0
-</code></pre><p><img src="/images/picocom_start.png" alt=""></p>
-<p>最後就可以將micro USB(J6)接到主機端即可看到板端輸出的訊息</p>
-<p><img src="/images/uart_output.png" alt=""></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/16/sama5d3_intro/" itemprop="url">
-                  [Atmel][Sama5d3-xp] - 簡介
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">發表於</span>
-            <time itemprop="dateCreated" datetime="2016-06-16T00:53:13+08:00" content="2016-06-16">
-              2016-06-16
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/16/sama5d3_intro/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/16/sama5d3_intro/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Atmel開發的Sama5d3 Xplained是使用ARM Cortex-A5處理器的開發版，整合了眾多的週邊裝置，而且和Arduino完全相容，因此可以使用市面上許多為Arduino所開發的模組</p>
-<h2 id="裝置清單"><a href="#裝置清單" class="headerlink" title="裝置清單"></a>裝置清單</h2><p>主要週邊裝置以Cortex-A5為基礎，搭配兩個Ethernet，兩個SD/MMC/SDIO host，兩個usb host，兩個usb device，一個RGB LCD介面，一個JTAG介面，一個UART介面，詳細清單及外觀如下</p>
-<p><img src="/images/sama5d3xp_board_spec.png" alt=""></p>
-<p><img src="/images/sama5d3xp_board.png" alt=""></p>
-<h2 id="處理器"><a href="#處理器" class="headerlink" title="處理器"></a>處理器</h2><p>使用擁有高效能且低功耗的Cortex-A5處理器，整合廣泛使用的周邊裝置。Atmel ARM Cortex-A5也支援DDR2和NAND flash儲存裝置，用來存二進位檔和一般資料，系統跑在166MHz的多階層bus架構，24組DMA通道，以及2塊64KB SRAM，下圖為Sama5d3的Block diagram(詳細資料請參考Atmel ARM Cortex-A5的datasheet)</p>
-<p><img src="/images/sama5d3_block_diagrm.png" alt=""></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1639,7 +1920,7 @@ make sama5d3_xplainednf_uboot_defconfig
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">16</span>
               <span class="site-state-item-name">文章</span>
             </a>
           </div>
@@ -1686,7 +1967,7 @@ make sama5d3_xplainednf_uboot_defconfig
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

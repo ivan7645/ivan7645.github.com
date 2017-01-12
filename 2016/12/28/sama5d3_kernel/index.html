@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="C語言," />
+  <meta name="keywords" content="Sama5d3-Xplained," />
 
 
 
@@ -84,27 +84,16 @@
 
 
 
-<meta name="description" content="gets()設計是用來取得輸入的字串。但此function有重大的缺陷，即不會去檢查buffer是否足夠使用
-Bug先看以下這段程式碼
-1234567int main(void)&amp;#123; char line[512];	 ...	 ... gets(line);&amp;#125;
-程式會將取得的字串放進line這個buffer，但gets()不會去確認buffer是否足夠，實際上也無法確認，因get">
+<meta name="description" content="在bootstrap及uboot階段將大部分的硬體初始化之後，uboot就會試著帶起kernel，要帶起kernel需要三個主要的檔案，分別是Device Tree Blob(dtb)、Linux kernel、File System，此篇僅簡單介紹dtb以及如何build code燒到sama5d3-xp上，File system將在之後的文章作較詳細的介紹，會使用embedded system">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[C語言] - gets()設計缺陷">
-<meta property="og:url" content="http://ivan7645.github.com/2016/06/29/gets_fgets/index.html">
+<meta property="og:title" content="[Atmel][Sama5d3-xp] - 簡介DTB + Kenrel">
+<meta property="og:url" content="http://ivan7645.github.com/2016/12/28/sama5d3_kernel/index.html">
 <meta property="og:site_name" content="Ivan’s Blog">
-<meta property="og:description" content="gets()設計是用來取得輸入的字串。但此function有重大的缺陷，即不會去檢查buffer是否足夠使用
-Bug先看以下這段程式碼
-1234567int main(void)&amp;#123; char line[512];	 ...	 ... gets(line);&amp;#125;
-程式會將取得的字串放進line這個buffer，但gets()不會去確認buffer是否足夠，實際上也無法確認，因get">
-<meta property="og:image" content="http://ivan7645.github.com/images/gets_sec_consider.png">
-<meta property="og:updated_time" content="2016-06-29T06:40:57.000Z">
+<meta property="og:description" content="在bootstrap及uboot階段將大部分的硬體初始化之後，uboot就會試著帶起kernel，要帶起kernel需要三個主要的檔案，分別是Device Tree Blob(dtb)、Linux kernel、File System，此篇僅簡單介紹dtb以及如何build code燒到sama5d3-xp上，File system將在之後的文章作較詳細的介紹，會使用embedded system">
+<meta property="og:updated_time" content="2016-12-29T16:13:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[C語言] - gets()設計缺陷">
-<meta name="twitter:description" content="gets()設計是用來取得輸入的字串。但此function有重大的缺陷，即不會去檢查buffer是否足夠使用
-Bug先看以下這段程式碼
-1234567int main(void)&amp;#123; char line[512];	 ...	 ... gets(line);&amp;#125;
-程式會將取得的字串放進line這個buffer，但gets()不會去確認buffer是否足夠，實際上也無法確認，因get">
-<meta name="twitter:image" content="http://ivan7645.github.com/images/gets_sec_consider.png">
+<meta name="twitter:title" content="[Atmel][Sama5d3-xp] - 簡介DTB + Kenrel">
+<meta name="twitter:description" content="在bootstrap及uboot階段將大部分的硬體初始化之後，uboot就會試著帶起kernel，要帶起kernel需要三個主要的檔案，分別是Device Tree Blob(dtb)、Linux kernel、File System，此篇僅簡單介紹dtb以及如何build code燒到sama5d3-xp上，File system將在之後的文章作較詳細的介紹，會使用embedded system">
 
 
 
@@ -122,7 +111,7 @@ Bug先看以下這段程式碼
   };
 </script>
 
-  <title> [C語言] - gets()設計缺陷 | Ivan’s Blog </title>
+  <title> [Atmel][Sama5d3-xp] - 簡介DTB + Kenrel | Ivan’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
@@ -242,7 +231,7 @@ Bug先看以下這段程式碼
             
             
               
-                [C語言] - gets()設計缺陷
+                [Atmel][Sama5d3-xp] - 簡介DTB + Kenrel
               
             
           </h1>
@@ -254,8 +243,8 @@ Bug先看以下這段程式碼
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">發表於</span>
-            <time itemprop="dateCreated" datetime="2016-06-29T13:56:05+08:00" content="2016-06-29">
-              2016-06-29
+            <time itemprop="dateCreated" datetime="2016-12-28T00:05:32+08:00" content="2016-12-28">
+              2016-12-28
             </time>
           </span>
 
@@ -265,8 +254,8 @@ Bug先看以下這段程式碼
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/06/29/gets_fgets/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/29/gets_fgets/" itemprop="commentsCount"></span>
+                <a href="/2016/12/28/sama5d3_kernel/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/12/28/sama5d3_kernel/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -289,13 +278,21 @@ Bug先看以下這段程式碼
       
 
       
-        <p>gets()設計是用來取得輸入的字串。但此function有重大的缺陷，即不會去檢查buffer是否足夠使用</p>
-<h2 id="Bug"><a href="#Bug" class="headerlink" title="Bug"></a>Bug</h2><p>先看以下這段程式碼</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line"> char line[512];</span><br><span class="line">	 ...</span><br><span class="line">	 ...</span><br><span class="line"> gets(line);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>程式會將取得的字串放進<code>line</code>這個buffer，但gets()不會去確認buffer是否足夠，實際上也無法確認，因gets()無法得知buffer大小的資訊，如果輸入的字串大於buffer，那gets()會將此字串完整的貼到buffer裡，即便會超過此buffer造成其他的memory被覆蓋掉</p>
-<h2 id="Internet-worm"><a href="#Internet-worm" class="headerlink" title="Internet worm"></a>Internet worm</h2><p>這個簡單的bug卻可以造成嚴重的危害。正常來說local variable的buffer會放在stack裡面，某些重要資訊也可能放在stack，例如return address(RA)，若剛好遇到此架構的RA是放在stack，那惡意的使用者就可以輸入一個非常長的字串，讓gets()蓋掉其它stack的資訊，包括了RA，當此function執行完之後準備jump回原本的caller function，但RA已經被改成惡意使用者的function address，即可破壞甚至取得此架構的控制權</p>
-<h2 id="Patch"><a href="#Patch" class="headerlink" title="Patch"></a>Patch</h2><p>還好已經有可替代的function避免這個問題，就是改使用fgets()，fgets()需帶入buffer大小的參數，因此會幫忙檢查是否造成overwrite，在Linux下輸入<code>man gets</code>可得到相關資訊，其中最後的部分寫到<code>SECURITY CONSIDERATIONS</code>即為相關說明</p>
-<p><img src="/images/gets_sec_consider.png" alt=""></p>
+        <p>在bootstrap及uboot階段將大部分的硬體初始化之後，uboot就會試著帶起kernel，要帶起kernel需要三個主要的檔案，分別是Device Tree Blob(dtb)、Linux kernel、File System，此篇僅簡單介紹dtb以及如何build code燒到sama5d3-xp上，File system將在之後的文章作較詳細的介紹，會使用embedded system蠻常使用的busy box</p>
+<h2 id="Device-Tree-Blob"><a href="#Device-Tree-Blob" class="headerlink" title="Device Tree Blob"></a>Device Tree Blob</h2><p>DTB類似一份資料庫，紀錄了板子的硬體組成元件，為bootloader傳送低階硬體資訊給核心的機制，若是沒有dtb，要讓kernel知道uboot裡所設定的硬體資訊，則必須擁有一份和uboot一樣的header file，但要同時維護兩份資料的同步是非常困難的，因此需要一種機制讓kernel得知硬體細節</p>
+<h2 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h2><p>要build在開發版上跑的程式必須先有cross compiler，而sama5d3是ARM Cortex-A5的CPU，因此用的gcc如下</p>
+<pre><code>sudo apt-get install gcc-arm-linux-gnueabi
+</code></pre><p>接著必須下載Linux kernel，網址為<a href="http://www.kernel.org/" target="_blank" rel="external">http://www.kernel.org/</a>，這邊下載的版本為linux-4.6</p>
+<p><strong>註1: 也可建立<a href="http://ivan7645.github.io/2016/11/03/sama5d3_toolchain/" target="_blank" rel="external">完整的toolchain</a>來得到cross-compile gcc</strong></p>
+<h2 id="建置程式"><a href="#建置程式" class="headerlink" title="建置程式"></a>建置程式</h2><p>我們不需要從頭開始建出configuration file，一般都可以找到建立好的檔案，使用下列指令</p>
+<pre><code>make help ARCH=arm
+</code></pre><p>可過濾出使用arm的開發版，可以找到sama5_defconfig即是我們要使用的defconfig</p>
+<p>要建置kernel則是輸入以下指令</p>
+<pre><code>make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi-
+</code></pre><p>若是主機為多核心則可使用下列指令增加建置的速度，其中n指的是核心數目</p>
+<pre><code>make -j&lt;n&gt; RCH=arm CROSS_COMPILE=arm-linux-gnueabi-
+</code></pre><p>經過一段時間之後即可成功建置kernel，我們需要燒錄到目標板上的檔案有兩個，第一個是zImage，也就是kernel本身，可在arch/arm/boot找到，第二個則是at91-sama5d3_xplained.dtb，即為前面提到的device tree，可在arch/arm/boot/dts找到</p>
+<h2 id="燒錄到nandflash"><a href="#燒錄到nandflash" class="headerlink" title="燒錄到nandflash"></a>燒錄到nandflash</h2><p>最簡單燒錄的方式一樣是用sam-ba，燒錄方式可參考<a href="http://ivan7645.github.io/2016/08/03/sama5d3_uboot/" target="_blank" rel="external">簡介U-boot</a>，不一樣的是U-boot將Address = 0x40000，而我們需將dtb file燒到Address = 0x180000，kernel燒到Address = 0x200000</p>
 
       
     </div>
@@ -317,7 +314,7 @@ Bug先看以下這段程式碼
       
         <div class="post-tags">
           
-            <a href="/tags/C語言/" rel="tag">#C語言</a>
+            <a href="/tags/Sama5d3-Xplained/" rel="tag">#Sama5d3-Xplained</a>
           
         </div>
       
@@ -326,16 +323,16 @@ Bug先看以下這段程式碼
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/17/sama5d3_getting_started/" rel="next" title="[Atmel][Sama5d3-xp] - Getting Started">
-                <i class="fa fa-chevron-left"></i> [Atmel][Sama5d3-xp] - Getting Started
+              <a href="/2016/11/03/sama5d3_toolchain/" rel="next" title="[Atmel][Sama5d3-xp] - 由Crosstool-ng取得toolchain">
+                <i class="fa fa-chevron-left"></i> [Atmel][Sama5d3-xp] - 由Crosstool-ng取得toolchain
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/06/30/sama5d3_boot_sequence/" rel="prev" title="[Atmel][Sama5d3-xp] - Boot sequence">
-                [Atmel][Sama5d3-xp] - Boot sequence <i class="fa fa-chevron-right"></i>
+              <a href="/2016/12/30/sama5d3_tftp/" rel="prev" title="[Atmel][Sama5d3-xp] - 在u-boot使用ethernet">
+                [Atmel][Sama5d3-xp] - 在u-boot使用ethernet <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -450,7 +447,7 @@ Bug先看以下這段程式碼
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Bug"><span class="nav-number">1.</span> <span class="nav-text">Bug</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Internet-worm"><span class="nav-number">2.</span> <span class="nav-text">Internet worm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Patch"><span class="nav-number">3.</span> <span class="nav-text">Patch</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Device-Tree-Blob"><span class="nav-number">1.</span> <span class="nav-text">Device Tree Blob</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前置作業"><span class="nav-number">2.</span> <span class="nav-text">前置作業</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建置程式"><span class="nav-number">3.</span> <span class="nav-text">建置程式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#燒錄到nandflash"><span class="nav-number">4.</span> <span class="nav-text">燒錄到nandflash</span></a></li></ol></div>
             
           </div>
         </section>
@@ -570,9 +567,9 @@ Bug先看以下這段程式碼
 
     <script type="text/javascript">
       var disqus_shortname = 'ivan7645';
-      var disqus_identifier = '2016/06/29/gets_fgets/';
-      var disqus_title = '[C語言] - gets()設計缺陷';
-      var disqus_url = 'http://ivan7645.github.com/2016/06/29/gets_fgets/';
+      var disqus_identifier = '2016/12/28/sama5d3_kernel/';
+      var disqus_title = '[Atmel][Sama5d3-xp] - 簡介DTB + Kenrel';
+      var disqus_url = 'http://ivan7645.github.com/2016/12/28/sama5d3_kernel/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
