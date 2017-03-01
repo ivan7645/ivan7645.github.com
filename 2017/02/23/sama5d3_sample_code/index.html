@@ -84,24 +84,25 @@
 
 
 
-<meta name="description" content="AT91Bootstrap是bootloader的第二階段，緊接在ROM boot之後，主要負責硬體的初始化及配置，例如clock PIO DRAM等等的配置，以及複製Flash or SD card的uboot到RAM上
-ROM boot流程板子一上電即開始執行ROM code，首先會先確認NAND chip select(JP5)的配置若為1(short)則會開始從SPI CS0 flash、">
+<meta name="description" content="一般開發版都會有sample code來協助使用這開發，Atmel也不例外，Sama5d3-Xplained的sample code可以在官方網站下載
+http://www.atmel.com/tools/SAMA5D3SOFTWAREPACKAGE.aspx
+那要如何放到板子上跑起來呢？Sama5d3-Xplained有SRAM和DRAM，因此可以將程式放在其中一塊記憶體上跑，不過因為這塊板子的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Atmel][Sama5d3-xp] - 簡介Bootstrap">
-<meta property="og:url" content="http://ivan7645.github.com/2016/07/01/sama5d3_boot_strap/index.html">
+<meta property="og:title" content="[Atmel][Sama5d3-xp] - Run sample code">
+<meta property="og:url" content="http://ivan7645.github.com/2017/02/23/sama5d3_sample_code/index.html">
 <meta property="og:site_name" content="Ivan’s Blog">
-<meta property="og:description" content="AT91Bootstrap是bootloader的第二階段，緊接在ROM boot之後，主要負責硬體的初始化及配置，例如clock PIO DRAM等等的配置，以及複製Flash or SD card的uboot到RAM上
-ROM boot流程板子一上電即開始執行ROM code，首先會先確認NAND chip select(JP5)的配置若為1(short)則會開始從SPI CS0 flash、">
-<meta property="og:image" content="http://ivan7645.github.com/images/sam-ba_bootstrap.png">
-<meta property="og:image" content="http://ivan7645.github.com/images/sam-ba_bootstrap_2.png">
-<meta property="og:image" content="http://ivan7645.github.com/images/sam-ba_bootstrap_3.png">
-<meta property="og:image" content="http://ivan7645.github.com/images/bootstrap_log.png">
-<meta property="og:updated_time" content="2016-11-07T15:56:02.000Z">
+<meta property="og:description" content="一般開發版都會有sample code來協助使用這開發，Atmel也不例外，Sama5d3-Xplained的sample code可以在官方網站下載
+http://www.atmel.com/tools/SAMA5D3SOFTWAREPACKAGE.aspx
+那要如何放到板子上跑起來呢？Sama5d3-Xplained有SRAM和DRAM，因此可以將程式放在其中一塊記憶體上跑，不過因為這塊板子的">
+<meta property="og:image" content="http://ivan7645.github.com/images/led_sample_sram.png">
+<meta property="og:image" content="http://ivan7645.github.com/images/led_sample_dram.png">
+<meta property="og:updated_time" content="2017-03-01T16:34:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[Atmel][Sama5d3-xp] - 簡介Bootstrap">
-<meta name="twitter:description" content="AT91Bootstrap是bootloader的第二階段，緊接在ROM boot之後，主要負責硬體的初始化及配置，例如clock PIO DRAM等等的配置，以及複製Flash or SD card的uboot到RAM上
-ROM boot流程板子一上電即開始執行ROM code，首先會先確認NAND chip select(JP5)的配置若為1(short)則會開始從SPI CS0 flash、">
-<meta name="twitter:image" content="http://ivan7645.github.com/images/sam-ba_bootstrap.png">
+<meta name="twitter:title" content="[Atmel][Sama5d3-xp] - Run sample code">
+<meta name="twitter:description" content="一般開發版都會有sample code來協助使用這開發，Atmel也不例外，Sama5d3-Xplained的sample code可以在官方網站下載
+http://www.atmel.com/tools/SAMA5D3SOFTWAREPACKAGE.aspx
+那要如何放到板子上跑起來呢？Sama5d3-Xplained有SRAM和DRAM，因此可以將程式放在其中一塊記憶體上跑，不過因為這塊板子的">
+<meta name="twitter:image" content="http://ivan7645.github.com/images/led_sample_sram.png">
 
 
 
@@ -119,7 +120,7 @@ ROM boot流程板子一上電即開始執行ROM code，首先會先確認NAND ch
   };
 </script>
 
-  <title> [Atmel][Sama5d3-xp] - 簡介Bootstrap | Ivan’s Blog </title>
+  <title> [Atmel][Sama5d3-xp] - Run sample code | Ivan’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
@@ -239,7 +240,7 @@ ROM boot流程板子一上電即開始執行ROM code，首先會先確認NAND ch
             
             
               
-                [Atmel][Sama5d3-xp] - 簡介Bootstrap
+                [Atmel][Sama5d3-xp] - Run sample code
               
             
           </h1>
@@ -251,8 +252,8 @@ ROM boot流程板子一上電即開始執行ROM code，首先會先確認NAND ch
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">發表於</span>
-            <time itemprop="dateCreated" datetime="2016-07-01T00:22:02+08:00" content="2016-07-01">
-              2016-07-01
+            <time itemprop="dateCreated" datetime="2017-02-23T00:48:23+08:00" content="2017-02-23">
+              2017-02-23
             </time>
           </span>
 
@@ -262,8 +263,8 @@ ROM boot流程板子一上電即開始執行ROM code，首先會先確認NAND ch
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/01/sama5d3_boot_strap/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/01/sama5d3_boot_strap/" itemprop="commentsCount"></span>
+                <a href="/2017/02/23/sama5d3_sample_code/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/23/sama5d3_sample_code/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -286,41 +287,32 @@ ROM boot流程板子一上電即開始執行ROM code，首先會先確認NAND ch
       
 
       
-        <p>AT91Bootstrap是bootloader的第二階段，緊接在ROM boot之後，主要負責硬體的初始化及配置，例如clock PIO DRAM等等的配置，以及複製Flash or SD card的uboot到RAM上</p>
-<h2 id="ROM-boot流程"><a href="#ROM-boot流程" class="headerlink" title="ROM boot流程"></a>ROM boot流程</h2><p>板子一上電即開始執行ROM code，首先會先確認NAND chip select(JP5)的配置<br>若為1(short)則會開始從SPI CS0 flash、SD card、NAND flash、SPI CS1 flash、EEPROM照順序尋找是否有可使用的bootstrap(註1)，若有的話則讀取一份到SRAM且跳過去，若沒有任何可使用的bootstrap則進入SAM-BA監控模式<br>若為0(open)則會直接進入SAM-BA監控模式<br>進入SAM-BA模式則可藉由相關工具將程式燒到flash or EEPRM</p>
-<p><strong>註1: sama5d3-xplained僅支援nand flash或sd card boot</strong></p>
-<h2 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h2><p>要build在開發版上跑的程式必須先有cross compiler，而sama5d3是ARM Cortex-A5的CPU，因此用的gcc如下</p>
-<pre><code>sudo apt-get install gcc-arm-linux-gnueabi
-</code></pre><p>安裝完cross compiler之後必須下載bootstrap的src code(當然必須先有git相關指令，這部份請自行安裝)</p>
-<pre><code>git clone git://github.com/linux4sam/at91bootstrap.git
-</code></pre><p>下載完成後進入at91bootstrap資料夾，即可使用make相關指令產生.config檔以及二進位檔</p>
-<p><strong>註2: 也可建立<a href="http://ivan7645.github.io/2016/11/03/sama5d3_toolchain/" target="_blank" rel="external">完整的toolchain</a>來得到cross-compile gcc</strong></p>
-<h2 id="建置程式"><a href="#建置程式" class="headerlink" title="建置程式"></a>建置程式</h2><p>因為Sama5d3預設本來就是跑Linux的，因此建置at91bootstrap過程和Linux的bootstrap/uboot基本上沒什麼太大的不同<br>你可以在抓下來的程式碼當中的board/sama5d3_xplained資料夾內發現四個default configuration files，如下</p>
-<pre><code>sama5d3_xplainednf_linux_image_dt_defconfig
-sama5d3_xplainednf_uboot_defconfig
-sama5d3_xplainedsd_linux_image_dt_defconfig
-sama5d3_xplainedsd_uboot_defconfig
-</code></pre><p>nf代表從nand flash讀取，sd代表從sd card讀取<br>linux代表讀取linux kerenel到RAM，dt代表讀取dtb到RAM，uboot代表讀取uboot到RAM</p>
-<p>要使用怎樣的configuration file需看需求決定，不過從檔案當中可以發現也可以選擇不讀取uboot直接讀取kernel的方式帶起linux<br>一般我們都使用flash且帶uboot的方式，在最上層的資料夾裡輸入以下make指令可產生.config檔</p>
-<pre><code>make mrproper
-make sama5d3_xplainednf_uboot_defconfig
-</code></pre><p>另外也可以使用以下指令進行產生客製化的.config檔，細部使用不在此篇敘述</p>
+        <p>一般開發版都會有sample code來協助使用這開發，Atmel也不例外，Sama5d3-Xplained的sample code可以在官方網站下載</p>
+<p><a href="http://www.atmel.com/tools/SAMA5D3SOFTWAREPACKAGE.aspx" target="_blank" rel="external">http://www.atmel.com/tools/SAMA5D3SOFTWAREPACKAGE.aspx</a></p>
+<p>那要如何放到板子上跑起來呢？<br>Sama5d3-Xplained有SRAM和DRAM，因此可以將程式放在其中一塊記憶體上跑，不過因為這塊板子的SRAM只有64KB * 2，而DRAM有512MB，因此可以盡量將程式放在DRAM上</p>
+<h2 id="建置"><a href="#建置" class="headerlink" title="建置"></a>建置</h2><p>我們以./examples/getting-started為例，此例為控制板子上兩顆LED燈，此範例的make file在./examples/getting-started/build/gcc，簡單看一下make file可以看到MEMORIES可選擇sram/ddram，部分範例只能選擇ddram，因為sram的size不夠大，也可以調整TRACE_LEVEL，另外也可以看到CROSS_COMPILE = arm-none-eabi-，這裡目前嘗試無法使用在bootstrap/uboot/kernel上使用的arm-linux-guneabi-，看起來是linker script的問題，推測修正相關command到較新版本即可使用，不過懶得去改linker script，直接用預設的cross compile就好，所以先安裝它吧</p>
+<pre><code>sudo apt-get install gcc-arm-none-eabi
+</code></pre><p>接著一般我們第一件事會下make clean，結果也跑出error，因為make file裡的clean使用的是cs-rm，我們直接替換成rm即可成功clean</p>
+<pre><code>make clean
+</code></pre><p>要建置出程式就使用</p>
+<pre><code>make all
+</code></pre><p>在make file的同層目錄下即可看到bin資料夾，裡面的的兩個bin檔即是需要的執行檔，以sram結尾的就是放到sram，以ddram結尾的則是放到dram</p>
+<h2 id="sram"><a href="#sram" class="headerlink" title="sram"></a>sram</h2><p>和<a href="http://ivan7645.github.io/2016/08/03/sama5d3_uboot/" target="_blank" rel="external">uboot</a>和<a href="http://ivan7645.github.io/2016/07/01/sama5d3_boot_strap/" target="_blank" rel="external">bootstrap</a>一樣，需先將NAND CS pin斷開，然後RESET，看見顯示RomBoot後接回NAND CS pin，接著打開smaba tool，在NandFlash頁面選擇Enable NandFlash –&gt; Execute，接著Erase all<br>–&gt; Execute<br>因為sram在rom code執行完之後即可使用，不需要額外的初始化，因此直接將程式放在原本bootstrap的位置，rom執行完後即會JMP過來，Send Boot File –&gt; Execute，然後選擇sram結尾的bin檔，之後按RESET，可在uart看到以下訊息</p>
+<p><img src="/images/led_sample_sram.png" alt=""></p>
+<p>且也可看到板端的兩顆LED分別以不同的頻率閃爍</p>
+<h2 id="dram"><a href="#dram" class="headerlink" title="dram"></a>dram</h2><p>dram和sram較不一樣的是，dram需透過bootstrap來進行初始化的動作之後才可正常使用，不過這bootstrap需做些特別的設定</p>
+<p><a href="http://ivan7645.github.io/2016/07/01/sama5d3_boot_strap/" target="_blank" rel="external">bootstrap</a>的建置及下載位址可參考相關連結，這邊只針對設定的部分</p>
+<p>首先我們在./at91bootstrap/binaries下</p>
 <pre><code>make menuconfig
-</code></pre><p>最後輸入以下指令，會在最上層目錄中產生一個binaries資料夾，裡面包含了bin檔及elf檔，將bin檔放置flash當中的bootstrap位置即可在ROM code執行完成後，跳到此段程式執行</p>
-<pre><code>make CROSS_COMPILE=arm-linux-gnueabi-
-</code></pre><h2 id="燒錄到nandflash"><a href="#燒錄到nandflash" class="headerlink" title="燒錄到nandflash"></a>燒錄到nandflash</h2><p>建置完bootstrap之後可看到最上層目錄多出了一個binaries資料夾，裡面的sama5d3_xplained-nandflashboot-uboot-3.8.5.bin即是我們要燒錄到flah的檔案</p>
-<p>我們可以到atmel官網下載SAM-BA工具，檔名為SAM-BA 2.16 for Linux，下載完之後解壓縮可得到一sam-ba_cdc_linux資料夾，裡面的執行檔(sam-ba or sam-ba_64)即是我們要使用的工具</p>
-<p>首先先把NAND chip select(JP5)設為0接著RESET，若從UART看到<code>RomBoot</code>的log代表成功進入sam-ba監控模式，接著必須把JP5再設回1</p>
-<p>接下來要啟動sam-ba，正常打開應可看到Select connection有相關資訊，若沒有的話可能是權限問題，可以用sudo開啟此檔案</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./sam-ba</span><br></pre></td></tr></table></figure>
-<p>開啟後畫面如下，將板子選至at91sama5d3x-xplained後按Connect</p>
-<p><img src="/images/sam-ba_bootstrap.png" alt=""></p>
-<p>將標籤頁選至NandFlash，Scripts選擇Enable NandFlash，之後按Execute，沒看到紅色字代表成功</p>
-<p><img src="/images/sam-ba_bootstrap_2.png" alt=""></p>
-<p>現在要把bootstrap燒到nandflash裡了，將Scripts選至Send Boot File，之後按Execute再選擇bin檔，一樣沒看到紅色字代表成功</p>
-<p><img src="/images/sam-ba_bootstrap_3.png" alt=""></p>
-<p>現在bootstrap已經燒好了，可以將sam-ba關掉，且將板子RESET即可看到以下畫面代表成功執行bootstrap了</p>
-<p><img src="/images/bootstrap_log.png" alt=""></p>
+</code></pre><p>就可以看到選單畫面，有兩個地方需要設定</p>
+<pre><code>1. Image Loading Strategy -&gt; (X)Load 1 MB into start of SDRAM
+2. Demo Application Images storage Setup -&gt; (0x20000000) The External Ram Address to Load Demo-App Image 
+</code></pre><p>建置完程式之後就可以依照燒bootstrap方式燒到flash，不過要特別注意在使用sma-ba的Send Boot File之前必須先Enable OS PMECC parameters</p>
+<p>打開smaba tool，在NandFlash頁面選擇Enable NandFlash –&gt; Execute，Erase all –&gt; Execute，Enable OS PMECC parameters -&gt; Execute，Send Boot File</p>
+<p>接著在Address填上0x40000(bootstrap JMP之後的位址)，Sned File Name就選以dram結尾的sample code的bin檔，最後按Send File</p>
+<p>成功之後按RESET可在UART看到以下訊息，和sram不同的是多了bootstrap的相關訊息</p>
+<p><img src="/images/led_sample_dram.png" alt=""></p>
+<p>且也可看到板端的兩顆LED分別以不同的頻率閃爍</p>
 
       
     </div>
@@ -351,17 +343,13 @@ make sama5d3_xplainednf_uboot_defconfig
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/30/sama5d3_boot_sequence/" rel="next" title="[Atmel][Sama5d3-xp] - Boot sequence">
-                <i class="fa fa-chevron-left"></i> [Atmel][Sama5d3-xp] - Boot sequence
+              <a href="/2017/01/11/ptr_multi_arr/" rel="next" title="[C語言] - 指標及多維陣列">
+                <i class="fa fa-chevron-left"></i> [C語言] - 指標及多維陣列
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/01/linux_cppcheck/" rel="prev" title="[Linux] - cppcheck 靜態程式分析工具">
-                [Linux] - cppcheck 靜態程式分析工具 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -475,7 +463,7 @@ make sama5d3_xplainednf_uboot_defconfig
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ROM-boot流程"><span class="nav-number">1.</span> <span class="nav-text">ROM boot流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前置作業"><span class="nav-number">2.</span> <span class="nav-text">前置作業</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建置程式"><span class="nav-number">3.</span> <span class="nav-text">建置程式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#燒錄到nandflash"><span class="nav-number">4.</span> <span class="nav-text">燒錄到nandflash</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#建置"><span class="nav-number">1.</span> <span class="nav-text">建置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sram"><span class="nav-number">2.</span> <span class="nav-text">sram</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dram"><span class="nav-number">3.</span> <span class="nav-text">dram</span></a></li></ol></div>
             
           </div>
         </section>
@@ -595,9 +583,9 @@ make sama5d3_xplainednf_uboot_defconfig
 
     <script type="text/javascript">
       var disqus_shortname = 'ivan7645';
-      var disqus_identifier = '2016/07/01/sama5d3_boot_strap/';
-      var disqus_title = '[Atmel][Sama5d3-xp] - 簡介Bootstrap';
-      var disqus_url = 'http://ivan7645.github.com/2016/07/01/sama5d3_boot_strap/';
+      var disqus_identifier = '2017/02/23/sama5d3_sample_code/';
+      var disqus_title = '[Atmel][Sama5d3-xp] - Run sample code';
+      var disqus_url = 'http://ivan7645.github.com/2017/02/23/sama5d3_sample_code/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');

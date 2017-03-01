@@ -233,6 +233,132 @@
             
               
                 
+                <a class="post-title-link" href="/2017/02/23/sama5d3_sample_code/" itemprop="url">
+                  [Atmel][Sama5d3-xp] - Run sample code
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">發表於</span>
+            <time itemprop="dateCreated" datetime="2017-02-23T00:48:23+08:00" content="2017-02-23">
+              2017-02-23
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/02/23/sama5d3_sample_code/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/23/sama5d3_sample_code/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>一般開發版都會有sample code來協助使用這開發，Atmel也不例外，Sama5d3-Xplained的sample code可以在官方網站下載</p>
+<p><a href="http://www.atmel.com/tools/SAMA5D3SOFTWAREPACKAGE.aspx" target="_blank" rel="external">http://www.atmel.com/tools/SAMA5D3SOFTWAREPACKAGE.aspx</a></p>
+<p>那要如何放到板子上跑起來呢？<br>Sama5d3-Xplained有SRAM和DRAM，因此可以將程式放在其中一塊記憶體上跑，不過因為這塊板子的SRAM只有64KB * 2，而DRAM有512MB，因此可以盡量將程式放在DRAM上</p>
+<h2 id="建置"><a href="#建置" class="headerlink" title="建置"></a>建置</h2><p>我們以./examples/getting-started為例，此例為控制板子上兩顆LED燈，此範例的make file在./examples/getting-started/build/gcc，簡單看一下make file可以看到MEMORIES可選擇sram/ddram，部分範例只能選擇ddram，因為sram的size不夠大，也可以調整TRACE_LEVEL，另外也可以看到CROSS_COMPILE = arm-none-eabi-，這裡目前嘗試無法使用在bootstrap/uboot/kernel上使用的arm-linux-guneabi-，看起來是linker script的問題，推測修正相關command到較新版本即可使用，不過懶得去改linker script，直接用預設的cross compile就好，所以先安裝它吧</p>
+<pre><code>sudo apt-get install gcc-arm-none-eabi
+</code></pre><p>接著一般我們第一件事會下make clean，結果也跑出error，因為make file裡的clean使用的是cs-rm，我們直接替換成rm即可成功clean</p>
+<pre><code>make clean
+</code></pre><p>要建置出程式就使用</p>
+<pre><code>make all
+</code></pre><p>在make file的同層目錄下即可看到bin資料夾，裡面的的兩個bin檔即是需要的執行檔，以sram結尾的就是放到sram，以ddram結尾的則是放到dram</p>
+<h2 id="sram"><a href="#sram" class="headerlink" title="sram"></a>sram</h2><p>和<a href="http://ivan7645.github.io/2016/08/03/sama5d3_uboot/" target="_blank" rel="external">uboot</a>和<a href="http://ivan7645.github.io/2016/07/01/sama5d3_boot_strap/" target="_blank" rel="external">bootstrap</a>一樣，需先將NAND CS pin斷開，然後RESET，看見顯示RomBoot後接回NAND CS pin，接著打開smaba tool，在NandFlash頁面選擇Enable NandFlash –&gt; Execute，接著Erase all<br>–&gt; Execute<br>因為sram在rom code執行完之後即可使用，不需要額外的初始化，因此直接將程式放在原本bootstrap的位置，rom執行完後即會JMP過來，Send Boot File –&gt; Execute，然後選擇sram結尾的bin檔，之後按RESET，可在uart看到以下訊息</p>
+<p><img src="/images/led_sample_sram.png" alt=""></p>
+<p>且也可看到板端的兩顆LED分別以不同的頻率閃爍</p>
+<h2 id="dram"><a href="#dram" class="headerlink" title="dram"></a>dram</h2><p>dram和sram較不一樣的是，dram需透過bootstrap來進行初始化的動作之後才可正常使用，不過這bootstrap需做些特別的設定</p>
+<p><a href="http://ivan7645.github.io/2016/07/01/sama5d3_boot_strap/" target="_blank" rel="external">bootstrap</a>的建置及下載位址可參考相關連結，這邊只針對設定的部分</p>
+<p>首先我們在./at91bootstrap/binaries下</p>
+<pre><code>make menuconfig
+</code></pre><p>就可以看到選單畫面，有兩個地方需要設定</p>
+<pre><code>1. Image Loading Strategy -&gt; (X)Load 1 MB into start of SDRAM
+2. Demo Application Images storage Setup -&gt; (0x20000000) The External Ram Address to Load Demo-App Image 
+</code></pre><p>建置完程式之後就可以依照燒bootstrap方式燒到flash，不過要特別注意在使用sma-ba的Send Boot File之前必須先Enable OS PMECC parameters</p>
+<p>打開smaba tool，在NandFlash頁面選擇Enable NandFlash –&gt; Execute，Erase all –&gt; Execute，Enable OS PMECC parameters -&gt; Execute，Send Boot File</p>
+<p>接著在Address填上0x40000(bootstrap JMP之後的位址)，Sned File Name就選以dram結尾的sample code的bin檔，最後按Send File</p>
+<p>成功之後按RESET可在UART看到以下訊息，和sram不同的是多了bootstrap的相關訊息</p>
+<p><img src="/images/led_sample_dram.png" alt=""></p>
+<p>且也可看到板端的兩顆LED分別以不同的頻率閃爍</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/01/11/ptr_multi_arr/" itemprop="url">
                   [C語言] - 指標及多維陣列
                 </a>
@@ -1749,123 +1875,6 @@ make sama5d3_xplainednf_uboot_defconfig
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/17/sama5d3_getting_started/" itemprop="url">
-                  [Atmel][Sama5d3-xp] - Getting Started
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">發表於</span>
-            <time itemprop="dateCreated" datetime="2016-06-17T21:32:23+08:00" content="2016-06-17">
-              2016-06-17
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/17/sama5d3_getting_started/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/17/sama5d3_getting_started/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在開始開發之前必須先有相關的工具，首先你必須有一條USB Micro-A轉USB Type A的傳輸線，用來連接主機端和板端(J6)</p>
-<p><img src="/images/usb_microa_2_a.jpg" alt=""></p>
-<p>USB傳輸介面主要是用來提供板端5V DC，也可以輸出log，但強烈建議使用UART(J23 Debug port)，來進行相關訊息的輸入與輸出，某些較底層的資訊只會從UART輸出</p>
-<p>要使用UART最方便的方式就是準備一個RS232轉USB的裝置，一邊連接到J23一邊連接到主機端，之後藉由終端機來輸出或輸入訊息，FTDI作了許多相關的產品，市面上可以很輕易的取得</p>
-<p><img src="/images/rs232_2_usb.jpg" alt=""></p>
-<h2 id="終端機"><a href="#終端機" class="headerlink" title="終端機"></a>終端機</h2><p>在Linux或Windows作業系統下都有終端機可用來接受裝置端的訊息，Windows下較常見的工具為putty，但比較建議還是在Linux下開發，會有較佳的彈性和支援的工具</p>
-<p>Linux下用來輸出訊息的工具就很多了，例如picocom screen minicom等等，這邊使用picocom作為範例</p>
-<p>首先當然要先安裝picocom</p>
-<pre><code>sudo apt-get install picocom
-</code></pre><p>安裝完之後將UART板端配置好之後接到主機端的USB接口，可由以下指令知道是否有連接成功，此例可看出成功連接到ttyUSB0</p>
-<pre><code>dmesg | grep tty
-</code></pre><p><img src="/images/ftdi_attach.png" alt=""></p>
-<p>接著使用picocom接收UART訊息且指定ttyUSB0且baud rate為115200，若無法成功使用可加sudo增加權限</p>
-<pre><code>sudo picocom -b 115200 /dev/ttyUSB0
-</code></pre><p><img src="/images/picocom_start.png" alt=""></p>
-<p>最後就可以將micro USB(J6)接到主機端即可看到板端輸出的訊息</p>
-<p><img src="/images/uart_output.png" alt=""></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1911,7 +1920,7 @@ make sama5d3_xplainednf_uboot_defconfig
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-count">15</span>
               <span class="site-state-item-name">文章</span>
             </a>
           </div>
