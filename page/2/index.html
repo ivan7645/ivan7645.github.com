@@ -233,6 +233,113 @@
             
               
                 
+                <a class="post-title-link" href="/2016/06/29/gets_fgets/" itemprop="url">
+                  [C語言] - gets()設計缺陷
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">發表於</span>
+            <time itemprop="dateCreated" datetime="2016-06-29T13:56:05+08:00" content="2016-06-29">
+              2016-06-29
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/29/gets_fgets/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/29/gets_fgets/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>gets()設計是用來取得輸入的字串。但此function有重大的缺陷，即不會去檢查buffer是否足夠使用</p>
+<h2 id="Bug"><a href="#Bug" class="headerlink" title="Bug"></a>Bug</h2><p>先看以下這段程式碼</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line"> char line[512];</span><br><span class="line">	 ...</span><br><span class="line">	 ...</span><br><span class="line"> gets(line);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>程式會將取得的字串放進<code>line</code>這個buffer，但gets()不會去確認buffer是否足夠，實際上也無法確認，因gets()無法得知buffer大小的資訊，如果輸入的字串大於buffer，那gets()會將此字串完整的貼到buffer裡，即便會超過此buffer造成其他的memory被覆蓋掉</p>
+<h2 id="Internet-worm"><a href="#Internet-worm" class="headerlink" title="Internet worm"></a>Internet worm</h2><p>這個簡單的bug卻可以造成嚴重的危害。正常來說local variable的buffer會放在stack裡面，某些重要資訊也可能放在stack，例如return address(RA)，若剛好遇到此架構的RA是放在stack，那惡意的使用者就可以輸入一個非常長的字串，讓gets()蓋掉其它stack的資訊，包括了RA，當此function執行完之後準備jump回原本的caller function，但RA已經被改成惡意使用者的function address，即可破壞甚至取得此架構的控制權</p>
+<h2 id="Patch"><a href="#Patch" class="headerlink" title="Patch"></a>Patch</h2><p>還好已經有可替代的function避免這個問題，就是改使用fgets()，fgets()需帶入buffer大小的參數，因此會幫忙檢查是否造成overwrite，在Linux下輸入<code>man gets</code>可得到相關資訊，其中最後的部分寫到<code>SECURITY CONSIDERATIONS</code>即為相關說明</p>
+<p><img src="/images/gets_sec_consider.png" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/06/17/sama5d3_getting_started/" itemprop="url">
                   [Atmel][Sama5d3-xp] - Getting Started
                 </a>
@@ -847,7 +954,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-count">16</span>
               <span class="site-state-item-name">文章</span>
             </a>
           </div>
@@ -857,7 +964,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">標籤</span>
               </a>
             </div>

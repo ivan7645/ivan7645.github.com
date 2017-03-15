@@ -1,0 +1,612 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="LeetCode," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Question:Given an array of integers, return indices of the two numbers such that they add up to a specific target.You may assume that each input would have exactly one solution, and you may not use th">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[LeetCode] - Two Sum">
+<meta property="og:url" content="http://ivan7645.github.com/2017/03/14/leetcode_twosum/index.html">
+<meta property="og:site_name" content="Ivan’s Blog">
+<meta property="og:description" content="Question:Given an array of integers, return indices of the two numbers such that they add up to a specific target.You may assume that each input would have exactly one solution, and you may not use th">
+<meta property="og:image" content="http://ivan7645.github.com/images/lc_2sum_bruteforce.png">
+<meta property="og:image" content="http://ivan7645.github.com/images/lc_2sum_binarysearch.png">
+<meta property="og:image" content="http://ivan7645.github.com/images/lc_2sum_hashfunc.png">
+<meta property="og:updated_time" content="2017-03-15T09:00:02.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[LeetCode] - Two Sum">
+<meta name="twitter:description" content="Question:Given an array of integers, return indices of the two numbers such that they add up to a specific target.You may assume that each input would have exactly one solution, and you may not use th">
+<meta name="twitter:image" content="http://ivan7645.github.com/images/lc_2sum_bruteforce.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> [LeetCode] - Two Sum | Ivan’s Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Ivan’s Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            歸檔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            標籤
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                [LeetCode] - Two Sum
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">發表於</span>
+            <time itemprop="dateCreated" datetime="2017-03-14T03:09:05+08:00" content="2017-03-14">
+              2017-03-14
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/03/14/leetcode_twosum/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/14/leetcode_twosum/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Question:<br>Given an array of integers, return indices of the two numbers such that they add up to a specific target.<br>You may assume that each input would have exactly one solution, and you may not use the same element twice.</p>
+<p>Example:</p>
+<pre><code>Given nums = [2, 7, 11, 15], target = 9,
+
+Because nums[0] + nums[1] = 2 + 7 = 9,
+return [0, 1].
+</code></pre><p>此題主要著重在如何有效率的搜尋，這邊使用了三種解法，分別是Brute Force(暴力解)，Binary Search(二分搜尋法)，Hash function(雜湊函數)</p>
+<p>假設Hash Function可以達到O(n)的複雜度，那理論上花費時間會是Brute Force &gt; Binary Search &gt; Hash Function，不過實際實驗起來是Brute Force &gt; Binary Search = Hash Function，推測有可能是使用的hash function沒達到O(n)的複雜度，或是LeetCode跑的數據量不足以反應出兩種方式的差距，這部分就不深入探討了</p>
+<h2 id="Brute-Force"><a href="#Brute-Force" class="headerlink" title="Brute Force"></a>Brute Force</h2><p>暴力解即是從nums[0]開始往後找是否有數字相加之後可以得到target，如果沒有那就看num[1]接著一樣往後找是否有數字相加之後可以得到target，以此類推，直到找到正確的組合</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span>* <span class="title">twoSum</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize, <span class="keyword">int</span> target)</span> </span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i, j;</span><br><span class="line">	<span class="keyword">int</span> *pResult;</span><br><span class="line"></span><br><span class="line">	pResult = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(<span class="number">2</span> * <span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; numsSize; i++) &#123;</span><br><span class="line">		<span class="keyword">for</span> (j = i + <span class="number">1</span>; j &lt; numsSize; j++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (*(nums + i) + *(nums + j) == target) &#123;</span><br><span class="line">				*pResult = i;</span><br><span class="line">				*(pResult + <span class="number">1</span>)= j;</span><br><span class="line">				<span class="keyword">goto</span> RUN_DONE; </span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	RUN_DONE:    </span><br><span class="line">	<span class="keyword">return</span> pResult;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>程式就是兩層迴圈，分別兩個兩個相加看是不是要的結果<br>這裡要注意的是第二層的迴圈在找第二個數字時不用從0開始找，從i+1開始找即可，因為i+1之前的會是已經搜尋過的，例如目前已經搜尋到i = 3那j = 0, 1, 2的狀況分別在之前i = 0 j =3, i = 1 j = 3, i = 2 j = 3時都已經運算過了</p>
+<p>放到leet code上執行的結果為89ms，超過74.68%的上傳程式</p>
+<p><img src="/images/lc_2sum_bruteforce.png" alt=""></p>
+<h2 id="Binary-Search"><a href="#Binary-Search" class="headerlink" title="Binary Search"></a>Binary Search</h2><p>二分搜尋法可以將搜尋的複雜度降低成O(logn)，不過需先經過排序，排序方式可以使用standard C有支援的qsort</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">compare</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span> *a, <span class="keyword">const</span> <span class="keyword">void</span> *b)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> ((*(<span class="keyword">int</span> *)a - *(<span class="keyword">int</span> *)b));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">binary_search</span><span class="params">(<span class="keyword">int</span> *pNums, <span class="keyword">int</span> size, <span class="keyword">int</span> val)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> l, u, m;</span><br><span class="line"></span><br><span class="line">	l = <span class="number">0</span>;</span><br><span class="line">	u = size - <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (;;) &#123;</span><br><span class="line">		<span class="keyword">if</span> (l &gt; u)</span><br><span class="line">			<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">		m = (l + u) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span> (*(pNums + m) &lt; val)</span><br><span class="line">			l = m + <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (*(pNums + m) == val)</span><br><span class="line">			<span class="keyword">return</span> m;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			u = m - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span>* <span class="title">twoSum</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize, <span class="keyword">int</span> target)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	<span class="keyword">int</span> offset, val1, val2;</span><br><span class="line">	<span class="keyword">int</span> *pResult;</span><br><span class="line">	<span class="keyword">int</span> *pSort_nums;</span><br><span class="line">	<span class="keyword">int</span> *pCurr_val;</span><br><span class="line">	</span><br><span class="line">	pResult = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(<span class="number">2</span> * <span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line">	pSort_nums = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(numsSize * <span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line">	<span class="built_in">memcpy</span>(pSort_nums, nums, <span class="keyword">sizeof</span>(<span class="keyword">int</span>) * numsSize);</span><br><span class="line">	<span class="comment">//(1)</span></span><br><span class="line">	qsort(pSort_nums, numsSize, <span class="keyword">sizeof</span>(<span class="keyword">int</span>), compare);</span><br><span class="line">	</span><br><span class="line">	pCurr_val = pSort_nums;</span><br><span class="line">	<span class="comment">//(2)</span></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; numsSize; i++) &#123;</span><br><span class="line">		val1 = *pCurr_val;</span><br><span class="line">		val2 = target - val1;</span><br><span class="line">		pCurr_val++;</span><br><span class="line">		<span class="keyword">if</span> (binary_search(pCurr_val, numsSize - i - <span class="number">1</span>, val2) != <span class="number">-1</span>)</span><br><span class="line">	    	<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//(3)</span></span><br><span class="line">	offset = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; numsSize; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (*(nums + i) == val1 || *(nums + i) == val2) &#123;</span><br><span class="line">			*(pResult + offset) = i;</span><br><span class="line">			<span class="keyword">if</span> (offset == <span class="number">1</span>)</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			offset++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">free</span>(pSort_nums);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> pResult;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>(1)首先我們先使用qsort且為由小到大進行排序，因為題目要的答案是數字的位址，而不是數字的值，因此我們不行直接將input的數字串作排序，不然會不知道原本的位址，我們另外令一個一樣大小的陣列，接著memcpy過去，然後將這個陣列作qsort排序</p>
+<p>(2)接著一樣找各種配對，不過是使用binary search的方式，而在輸入參數的部分和暴力解一樣，找過的可以不用再找，因此可以看到<code>pCurr_val++</code>且搜尋的大小也可以不斷遞減<code>numsSize - i - 1</code></p>
+<p>(3)最後我們必須從最原始的陣列找出經由binary search找到的兩個數字的位址在哪</p>
+<p>放到leet code上執行的結果為3ms明顯低於暴力解方式，超過94.29%的上傳程式</p>
+<p><img src="/images/lc_2sum_binarysearch.png" alt=""></p>
+<h2 id="Hash-function"><a href="#Hash-function" class="headerlink" title="Hash function"></a>Hash function</h2><p>Hash function理想狀況可以將複雜度降至趨近於O(n)，這裡使用的是Paul Hsieh的SuperFastHash，相關src code可自行搜尋，不過這邊的程式碼有經過稍微的修改，因為這裡只需要放置integer，因此改成輸入int，且不用輸入size，並且排除掉非4byte倍數長度的情形</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HASH_TABLE_NUM 256</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">SuperFastHash</span> <span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> val)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> hash = <span class="number">0</span>, tmp;</span><br><span class="line">	<span class="keyword">int</span> rem;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">char</span> *data = (<span class="keyword">const</span> <span class="keyword">char</span> *)&amp;val;</span><br><span class="line"></span><br><span class="line">	hash += *(<span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">short</span> *)data;</span><br><span class="line">	tmp = (*(<span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">short</span> *)(data + <span class="number">2</span>) &lt;&lt; <span class="number">11</span>) ^ hash;</span><br><span class="line">	hash = (hash &lt;&lt; <span class="number">16</span>) ^ tmp;</span><br><span class="line">	data += <span class="keyword">sizeof</span> (<span class="keyword">unsigned</span> <span class="keyword">short</span>) &lt;&lt; <span class="number">1</span>;</span><br><span class="line">	hash += hash &gt;&gt; <span class="number">11</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Force "avalanching" of final 127 bits */</span></span><br><span class="line">	hash ^= hash &lt;&lt; <span class="number">3</span>;</span><br><span class="line">	hash += hash &gt;&gt; <span class="number">5</span>;</span><br><span class="line">	hash ^= hash &lt;&lt; <span class="number">4</span>;</span><br><span class="line">	hash += hash &gt;&gt; <span class="number">17</span>;</span><br><span class="line">	hash ^= hash &lt;&lt; <span class="number">25</span>;</span><br><span class="line">	hash += hash &gt;&gt; <span class="number">6</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> hash;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span>* <span class="title">twoSum</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize, <span class="keyword">int</span> target)</span> </span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i, j, tag = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> offset, val1, val2;</span><br><span class="line">	<span class="keyword">int</span> *pResult;</span><br><span class="line">	<span class="keyword">int</span> (*pHash_table)[HASH_TABLE_NUM];</span><br><span class="line">	<span class="keyword">int</span> sum[HASH_TABLE_NUM] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> out;</span><br><span class="line">	<span class="comment">//(1)</span></span><br><span class="line">	pResult = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(<span class="number">2</span> * <span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line">	pHash_table = (<span class="keyword">int</span> (*)[HASH_TABLE_NUM])<span class="built_in">malloc</span>(HASH_TABLE_NUM * numsSize * <span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line">	<span class="comment">//(2)</span></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; numsSize; i++) &#123;</span><br><span class="line">		out = SuperFastHash(*(<span class="keyword">const</span> <span class="keyword">int</span> *)(nums + i));</span><br><span class="line"> 		out &amp;= (HASH_TABLE_NUM - <span class="number">1</span>);</span><br><span class="line"> 		(*(pHash_table + sum[out]))[out] = *(nums + i);</span><br><span class="line">		sum[out]++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//(3)</span></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; numsSize; i++) &#123;</span><br><span class="line">		val1 = *(nums + i);</span><br><span class="line">		val2 = target - val1;</span><br><span class="line">		out = SuperFastHash((<span class="keyword">const</span> <span class="keyword">int</span>)val2);</span><br><span class="line">	 	out &amp;= (HASH_TABLE_NUM - <span class="number">1</span>);</span><br><span class="line">	 	<span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; sum[out]; j++) &#123;</span><br><span class="line">	 		<span class="keyword">if</span> ((*(pHash_table + j))[out] == val2) &#123;</span><br><span class="line">	 			<span class="keyword">if</span> (val1 == val2) &#123;</span><br><span class="line">	 				<span class="keyword">if</span> (tag == <span class="number">0</span>) &#123;</span><br><span class="line">						tag = <span class="number">1</span>;</span><br><span class="line">						<span class="keyword">continue</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">goto</span> RUN_DONE;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//(4)</span></span><br><span class="line">RUN_DONE:</span><br><span class="line">	offset = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; numsSize; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (*(nums + i) == val1 || *(nums + i) == val2) &#123;</span><br><span class="line">			*(pResult + offset) = i;</span><br><span class="line">			<span class="keyword">if</span> (offset == <span class="number">1</span>)</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			offset++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">free</span>(pHash_table);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> pResult;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>(1)pHash_table挖了一塊HASH_TABLE_NUM(256) * numsize的陣列作為hash table使用，使用了256個index來存數字，當然這塊記憶體可能會浪費掉很多空間，不過至少足以保證所有的數字都可以裝的進去，在不考慮記憶體使用空間情況下，可以直接這樣用</p>
+<p>(2)接著我們將數字經過hash function運算之後放進hash table裡面，另外使用sum來記錄每個hash table的index裡面放了幾個數字</p>
+<p>(3)再來使用hash function來找尋是否有需要的兩個值，這裡要對一個情況作額外的處理，如果有一個target = 6且答案為3+3的狀況，這時我們在hash table找值時必須找到兩次3才算真的符合，因為當你固定其中一個3要去找另外一個3時，會從hash table先找到自己的3，如果找不到另一個3就代表輸入的數列只有一個3</p>
+<p>(4)最後從原始的輸入陣列找到兩個值的位址</p>
+<p>放到leet code上執行的結果為3ms明顯低於暴力解方式和binary search速度相當，超過94.29%的上傳程式<br><img src="/images/lc_2sum_hashfunc.png" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/LeetCode/" rel="tag">#LeetCode</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/23/sama5d3_sample_code/" rel="next" title="[Atmel][Sama5d3-xp] - Run sample code">
+                <i class="fa fa-chevron-left"></i> [Atmel][Sama5d3-xp] - Run sample code
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avater.jpg"
+               alt="Ivan Lin" />
+          <p class="site-author-name" itemprop="name">Ivan Lin</p>
+          <p class="site-description motion-element" itemprop="description">Ivna’s Blog</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">文章</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">標籤</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Brute-Force"><span class="nav-number">1.</span> <span class="nav-text">Brute Force</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Binary-Search"><span class="nav-number">2.</span> <span class="nav-text">Binary Search</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hash-function"><span class="nav-number">3.</span> <span class="nav-text">Hash function</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ivan Lin</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 設計
+</div>
+
+<div class="theme-info">
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'ivan7645';
+      var disqus_identifier = '2017/03/14/leetcode_twosum/';
+      var disqus_title = '[LeetCode] - Two Sum';
+      var disqus_url = 'http://ivan7645.github.com/2017/03/14/leetcode_twosum/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
