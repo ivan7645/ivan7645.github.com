@@ -1,0 +1,627 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="LeetCode," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Question:You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[LeetCode] - Add Two Num">
+<meta property="og:url" content="http://ivan7645.github.com/2017/05/04/leetcode_addtwonum/index.html">
+<meta property="og:site_name" content="Ivan’s Blog">
+<meta property="og:description" content="Question:You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and">
+<meta property="og:image" content="http://ivan7645.github.com/images/lc_add2num_simpleadd.png">
+<meta property="og:image" content="http://ivan7645.github.com/images/lc_add2num_minusadd.png">
+<meta property="og:image" content="http://ivan7645.github.com/images/lc_add2num_table1.png">
+<meta property="og:image" content="http://ivan7645.github.com/images/lc_add2num_tableadd.png">
+<meta property="og:updated_time" content="2017-05-12T09:40:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[LeetCode] - Add Two Num">
+<meta name="twitter:description" content="Question:You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and">
+<meta name="twitter:image" content="http://ivan7645.github.com/images/lc_add2num_simpleadd.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> [LeetCode] - Add Two Num | Ivan’s Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Ivan’s Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            歸檔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            標籤
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                [LeetCode] - Add Two Num
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">發表於</span>
+            <time itemprop="dateCreated" datetime="2017-05-04T18:43:12+08:00" content="2017-05-04">
+              2017-05-04
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/05/04/leetcode_addtwonum/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/05/04/leetcode_addtwonum/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Question:<br>You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.</p>
+<p>You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p>
+<pre><code>Input: (2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)
+Output: 7 -&gt; 0 -&gt; 8
+</code></pre><p>此題需了解liked list的操作，另外必須注意carry的處理，這邊使用了三種方式來處理，第一種為利用一般的乘除餘數運算，第二種將乘除餘數運算改為加減運算來加速，第三種建立table將運算轉換成查表方式，利用不需任何的運算來加速</p>
+<p>理論上執行時間1 &gt; 2 &gt; 3，不過實際上 1 = 2 &gt; 3，有可能是因為運算量不夠大到讓乘除運算和加減運算的差異顯現出來，不過完全不經過任何運算還是可以小幅度的縮減時間</p>
+<h2 id="乘除及餘數運算"><a href="#乘除及餘數運算" class="headerlink" title="乘除及餘數運算"></a>乘除及餘數運算</h2><p>從兩個linked list的node0 node相加且取除10的餘數代表結果，取除10的商代表是否有carry，carry需要記錄下來，下一個mode作相加時必須加上去，反覆對下一個node作相同的運算，直到兩個linked list都到結尾(NULL)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">struct</span> ListNode* <span class="title">addTwoNumbers</span><span class="params">(<span class="keyword">struct</span> ListNode* l1, <span class="keyword">struct</span> ListNode* l2)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> carry = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">struct</span> ListNode *pCurr_node1, *pCurr_node2, *pCurr_node3;</span><br><span class="line">	<span class="keyword">struct</span> ListNode *pResult = <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">int</span> sum, val1, val2;</span><br><span class="line"></span><br><span class="line">	pCurr_node1 = l1;</span><br><span class="line">	pCurr_node2 = l2;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (pCurr_node1 != <span class="literal">NULL</span> || pCurr_node2 != <span class="literal">NULL</span>) &#123; <span class="comment">//(1)</span></span><br><span class="line">		val1 = (pCurr_node1 == <span class="literal">NULL</span>) ? <span class="number">0</span> : pCurr_node1-&gt;val; <span class="comment">//(2)</span></span><br><span class="line">		val2 = (pCurr_node2 == <span class="literal">NULL</span>) ? <span class="number">0</span> : pCurr_node2-&gt;val;</span><br><span class="line">		sum = val1 + val2 + carry; <span class="comment">//(3)</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (sum &gt;= <span class="number">10</span>) &#123; <span class="comment">//(4)</span></span><br><span class="line">			carry = <span class="number">1</span>;</span><br><span class="line">			sum %= <span class="number">10</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			carry = <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (pResult == <span class="literal">NULL</span>) &#123; <span class="comment">//(5)</span></span><br><span class="line">			pResult = (<span class="keyword">struct</span> ListNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(*pResult));</span><br><span class="line">			pCurr_node3 = pResult;</span><br><span class="line">			pCurr_node3-&gt;val = sum;</span><br><span class="line">			pCurr_node3-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			pCurr_node3-&gt;next = (<span class="keyword">struct</span> ListNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(*pResult));</span><br><span class="line">			pCurr_node3 = pCurr_node3-&gt;next;</span><br><span class="line">			pCurr_node3-&gt;val = sum;</span><br><span class="line">			pCurr_node3-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		pCurr_node1 = (pCurr_node1 == <span class="literal">NULL</span>) ? <span class="literal">NULL</span> : pCurr_node1-&gt;next; <span class="comment">//(6)</span></span><br><span class="line">		pCurr_node2 = (pCurr_node2 == <span class="literal">NULL</span>) ? <span class="literal">NULL</span> : pCurr_node2-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (carry != <span class="number">0</span>) &#123; <span class="comment">//(7)</span></span><br><span class="line">		pCurr_node3-&gt;next = (<span class="keyword">struct</span> ListNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(*pResult));</span><br><span class="line">		pCurr_node3 = pCurr_node3-&gt;next;</span><br><span class="line">		pCurr_node3-&gt;val = <span class="number">1</span>;</span><br><span class="line">		pCurr_node3-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> pResult;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>(1)必須兩個linked list都指到NULL才算結束</p>
+<p>(2)建立兩個local變數來取得兩個node需相加的數字，但若遇到其中一個node先指到NULL，那被拿來相加的值會是0</p>
+<p>(3)總和為兩個值相加，需再加上carry，預設為0，若某個node有carry，下一個node就會被加上去</p>
+<p>(4)如果總和大於10代表有carry，另外結果需改為除以10的餘數</p>
+<p>(5)將運算後的結果放到將回傳的linked list</p>
+<p>(6)若指到的node已經是NULL，則不跳到下一個node，因為不存在，跳過去會造成系統crash</p>
+<p>(7)如果結束後carry不為0則必須處理</p>
+<p>放到leet code上執行的結果為35ms，超過68.34%的上傳程式</p>
+<p><img src="/images/lc_add2num_simpleadd.png" alt=""></p>
+<p><strong><strong>錯誤用法</strong></strong></p>
+<p>如果有參考其他人寫的範例的時候，可以看到一種寫法如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">struct</span> ListNode* <span class="title">addTwoNumbers</span><span class="params">(<span class="keyword">struct</span> ListNode* l1, <span class="keyword">struct</span> ListNode* l2)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> carry = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">struct</span> ListNode *pCurr_node1, *pCurr_node2, *pCurr_node3;</span><br><span class="line">	<span class="keyword">struct</span> ListNode *pResult = <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">int</span> sum, val1, val2;</span><br><span class="line"></span><br><span class="line">	pCurr_node1 = l1;</span><br><span class="line">	pCurr_node2 = l2;</span><br><span class="line"></span><br><span class="line">	pResult = (<span class="keyword">struct</span> ListNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(*pResult)); <span class="comment">//(1)</span></span><br><span class="line">	pCurr_node3 = pResult;</span><br><span class="line">	pCurr_node3-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (pCurr_node1 != <span class="literal">NULL</span> || pCurr_node2 != <span class="literal">NULL</span>) &#123;</span><br><span class="line">		val1 = (pCurr_node1 == <span class="literal">NULL</span>) ? <span class="number">0</span> : pCurr_node1-&gt;val;</span><br><span class="line">		val2 = (pCurr_node2 == <span class="literal">NULL</span>) ? <span class="number">0</span> : pCurr_node2-&gt;val;</span><br><span class="line">		sum = val1 + val2 + carry;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (sum &gt;= <span class="number">10</span>) &#123;</span><br><span class="line">			carry = <span class="number">1</span>;</span><br><span class="line">			sum %= <span class="number">10</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			carry = <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		pCurr_node3-&gt;next = (<span class="keyword">struct</span> ListNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(*pResult)); <span class="comment">//(2)</span></span><br><span class="line">		pCurr_node3 = pCurr_node3-&gt;next;</span><br><span class="line">		pCurr_node3-&gt;val = sum;</span><br><span class="line">		pCurr_node3-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">		pCurr_node1 = (pCurr_node1 == <span class="literal">NULL</span>) ? <span class="literal">NULL</span> : pCurr_node1-&gt;next;</span><br><span class="line">		pCurr_node2 = (pCurr_node2 == <span class="literal">NULL</span>) ? <span class="literal">NULL</span> : pCurr_node2-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (carry != <span class="number">0</span>) &#123;</span><br><span class="line">		pCurr_node3-&gt;next = (<span class="keyword">struct</span> ListNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(*pResult));</span><br><span class="line">		pCurr_node3 = pCurr_node3-&gt;next;</span><br><span class="line">		pCurr_node3-&gt;val = <span class="number">1</span>;</span><br><span class="line">		pCurr_node3-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> pResult-&gt;next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>主要是將第一個node的malloc拉到最外面，迴圈內的malloc就可以不用作原本的NULL判斷，最後回傳的時候再回傳第二個node的位址即可</p>
+<p>這方法看似可以省掉一個判斷條件，但事實上是有問題的，因為回傳的linked list的free工作是交給caller的，如果回傳的是第二個node，那caller在free的時候會遺漏掉第一個node，造成此段記憶體無法再被使用，直到程式結束</p>
+<p>如果要使用這種寫法，那必須在function裡就將第一個node給清掉</p>
+<h2 id="使用加減運算"><a href="#使用加減運算" class="headerlink" title="使用加減運算"></a>使用加減運算</h2><p>就硬體角度而言，加法減法運算會比乘除餘數運算來的快，尤其是在沒有乘法器和除法器的狀況下更加明顯，這邊可以修改的就是取除以10餘數的地方，因為這邊的加總最多不會超過19(9 + 9 + 1(carry))，所以可以改寫成-10就是餘數了</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">struct</span> ListNode* <span class="title">addTwoNumbers</span><span class="params">(<span class="keyword">struct</span> ListNode* l1, <span class="keyword">struct</span> ListNode* l2)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> carry = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">struct</span> ListNode *pCurr_node1, *pCurr_node2, *pCurr_node3;</span><br><span class="line">	<span class="keyword">struct</span> ListNode *pResult = <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">int</span> sum, val1, val2;</span><br><span class="line"></span><br><span class="line">	pCurr_node1 = l1;</span><br><span class="line">	pCurr_node2 = l2;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (pCurr_node1 != <span class="literal">NULL</span> || pCurr_node2 != <span class="literal">NULL</span>) &#123;</span><br><span class="line">		val1 = (pCurr_node1 == <span class="literal">NULL</span>) ? <span class="number">0</span> : pCurr_node1-&gt;val;</span><br><span class="line">		val2 = (pCurr_node2 == <span class="literal">NULL</span>) ? <span class="number">0</span> : pCurr_node2-&gt;val;</span><br><span class="line">		sum = val1 + val2 + carry;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (sum &gt;= <span class="number">10</span>) &#123;</span><br><span class="line">			carry = <span class="number">1</span>;</span><br><span class="line">			sum -= <span class="number">10</span>; <span class="comment">//(1)</span></span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			carry = <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (pResult == <span class="literal">NULL</span>) &#123;</span><br><span class="line">			pResult = (<span class="keyword">struct</span> ListNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(*pResult));</span><br><span class="line">			pCurr_node3 = pResult;</span><br><span class="line">			pCurr_node3-&gt;val = sum;</span><br><span class="line">			pCurr_node3-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			pCurr_node3-&gt;next = (<span class="keyword">struct</span> ListNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(*pResult));</span><br><span class="line">			pCurr_node3 = pCurr_node3-&gt;next;</span><br><span class="line">			pCurr_node3-&gt;val = sum;</span><br><span class="line">			pCurr_node3-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		pCurr_node1 = (pCurr_node1 == <span class="literal">NULL</span>) ? <span class="literal">NULL</span> : pCurr_node1-&gt;next;</span><br><span class="line">		pCurr_node2 = (pCurr_node2 == <span class="literal">NULL</span>) ? <span class="literal">NULL</span> : pCurr_node2-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (carry != <span class="number">0</span>) &#123;</span><br><span class="line">		pCurr_node3-&gt;next = (<span class="keyword">struct</span> ListNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(*pResult));</span><br><span class="line">		pCurr_node3 = pCurr_node3-&gt;next;</span><br><span class="line">		pCurr_node3-&gt;val = <span class="number">1</span>;</span><br><span class="line">		pCurr_node3-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> pResult;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>(1)取除以10的餘數改寫成-10，因為此例總合不會超過19</p>
+<p>不過執行結果並沒有顯著的增加效率，可能是這不是太複雜且頻繁的運算，不足以顯現出明顯的差距</p>
+<p>放到leet code上執行的結果為35ms，超過67.08%的上傳程式</p>
+<p><img src="/images/lc_add2num_minusadd.png" alt=""></p>
+<h2 id="使用Table取代運算"><a href="#使用Table取代運算" class="headerlink" title="使用Table取代運算"></a>使用Table取代運算</h2><p>乘除運算改為加減運算在這裡並沒有辦法顯著的增加執行速度，不過我們可以利用建立Table的方式，將所有的運算取代成查表的方式，例如我們想要得到{0, 1, 2} + {0, 1, 2}裡面9種組合的運算結果，就可以建立一個像下面這樣的Table</p>
+<p><img src="/images/lc_add2num_table1.png" alt=""></p>
+<p>所以就可以將 1 + 1 = 2 ==&gt; [1][1] = 2, 1 + 2 = 3 ==&gt; [1][2] = 3 …</p>
+<p>因此我們針對此題建立一張{0 ~ 9} + {0 ~ 9}的Table，但必須考慮到carry的問題，因此這張Table必須有carry的資訊，但是加總之後有可能必須再加上之前低位的carry，因此需再建立一張 {0 ~ 9} + {0, 1} (carry)，相關資訊的Table，直接看程式的Table會更清楚</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> AddTableEle &#123;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> carry;</span><br><span class="line">	<span class="keyword">int</span> sum;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> AddCarryTableEle &#123;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> carry;</span><br><span class="line">	<span class="keyword">int</span> sum;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//Table1</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">struct</span> AddTableEle AddTable[<span class="number">10</span>][<span class="number">10</span>] = &#123;&#123;&#123;<span class="number">0</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">0</span>, <span class="number">2</span>&#125;, &#123;<span class="number">0</span>, <span class="number">3</span>&#125;, &#123;<span class="number">0</span>, <span class="number">4</span>&#125;, &#123;<span class="number">0</span>, <span class="number">5</span>&#125;, &#123;<span class="number">0</span>, <span class="number">6</span>&#125;, &#123;<span class="number">0</span>, <span class="number">7</span>&#125;, &#123;<span class="number">0</span>, <span class="number">8</span>&#125;, &#123;<span class="number">0</span>, <span class="number">9</span>&#125;&#125;,</span><br><span class="line">									 	&#123;&#123;<span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">0</span>, <span class="number">2</span>&#125;, &#123;<span class="number">0</span>, <span class="number">3</span>&#125;, &#123;<span class="number">0</span>, <span class="number">4</span>&#125;, &#123;<span class="number">0</span>, <span class="number">5</span>&#125;, &#123;<span class="number">0</span>, <span class="number">6</span>&#125;, &#123;<span class="number">0</span>, <span class="number">7</span>&#125;, &#123;<span class="number">0</span>, <span class="number">8</span>&#125;, &#123;<span class="number">0</span>, <span class="number">9</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;&#125;,</span><br><span class="line">									 	&#123;&#123;<span class="number">0</span>, <span class="number">2</span>&#125;, &#123;<span class="number">0</span>, <span class="number">3</span>&#125;, &#123;<span class="number">0</span>, <span class="number">4</span>&#125;, &#123;<span class="number">0</span>, <span class="number">5</span>&#125;, &#123;<span class="number">0</span>, <span class="number">6</span>&#125;, &#123;<span class="number">0</span>, <span class="number">7</span>&#125;, &#123;<span class="number">0</span>, <span class="number">8</span>&#125;, &#123;<span class="number">0</span>, <span class="number">9</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">1</span>, <span class="number">1</span>&#125;&#125;,</span><br><span class="line">									 	&#123;&#123;<span class="number">0</span>, <span class="number">3</span>&#125;, &#123;<span class="number">0</span>, <span class="number">4</span>&#125;, &#123;<span class="number">0</span>, <span class="number">5</span>&#125;, &#123;<span class="number">0</span>, <span class="number">6</span>&#125;, &#123;<span class="number">0</span>, <span class="number">7</span>&#125;, &#123;<span class="number">0</span>, <span class="number">8</span>&#125;, &#123;<span class="number">0</span>, <span class="number">9</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">2</span>&#125;&#125;,</span><br><span class="line">									 	&#123;&#123;<span class="number">0</span>, <span class="number">4</span>&#125;, &#123;<span class="number">0</span>, <span class="number">5</span>&#125;, &#123;<span class="number">0</span>, <span class="number">6</span>&#125;, &#123;<span class="number">0</span>, <span class="number">7</span>&#125;, &#123;<span class="number">0</span>, <span class="number">8</span>&#125;, &#123;<span class="number">0</span>, <span class="number">9</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">1</span>, <span class="number">3</span>&#125;&#125;,</span><br><span class="line">									 	&#123;&#123;<span class="number">0</span>, <span class="number">5</span>&#125;, &#123;<span class="number">0</span>, <span class="number">6</span>&#125;, &#123;<span class="number">0</span>, <span class="number">7</span>&#125;, &#123;<span class="number">0</span>, <span class="number">8</span>&#125;, &#123;<span class="number">0</span>, <span class="number">9</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">1</span>, <span class="number">3</span>&#125;, &#123;<span class="number">1</span>, <span class="number">4</span>&#125;&#125;,</span><br><span class="line">									 	&#123;&#123;<span class="number">0</span>, <span class="number">6</span>&#125;, &#123;<span class="number">0</span>, <span class="number">7</span>&#125;, &#123;<span class="number">0</span>, <span class="number">8</span>&#125;, &#123;<span class="number">0</span>, <span class="number">9</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">1</span>, <span class="number">3</span>&#125;, &#123;<span class="number">1</span>, <span class="number">4</span>&#125;, &#123;<span class="number">1</span>, <span class="number">5</span>&#125;&#125;,</span><br><span class="line">									 	&#123;&#123;<span class="number">0</span>, <span class="number">7</span>&#125;, &#123;<span class="number">0</span>, <span class="number">8</span>&#125;, &#123;<span class="number">0</span>, <span class="number">9</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">1</span>, <span class="number">3</span>&#125;, &#123;<span class="number">1</span>, <span class="number">4</span>&#125;, &#123;<span class="number">1</span>, <span class="number">5</span>&#125;, &#123;<span class="number">1</span>, <span class="number">6</span>&#125;&#125;,</span><br><span class="line">									 	&#123;&#123;<span class="number">0</span>, <span class="number">8</span>&#125;, &#123;<span class="number">0</span>, <span class="number">9</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">1</span>, <span class="number">3</span>&#125;, &#123;<span class="number">1</span>, <span class="number">4</span>&#125;, &#123;<span class="number">1</span>, <span class="number">5</span>&#125;, &#123;<span class="number">1</span>, <span class="number">6</span>&#125;, &#123;<span class="number">1</span>, <span class="number">7</span>&#125;&#125;,</span><br><span class="line">									 	&#123;&#123;<span class="number">0</span>, <span class="number">9</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">1</span>, <span class="number">3</span>&#125;, &#123;<span class="number">1</span>, <span class="number">4</span>&#125;, &#123;<span class="number">1</span>, <span class="number">5</span>&#125;, &#123;<span class="number">1</span>, <span class="number">6</span>&#125;, &#123;<span class="number">1</span>, <span class="number">7</span>&#125;, &#123;<span class="number">1</span>, <span class="number">8</span>&#125;&#125;</span><br><span class="line">										&#125;;</span><br><span class="line"><span class="comment">//Table2</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">struct</span> AddCarryTableEle AddCarryTable[<span class="number">10</span>][<span class="number">2</span>] = &#123;&#123;&#123;<span class="number">0</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">1</span>&#125;&#125;,</span><br><span class="line">									 			&#123;&#123;<span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">0</span>, <span class="number">2</span>&#125;&#125;,</span><br><span class="line">									 			&#123;&#123;<span class="number">0</span>, <span class="number">2</span>&#125;, &#123;<span class="number">0</span>, <span class="number">3</span>&#125;&#125;,</span><br><span class="line">									 			&#123;&#123;<span class="number">0</span>, <span class="number">3</span>&#125;, &#123;<span class="number">0</span>, <span class="number">4</span>&#125;&#125;,</span><br><span class="line">									 			&#123;&#123;<span class="number">0</span>, <span class="number">4</span>&#125;, &#123;<span class="number">0</span>, <span class="number">5</span>&#125;&#125;,</span><br><span class="line">									 			&#123;&#123;<span class="number">0</span>, <span class="number">5</span>&#125;, &#123;<span class="number">0</span>, <span class="number">6</span>&#125;&#125;,</span><br><span class="line">									 			&#123;&#123;<span class="number">0</span>, <span class="number">6</span>&#125;, &#123;<span class="number">0</span>, <span class="number">7</span>&#125;&#125;,</span><br><span class="line">									 			&#123;&#123;<span class="number">0</span>, <span class="number">7</span>&#125;, &#123;<span class="number">0</span>, <span class="number">8</span>&#125;&#125;,</span><br><span class="line">									 			&#123;&#123;<span class="number">0</span>, <span class="number">8</span>&#125;, &#123;<span class="number">0</span>, <span class="number">9</span>&#125;&#125;,</span><br><span class="line">									 			&#123;&#123;<span class="number">0</span>, <span class="number">9</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;&#125;</span><br><span class="line">												&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">struct</span> ListNode* <span class="title">addTwoNumbers</span><span class="params">(<span class="keyword">struct</span> ListNode* l1, <span class="keyword">struct</span> ListNode* l2)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> carry = <span class="number">0</span>, flag;</span><br><span class="line">	<span class="keyword">struct</span> ListNode *pCurr_node1, *pCurr_node2, *pCurr_node3;</span><br><span class="line">	<span class="keyword">struct</span> ListNode *pResult = <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">int</span> sum, val1, val2;</span><br><span class="line"></span><br><span class="line">	pCurr_node1 = l1;</span><br><span class="line">	pCurr_node2 = l2;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (pCurr_node1 != <span class="literal">NULL</span> || pCurr_node2 != <span class="literal">NULL</span>) &#123;</span><br><span class="line">		val1 = (pCurr_node1 == <span class="literal">NULL</span>) ? <span class="number">0</span> : pCurr_node1-&gt;val;</span><br><span class="line">		val2 = (pCurr_node2 == <span class="literal">NULL</span>) ? <span class="number">0</span> : pCurr_node2-&gt;val;</span><br><span class="line">		sum = AddTable[val1][val2].sum;	<span class="comment">//(1)</span></span><br><span class="line">		sum = AddCarryTable[sum][carry].sum; <span class="comment">//(2)</span></span><br><span class="line">		carry = AddCarryTable[AddTable[val1][val2].sum][carry].carry; <span class="comment">//(3)</span></span><br><span class="line">		carry |= AddTable[val1][val2].carry; <span class="comment">//(4)</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (pResult == <span class="literal">NULL</span>) &#123;</span><br><span class="line">			pResult = (<span class="keyword">struct</span> ListNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(*pResult));</span><br><span class="line">			pCurr_node3 = pResult;</span><br><span class="line">			pCurr_node3-&gt;val = sum;</span><br><span class="line">			pCurr_node3-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			pCurr_node3-&gt;next = (<span class="keyword">struct</span> ListNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(*pResult));</span><br><span class="line">			pCurr_node3 = pCurr_node3-&gt;next;</span><br><span class="line">			pCurr_node3-&gt;val = sum;</span><br><span class="line">			pCurr_node3-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		pCurr_node1 = (pCurr_node1 == <span class="literal">NULL</span>) ? <span class="literal">NULL</span> : pCurr_node1-&gt;next;</span><br><span class="line">		pCurr_node2 = (pCurr_node2 == <span class="literal">NULL</span>) ? <span class="literal">NULL</span> : pCurr_node2-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (carry != <span class="number">0</span>) &#123;</span><br><span class="line">		pCurr_node3-&gt;next = (<span class="keyword">struct</span> ListNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(*pResult));</span><br><span class="line">		pCurr_node3 = pCurr_node3-&gt;next;</span><br><span class="line">		pCurr_node3-&gt;val = <span class="number">1</span>;</span><br><span class="line">		pCurr_node3-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> pResult;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Table1 : 以AddTable[3][5] = {0, 8}為例，代表(3 + 5) % 10 = 8，且carry為0，AddTable[6][6] = {1, 2}為例，代表(6 + 6) % 10 = 2，且carry為1</p>
+<p>Table2 : 以AddCarryTable[5][0] = {0, 5}為例，代表經過Table1得到結果為5且加上carry = 0，會得到carry = 0，及(5 + 0) % 10 = 5的結果，以AddCarryTable[9][1] = {1, 0}為例，代表經過Table1得到結果為9且加上carry = 1，會得到carry = 1，及(9 + 1) % 10 = 0的結果</p>
+<p>(1)透過Table1得到兩個值相加之後取個位數的值</p>
+<p>(2)將經由(1)取到的值透過Table2得到加上先前預算是否有殘留carry後取個位數的值</p>
+<p>(3)(4)取得此次的運算是否會產生新的carry</p>
+<p>執行結果縮短了約3ms</p>
+<p>放到leet code上執行的結果為32ms略低於前面兩種方法，超過84.19%的上傳程式<br><img src="/images/lc_add2num_tableadd.png" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/LeetCode/" rel="tag">#LeetCode</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/14/leetcode_twosum/" rel="next" title="[LeetCode] - Two Sum">
+                <i class="fa fa-chevron-left"></i> [LeetCode] - Two Sum
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avater.jpg"
+               alt="Ivan Lin" />
+          <p class="site-author-name" itemprop="name">Ivan Lin</p>
+          <p class="site-description motion-element" itemprop="description">Ivna’s Blog</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">文章</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">標籤</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#乘除及餘數運算"><span class="nav-number">1.</span> <span class="nav-text">乘除及餘數運算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用加減運算"><span class="nav-number">2.</span> <span class="nav-text">使用加減運算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Table取代運算"><span class="nav-number">3.</span> <span class="nav-text">使用Table取代運算</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ivan Lin</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 設計
+</div>
+
+<div class="theme-info">
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'ivan7645';
+      var disqus_identifier = '2017/05/04/leetcode_addtwonum/';
+      var disqus_title = '[LeetCode] - Add Two Num';
+      var disqus_url = 'http://ivan7645.github.com/2017/05/04/leetcode_addtwonum/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
