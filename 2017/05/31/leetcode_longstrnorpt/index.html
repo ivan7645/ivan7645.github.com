@@ -1,0 +1,631 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="LeetCode," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Question:Given a string, find the length of the longest substring without repeating characters.
+Examples:
+Given &amp;quot;abcabcbb&amp;quot;, the answer is &amp;quot;abc&amp;quot;, which the length is 3.
+
+Given &amp;quot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[LeetCode] - Longest Substring Without Repeating Characters">
+<meta property="og:url" content="http://ivan7645.github.com/2017/05/31/leetcode_longstrnorpt/index.html">
+<meta property="og:site_name" content="Ivan’s Blog">
+<meta property="og:description" content="Question:Given a string, find the length of the longest substring without repeating characters.
+Examples:
+Given &amp;quot;abcabcbb&amp;quot;, the answer is &amp;quot;abc&amp;quot;, which the length is 3.
+
+Given &amp;quot">
+<meta property="og:image" content="http://ivan7645.github.com/images/LongStrNoRpt1.png">
+<meta property="og:image" content="http://ivan7645.github.com/images/LongStrNoRpt2.png">
+<meta property="og:image" content="http://ivan7645.github.com/images/LongStrNoRpt3.png">
+<meta property="og:image" content="http://ivan7645.github.com/images/LongStrNoRpt4.png">
+<meta property="og:image" content="http://ivan7645.github.com/images/LongStrNoRpt5.png">
+<meta property="og:image" content="http://ivan7645.github.com/images/LongStrNoRpt6.png">
+<meta property="og:image" content="http://ivan7645.github.com/images/lc_LongStrNoRpt.png">
+<meta property="og:updated_time" content="2017-06-01T09:41:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[LeetCode] - Longest Substring Without Repeating Characters">
+<meta name="twitter:description" content="Question:Given a string, find the length of the longest substring without repeating characters.
+Examples:
+Given &amp;quot;abcabcbb&amp;quot;, the answer is &amp;quot;abc&amp;quot;, which the length is 3.
+
+Given &amp;quot">
+<meta name="twitter:image" content="http://ivan7645.github.com/images/LongStrNoRpt1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> [LeetCode] - Longest Substring Without Repeating Characters | Ivan’s Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Ivan’s Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            歸檔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            標籤
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                [LeetCode] - Longest Substring Without Repeating Characters
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">發表於</span>
+            <time itemprop="dateCreated" datetime="2017-05-31T17:51:03+08:00" content="2017-05-31">
+              2017-05-31
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/05/31/leetcode_longstrnorpt/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/05/31/leetcode_longstrnorpt/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Question:<br>Given a string, find the length of the longest substring without repeating characters.</p>
+<p>Examples:</p>
+<pre><code>Given &quot;abcabcbb&quot;, the answer is &quot;abc&quot;, which the length is 3.
+
+Given &quot;bbbbb&quot;, the answer is &quot;b&quot;, with the length of 1.
+
+Given &quot;pwwkew&quot;, the answer is &quot;wke&quot;, with the length of 3. Note that the answer must be a substring, &quot;pwke&quot; is a subsequence and not a substring.
+</code></pre><p>找到字串中的子字串中有不重複的字元的最大長度，這邊提供一種方法</p>
+<h2 id="使用兩個指標計算長度"><a href="#使用兩個指標計算長度" class="headerlink" title="使用兩個指標計算長度"></a>使用兩個指標計算長度</h2><p>先以圖示的方式稍微解說一下概念，首先宣告兩個指標皆指向字串的開頭</p>
+<p><img src="/images/LongStrNoRpt1.png" alt=""></p>
+<p>接著ptr1指標一次一個字元向右移，一直到指到的字元是之前出現過的字元，下圖藍色區段即為第一個substring長度為5</p>
+<p><img src="/images/LongStrNoRpt2.png" alt=""></p>
+<p>接著ptr2移動到重覆字元位址後一個位址，找尋下一個沒有重覆字元的substring</p>
+<p><img src="/images/LongStrNoRpt3.png" alt=""></p>
+<p>此時ptr1前進一個且看到重複的字元，但這會造成ptr2往前面的位址移動，顯然移動後的substring會有重覆字元，因此如果ptr2移動的結果是往前面的位址移動，就不移動</p>
+<p><img src="/images/LongStrNoRpt4.png" alt=""></p>
+<p>依照這個規則ptr1在移動到下圖位址時會看到重覆字元，因此再找到第二個substring長度為5，ptr2也移動到第一個d後面的位址(剛好也是d)</p>
+<p><img src="/images/LongStrNoRpt5.png" alt=""></p>
+<p>最終ptr1和ptr2的位址如下圖，而這也是最後一個substring長度為2，因此此例最長的substring長度為5</p>
+<p><img src="/images/LongStrNoRpt6.png" alt=""></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX_NUM(x, y)	(((x) &gt;= (y)) ? (x) : (y))</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ASCAII_CHAR_NUM			128</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CHAR_UNUSED_FLAG		-1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(<span class="keyword">char</span>* s)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">char</span> *ptr1, *ptr2;</span><br><span class="line">	<span class="keyword">int</span> char_offset[ASCAII_CHAR_NUM]; <span class="comment">//(1)</span></span><br><span class="line">	<span class="keyword">int</span> i, max_len = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> str_len = <span class="built_in">strlen</span>(s);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (str_len == <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; ASCAII_CHAR_NUM; i++)</span><br><span class="line">		char_offset[i] = CHAR_UNUSED_FLAG;</span><br><span class="line"></span><br><span class="line">	ptr1 = s; <span class="comment">//(2)</span></span><br><span class="line">	ptr2 = ptr1;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; str_len - <span class="number">1</span>; i++) &#123;</span><br><span class="line">		char_offset[*ptr1] = i;</span><br><span class="line">		ptr1++;</span><br><span class="line">		<span class="keyword">if</span> (char_offset[*ptr1] != CHAR_UNUSED_FLAG) &#123; <span class="comment">//(3)</span></span><br><span class="line">			<span class="keyword">if</span> (s + char_offset[*ptr1] &gt;= ptr2) &#123; <span class="comment">//(4)			</span></span><br><span class="line">				max_len = MAX_NUM(max_len, ptr1 - ptr2); <span class="comment">//(5)</span></span><br><span class="line">				ptr2 = s + char_offset[*ptr1];</span><br><span class="line">				ptr2++; <span class="comment">//(6)</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;	</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	max_len = MAX_NUM(max_len, ptr1 - ptr2 + <span class="number">1</span>); <span class="comment">//(7)</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> max_len;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>(1)紀錄曾經出現過的字元的offset的table，若從未出現過則是-1</p>
+<p>(2)ptr1及ptr2接指到字串的頭</p>
+<p>(3)如果table不為-1代表曾經出現過此字元</p>
+<p>(4)如果ptr2移動之後不會造成往前面的位址移動才作處理</p>
+<p>(5)只記錄最大長度的substring，這邊要注意的是ptr1 - ptr2之所以可以等於字元的個數是因為一個字元的大小剛好為1，原本的算式為(ptr1 - ptr2) / sizof(char)，而sizeof(char)恆為1因此在這裡可以省略 </p>
+<p>(6)ptr2移動到重覆字元位址的後一個</p>
+<p>(7)計算最後一個substring是否為最長</p>
+<p>放到leet code上執行的結果為18ms，超過86.08%的上傳程式</p>
+<p><img src="/images/lc_LongStrNoRpt.png" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/LeetCode/" rel="tag">#LeetCode</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/04/leetcode_addtwonum/" rel="next" title="[LeetCode] - Add Two Num">
+                <i class="fa fa-chevron-left"></i> [LeetCode] - Add Two Num
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avater.jpg"
+               alt="Ivan Lin" />
+          <p class="site-author-name" itemprop="name">Ivan Lin</p>
+          <p class="site-description motion-element" itemprop="description">Ivna’s Blog</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-name">文章</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">標籤</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用兩個指標計算長度"><span class="nav-number">1.</span> <span class="nav-text">使用兩個指標計算長度</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ivan Lin</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 設計
+</div>
+
+<div class="theme-info">
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'ivan7645';
+      var disqus_identifier = '2017/05/31/leetcode_longstrnorpt/';
+      var disqus_title = '[LeetCode] - Longest Substring Without Repeating Characters';
+      var disqus_url = 'http://ivan7645.github.com/2017/05/31/leetcode_longstrnorpt/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
