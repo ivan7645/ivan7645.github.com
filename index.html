@@ -233,6 +233,122 @@
             
               
                 
+                <a class="post-title-link" href="/2017/12/27/src_highlight_less/" itemprop="url">
+                  [Linux] - 'less' syntax highlighting
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">發表於</span>
+            <time itemprop="dateCreated" datetime="2017-12-27T15:28:28+08:00" content="2017-12-27">
+              2017-12-27
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/12/27/src_highlight_less/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/12/27/src_highlight_less/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>less是在Linux平台下經常用來觀看檔案內容的工具，不過當在看code時少了syntax highlighting會比較不好閱讀，若想要在less底下也可以有此效果，那可以裝GNU提供的Source-highlight</p>
+<h2 id="GNU-Source-highlight"><a href="#GNU-Source-highlight" class="headerlink" title="GNU Source-highlight"></a>GNU Source-highlight</h2><p>相關資訊可參考</p>
+<p><a href="https://www.gnu.org/software/src-highlite/" target="_blank" rel="external">https://www.gnu.org/software/src-highlite/</a></p>
+<ul>
+<li><strong>安裝</strong></li>
+</ul>
+<p>使用的平台為ubuntu，安裝時輸入</p>
+<pre><code>sudo apt install libsource-highlight-common source-highlight
+</code></pre><p>成功的話應可以在/usr/share/底下看到source-highlight資料夾</p>
+<ul>
+<li><strong>使用</strong></li>
+</ul>
+<p>參考如下</p>
+<pre><code>export LESSOPEN=&quot;| /usr/bin/src-hilite-lesspipe.sh %s&quot;
+export LESS=&apos; -R &apos;
+</code></pre><p>之後使用less看code時就會有syntax highlighting了</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/05/31/leetcode_longstrnorpt/" itemprop="url">
                   [LeetCode] - Longest Substring Without Repeating Characters
                 </a>
@@ -1765,154 +1881,6 @@ printf(&quot;output value : %d\n\n&quot;, func_ptr[1](20)(40));
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/01/linux_cppcheck/" itemprop="url">
-                  [Linux] - cppcheck 靜態程式分析工具
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">發表於</span>
-            <time itemprop="dateCreated" datetime="2016-07-01T18:05:34+08:00" content="2016-07-01">
-              2016-07-01
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/01/linux_cppcheck/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/01/linux_cppcheck/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>cppcheck是一套跨平台的靜態程式分析工具(static code analysis tool)，主要用來分析C語言在coding上的問題，包括memory leak、null pointer、buffer overflow這些算是bug的問題，也可檢查出多餘的程式碼達到增進程式效能的目的，例如沒使用到的變數、給定初始值的參數但從未使用過此初始值、不可能進入的condition等等</p>
-<h2 id="使用cppcheck"><a href="#使用cppcheck" class="headerlink" title="使用cppcheck"></a>使用cppcheck</h2><p>首先必須安裝cppcheck</p>
-<pre><code>sudo apt-get install cppcheck
-</code></pre><p>使用時輸入以下指令，最後的enable=all代表所有的檢查都執行，包含coding上的問題、邏輯上的問題、效能上的增進等等</p>
-<pre><code>cppcheck xxx.c --enable=all
-</code></pre><p>因cppcheck default會作許多preprocessor的檢查，這部分會耗費相當長的時間，若不需要可將其關閉</p>
-<pre><code>cppcheck -DA xxx.c --enable=all
-</code></pre><p>接著我們看一下一些都可編譯過但事實上是有問題的例子，看cppcheck是否可檢查出來</p>
-<h2 id="變數宣告"><a href="#變數宣告" class="headerlink" title="變數宣告"></a>變數宣告</h2><p>觀察下段程式碼，我們來看一下cppcheck可檢查出哪些問題</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">int a;</span><br><span class="line">int b;</span><br><span class="line">int c = 1;</span><br><span class="line">int d = 2;</span><br><span class="line"></span><br><span class="line">b++;</span><br><span class="line">c++;</span><br><span class="line">d = 4;</span><br></pre></td></tr></table></figure>
-<p><img src="/images/cpp_chk_variable.png" alt=""></p>
-<pre><code>(style) Variable &apos;d&apos; is reassigned a value before the old one has been used.
-</code></pre><p>d被初始化成2但是還沒使用過前就被改掉了，因此賦予初始值是多餘的動作</p>
-<pre><code>(style) Unused variable: a
-</code></pre><p>a被宣告但從未使用過，此宣告可以直接拿掉</p>
-<pre><code>(style) Variable &apos;b&apos; is not assigned a value.
-</code></pre><p>b需要給初始值，因在後面的程式有作b++，若不給予初始值會是未定義的數值+1(local變數在ANSI C裡並沒有規定default值需為0，事實上對local variable賦予初始值對CPU來說也是一項負擔)</p>
-<pre><code>(style) Variable &apos;d&apos; is assigned a value that is never used.
-</code></pre><p>d被賦予初始值，但從未使用過</p>
-<pre><code>(error) Uninitialized variable: b
-</code></pre><p>和第三項相呼應，作b++但未給予初始值</p>
-<h2 id="記憶體管理"><a href="#記憶體管理" class="headerlink" title="記憶體管理"></a>記憶體管理</h2><p>記憶體配置在寫程式上是非常好用的技巧，可用精簡的方式完成許多複雜的事情，但在C的架構上部分的記憶體管理需由程式設計師自行負責，若使用不當容易造成run time error</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">int *ptra;</span><br><span class="line">int *ptrb;</span><br><span class="line">int *ptrc;</span><br><span class="line">int *ptrd = NULL;</span><br><span class="line">    </span><br><span class="line">ptra = (int*)malloc(100);</span><br><span class="line">ptrb = (int*)malloc(100);</span><br><span class="line">    </span><br><span class="line">if (NULL == ptra) &#123;</span><br><span class="line">	return *ptrd;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">*(ptrc + 1) = 5;</span><br><span class="line">    </span><br><span class="line">free(ptrb);</span><br><span class="line">    </span><br><span class="line">*(ptrb + 2) = 6;</span><br></pre></td></tr></table></figure>
-<p><img src="/images/null_ptr.png" alt=""></p>
-<pre><code>(error) Null pointer dereference: ptrd
-</code></pre><p>ptrd在程式執行過程中有回傳值，但卻沒有配置參考的位址</p>
-<pre><code>(style) Variable &apos;ptrc&apos; is not assigned a value.
-</code></pre><p>ptrc過程中有被指定數值，但卻沒有配置參考的位址</p>
-<pre><code>(error) Memory leak: ptrb
-(error) Memory leak: ptra
-</code></pre><p>ptra有malloc卻沒有free，ptrb最後有free，但在if(NULL == ptra)裡面沒有free，也有機會造成memory leak</p>
-<pre><code>(error) Dereferencing &apos;ptrb&apos; after it is deallocated / released
-</code></pre><p>ptrb在free之後還對其操作</p>
-<pre><code>(error) Null pointer dereference
-</code></pre><p>和第一項相呼應，回傳位配置空間的位址的值</p>
-<pre><code>(error) Uninitialized variable: ptrc
-</code></pre><p>和第二項相呼應，ptrc沒有配置空間</p>
-<h2 id="Buffer邊界"><a href="#Buffer邊界" class="headerlink" title="Buffer邊界"></a>Buffer邊界</h2><p>C的架構上對於buffer的overwrite是不會產生任何錯誤或警告訊息的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int i;</span><br><span class="line">int a[10];</span><br><span class="line">    </span><br><span class="line">for (i = 0; i &lt;= 10; i++)</span><br><span class="line">	a[i] = i;</span><br></pre></td></tr></table></figure>
-<p><img src="/images/buffer_over.png" alt=""></p>
-<pre><code>(error) Array &apos;a[10]&apos; accessed at index 10, which is out of bounds.
-</code></pre><p>迴圈造成記憶體被overwrite</p>
-<p>目前市面上的靜態程式檢查工具眾多，例如splint, coverity, cppcheck等等，每個工具都有其擅長的部分<br>就使用過splint和cppcheck的經驗來看例如對於不需要使用或不需要給初始值的狀況cppcheck &gt; splint，但對於buffer overwrite的檢查splint &gt; cppchek，因此若想讓程式更加完善，可以使用多些檢查工具達成目標</p>
-<p>最後分享一下書上看到的</p>
-<blockquote>
-<p>Lint Early, Lint Often</p>
-<p>Lint is your software conscience. It tells you when you are doing bad things. Always use lint. Listen to your conscience.</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1958,7 +1926,7 @@ printf(&quot;output value : %d\n\n&quot;, func_ptr[1](20)(40));
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-count">19</span>
               <span class="site-state-item-name">文章</span>
             </a>
           </div>

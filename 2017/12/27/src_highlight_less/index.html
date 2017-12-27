@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Linux," />
 
 
 
@@ -84,15 +84,34 @@
 
 
 
-<meta name="description" content="Ivna’s Blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Ivan’s Blog">
-<meta property="og:url" content="http://ivan7645.github.com/archives/2017/01/index.html">
+<meta name="description" content="less是在Linux平台下經常用來觀看檔案內容的工具，不過當在看code時少了syntax highlighting會比較不好閱讀，若想要在less底下也可以有此效果，那可以裝GNU提供的Source-highlight
+GNU Source-highlight相關資訊可參考
+https://www.gnu.org/software/src-highlite/
+
+安裝
+
+使用的平台為ubuntu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Linux] - 'less' syntax highlighting">
+<meta property="og:url" content="http://ivan7645.github.com/2017/12/27/src_highlight_less/index.html">
 <meta property="og:site_name" content="Ivan’s Blog">
-<meta property="og:description" content="Ivna’s Blog">
+<meta property="og:description" content="less是在Linux平台下經常用來觀看檔案內容的工具，不過當在看code時少了syntax highlighting會比較不好閱讀，若想要在less底下也可以有此效果，那可以裝GNU提供的Source-highlight
+GNU Source-highlight相關資訊可參考
+https://www.gnu.org/software/src-highlite/
+
+安裝
+
+使用的平台為ubuntu">
+<meta property="og:updated_time" content="2017-12-27T07:31:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ivan’s Blog">
-<meta name="twitter:description" content="Ivna’s Blog">
+<meta name="twitter:title" content="[Linux] - 'less' syntax highlighting">
+<meta name="twitter:description" content="less是在Linux平台下經常用來觀看檔案內容的工具，不過當在看code時少了syntax highlighting會比較不好閱讀，若想要在less底下也可以有此效果，那可以裝GNU提供的Source-highlight
+GNU Source-highlight相關資訊可參考
+https://www.gnu.org/software/src-highlite/
+
+安裝
+
+使用的平台為ubuntu">
 
 
 
@@ -110,7 +129,7 @@
   };
 </script>
 
-  <title> 歸檔 | Ivan’s Blog </title>
+  <title> [Linux] - 'less' syntax highlighting | Ivan’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
@@ -131,7 +150,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -209,58 +228,143 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-
+  <div id="posts" class="posts-expand">
     
 
-      
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                [Linux] - 'less' syntax highlighting
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">發表於</span>
+            <time itemprop="dateCreated" datetime="2017-12-27T15:28:28+08:00" content="2017-12-27">
+              2017-12-27
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/12/27/src_highlight_less/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/12/27/src_highlight_less/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
       
 
       
+        <p>less是在Linux平台下經常用來觀看檔案內容的工具，不過當在看code時少了syntax highlighting會比較不好閱讀，若想要在less底下也可以有此效果，那可以裝GNU提供的Source-highlight</p>
+<h2 id="GNU-Source-highlight"><a href="#GNU-Source-highlight" class="headerlink" title="GNU Source-highlight"></a>GNU Source-highlight</h2><p>相關資訊可參考</p>
+<p><a href="https://www.gnu.org/software/src-highlite/" target="_blank" rel="external">https://www.gnu.org/software/src-highlite/</a></p>
+<ul>
+<li><strong>安裝</strong></li>
+</ul>
+<p>使用的平台為ubuntu，安裝時輸入</p>
+<pre><code>sudo apt install libsource-highlight-common source-highlight
+</code></pre><p>成功的話應可以在/usr/share/底下看到source-highlight資料夾</p>
+<ul>
+<li><strong>使用</strong></li>
+</ul>
+<p>參考如下</p>
+<pre><code>export LESSOPEN=&quot;| /usr/bin/src-hilite-lesspipe.sh %s&quot;
+export LESS=&apos; -R &apos;
+</code></pre><p>之後使用less看code時就會有syntax highlighting了</p>
+
+      
+    </div>
+
+    <div>
+      
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag">#Linux</a>
+          
         </div>
       
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/31/leetcode_longstrnorpt/" rel="next" title="[LeetCode] - Longest Substring Without Repeating Characters">
+                <i class="fa fa-chevron-left"></i> [LeetCode] - Longest Substring Without Repeating Characters
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/01/11/ptr_multi_arr/" itemprop="url">
-              
-                <span itemprop="name">[C語言] - 指標及多維陣列</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-01-11T10:41:15+08:00"
-              content="2017-01-11" >
-          01-11
-        </time>
-      </div>
-
-    </header>
+      
+    </footer>
   </article>
 
 
 
-    
-
-  </section>
-
-  
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -268,6 +372,17 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -287,8 +402,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概覽
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avater.jpg"
@@ -331,6 +455,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#GNU-Source-highlight"><span class="nav-number">1.</span> <span class="nav-text">GNU Source-highlight</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -427,11 +562,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
 
 
   
@@ -449,9 +582,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'ivan7645';
-      var disqus_identifier = 'archives/2017/01/index.html';
-      var disqus_title = '';
-      var disqus_url = '';
+      var disqus_identifier = '2017/12/27/src_highlight_less/';
+      var disqus_title = '[Linux] - 'less' syntax highlighting';
+      var disqus_url = 'http://ivan7645.github.com/2017/12/27/src_highlight_less/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
@@ -462,6 +595,8 @@
       }
 
       run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
       
     </script>
   
